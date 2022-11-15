@@ -14,9 +14,9 @@ internal static class DataSource
         static internal int NumOfOrderItems = 0;
         static internal int NumOfProducts = 0;
         //run number to order
-        internal const int s_startOrderNumber = 1000;
+        internal const int s_startOrderNumber = 1000 ;
         private static int s_nextOrderNumber = s_startOrderNumber;
-
+        
         internal static int NextOrderNumber { get => s_nextOrderNumber++; }
         //run number to orderItem
         internal const int s_startOrderItem = 1000;
@@ -35,20 +35,22 @@ internal static class DataSource
     }
     private static void s_intialitize()
     {
-        //3 פונקציות
         createProducts();
         createOrders();
         createOrderItems();
     }
     //#region fill the products
 
-    private static string[,] nameProduct = new string[7, 4] {/*miniDnuts*/ { "OreoCase","NutellaCase", "LotusCase","MiniCase" }
-        /*belgianWaffles*/ ,{"OreoWaffel","NutellaWaffel", "LotusCWaffel","Colorful"},
-        /*general*/ {"Brauniz","StarDnuts", "HeartDonuts","BigBuston"},
-        /*bigDonuts*/ {"BigCase","BigNutella", "BigLotus","BigOreo"},
-       /*specials*/ {"America","Purim", "LoveCase","Chanuka" },
-       /*cupcakes*/{"Colorful","Choclate","Fistuc","Orange"} ,
-       /*desserts*/{"Oreo25","Malabi", "Lotus25","Mix" }  };
+    private static string[,] nameProduct = new string[7, 4]
+    {/*miniDnuts*/ { "OreoCase","NutellaCase", "LotusCase","MiniCase" }
+     /*belgianWaffles*/ ,{"OreoWaffel","NutellaWaffel", "LotusCWaffel","Colorful"},
+     /*general*/ {"Brauniz","StarDnuts", "HeartDonuts","BigBuston"},
+     /*bigDonuts*/ {"BigCase","BigNutella", "BigLotus","BigOreo"},
+     /*specials*/ {"America","Purim", "LoveCase","Chanuka" },
+     /*cupcakes*/{"Colorful","Choclate","Fistuc","Orange"} ,
+     /*desserts*/{"Oreo25","Malabi", "Lotus25","Mix" }  };
+
+
     //array to price range
     private static int[] priceStart = new int[7] { 12, 10, 15, 20, 25, 30, 22 };
     private static int[] priceTo = new int[7] { 35, 40, 50, 60, 57, 45, 70 };
@@ -85,7 +87,7 @@ internal static class DataSource
         for (int i = 0; i < 20; i++)
         {
             int order = rnd.Next(5);
-            orderArr[i] = new Order
+            orderArr[config.NumOfOrders++] = new Order
             {
                 ID = config.NextOrderNumber,
                 CustomerName = customerName[order],
@@ -98,45 +100,31 @@ internal static class DataSource
                 orderArr[i].DeliveryrDate = DateTime.MinValue + new TimeSpan(3, 0, 0, 0);
             if (i <= 0.6 * 20)
                 orderArr[i].ShipDate = DateTime.MinValue + new TimeSpan(2, 0, 0, 0);
-            config.NumOfOrderItems++;
         }
     }
 
     //#region fill the orderItems
-    //Help function - goes through the array of products and returns the price of a certain product
-    private static double foundPrice(double id)
-    {
-        for (int i = 0; i < config.NumOfProducts; i++)
-        {
-            //if id is found
-            if (id == productsArr[i].ID)
-                //return the price of product
-                return productsArr[i].Price;
-        }
-        return 0;
-    }
     //fill  orderItem to array
     private static void createOrderItems()
     {
-        int countItems = 0;//counter-that counts the number of items
-        for (int i = 0; i < 20; i++)
-        {
-            for (int j = 0; j < rnd.Next(1, 5); j++)
+            double price;
+            int j;
+            for (int i = 0; i < 40; i++)
             {
-                orderItemArr[i] = new OrderItem
+                int product = rnd.Next(10) + 100000;
+                for (j = 0; j < 20 && productsArr[j].ID != product; j++) ;
+            if (j == 20)
+                throw new Exception("the product is not exist");
+                price = productsArr[j].Price;
+                OrderItem oi = new OrderItem()
                 {
-                    ID = config.NextOrderNumber,
-                    OrderID = i,
-                    ProductID = rnd.Next(15),
-                    Price = foundPrice(orderItemArr[i].ProductID),
-                    Amount = i + rnd.Next(20, 100),
+                    ID = config.NextOrderItem,
+                    OrderID = (i / 2),
+                    ProductID = product,
+                    Amount = rnd.Next(10) + 1,
+                    Price = price
                 };
-                countItems++;
-                config.NumOfOrderItems++;
-            }
-            //If 40 items have not been added to all orders, another (partial) round will be made
-            if (i == 19 && countItems < 40)
-                i = i - countItems;
-        }
+                orderItemArr[config.NumOfOrderItems++] = oi;
+            }  
     }
 }

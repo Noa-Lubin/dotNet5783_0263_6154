@@ -1,7 +1,8 @@
 ﻿using DO;
 namespace Dal;
 public  class DalOrder
-{ //this function add new order to array
+{
+    //this function add new order to array
 
     public static int Add(Order order)
     {
@@ -26,7 +27,7 @@ public  class DalOrder
             if (id == DataSource.orderArr[i].ID)
             {
                 //delete order
-                DataSource.orderArr[i] = DataSource.orderArr[DataSource.config.NumOfOrders];
+                DataSource.orderArr[i] = DataSource.orderArr[DataSource.config.NumOfOrders-1];
                 //update the stock of order
                 DataSource.config.NumOfOrders--;
                 return;
@@ -35,39 +36,59 @@ public  class DalOrder
         //if this order does not exist in array
         throw new Exception("this order does not exist");
     }
-    //Returns a order by ID number
+
+
+    /// <summary>
+    /// this function return an order by ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>order</returns>
+    /// <exception cref="Exception"></exception>
     public static Order GetOrder(int id)
     {
+        Order[] o = DataSource.orderArr;
         for (int i = 0; i < DataSource.config.NumOfOrders; i++)
         {
-            if (id == DataSource.orderArr[i].ID)
+            if (id == o[i].ID)
             {
 
-                return DataSource.orderArr[i];
+                return o[i];
             }
         }
         //if this id does not exist in array
         throw new Exception("this id of order does not exist");
     }
-    //return a list/array of all the orders that in stock
+
+
+/// <summary>
+/// this function return array of orders
+/// </summary>
+/// <returns>array of orders</returns>
     public static Order[] GetOrders()
 
     {
+        Order[] o = DataSource.orderArr;
         Order[] newOrders = new Order[DataSource.config.NumOfOrders];
         for (int i = 0; i < DataSource.config.NumOfOrders; i++)
         {
-            newOrders[i] = DataSource.orderArr[i];
+            newOrders[i] = o[i];
         }
         return newOrders;
     }
-    //Updates the order with new data 
-    public static int Update(Order order)
+
+    /// <summary>
+    /// this function update an order
+    /// </summary>
+    /// <param name="order"></param>
+    /// <exception cref="Exception"></exception>
+    public static void Update(Order order)
     {
         for (int i = 0; i < DataSource.config.NumOfOrders; i++)
         {
             if (order.ID == DataSource.orderArr[i].ID)
             {
                 DataSource.orderArr[i] = order;
+                return;
             }
         }
         //if this order does not exist in array

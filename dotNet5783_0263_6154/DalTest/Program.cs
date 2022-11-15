@@ -1,18 +1,17 @@
 ﻿﻿using DO;
 using Dal;
-using System.Data.Common;
 using static DO.Enums;
-using System.Runtime.CompilerServices;
-
 internal class Project
 {
     static private DalOrder TestOrder = new DalOrder();
     static private DalOrderItem TestOrderItem = new DalOrderItem();
     static private DalProduct TestProduct = new DalProduct();
+
     #region switchToProducts
     static void switchProduct()
     {
-        Console.WriteLine("Product: 0-Add");
+        Console.WriteLine("Product:");
+        Console.WriteLine("0-Add");
         Console.WriteLine("1-Delete");
         Console.WriteLine("2-Update");
         Console.WriteLine("3-GetProduct ");
@@ -48,7 +47,6 @@ internal class Project
                     //product.Category = (Category)category;
                     Console.WriteLine("Enter the  stock of the product");
                     product.InStock = Convert.ToInt32(Console.ReadLine());
-                    DalProduct.Add(product);
                     try
                     {
                         Console.WriteLine(DalProduct.Add(product));
@@ -58,6 +56,7 @@ internal class Project
                         Console.WriteLine(str);
                     }
                     break;
+
                 case ChoiceProduct.Delete:
                     Console.WriteLine("enter the id of the product that you want to delete");
                     int id = Convert.ToInt32(Console.ReadLine());
@@ -70,6 +69,7 @@ internal class Project
                         Console.WriteLine(str);
                     }
                     break;
+
                 case ChoiceProduct.Update:
                     Console.WriteLine("Enter the product details that you want to update ");
                     Product productUpdate = new Product();
@@ -102,8 +102,10 @@ internal class Project
                         Console.WriteLine(str);
                     }
                     break;
+
                 case ChoiceProduct.GetProduct:
                     Console.WriteLine("enter id of product that you want to search");
+                    
                     int idGetP = Convert.ToInt32(Console.ReadLine());
                     try
                     {
@@ -114,18 +116,22 @@ internal class Project
                         Console.WriteLine(str);
                     }
                     break;
+
                 case ChoiceProduct.GetProducts:
                     Product[] newProduct = DalProduct.GetProducts();
                     foreach (Product item in newProduct)
                     {
                         Console.WriteLine(item);
+                        Console.WriteLine();
                     }
                     break;
+
                 default:
                     Console.WriteLine("you press wrong number");
                     break;
             }
-            Console.WriteLine("Product: 0-Add");
+            Console.WriteLine("Product:");
+            Console.WriteLine("0-Add");
             Console.WriteLine("1-Delete");
             Console.WriteLine("2-Update");
             Console.WriteLine("3-GetProduct ");
@@ -139,7 +145,8 @@ internal class Project
     #region switchToOrders
     static void switchOrder()
     {
-        Console.WriteLine("Order: 0-Add");
+        Console.WriteLine("Order:");
+        Console.WriteLine("0-Add");
         Console.WriteLine("1-Delete");
         Console.WriteLine("2-Update");
         Console.WriteLine("3-GetOrder ");
@@ -201,7 +208,11 @@ internal class Project
                     Console.WriteLine("Enter your email ");
                     orderUpdate.CustomerEmail = Console.ReadLine();
                     //date
-                    orderUpdate.OrderDate = DateTime.Now;
+                    //orderUpdate.OrderDate = DateTime.Now;
+                    DateTime orderDate;
+                    Console.WriteLine("enter the date:");
+                    DateTime.TryParse(Console.ReadLine(), out orderDate);
+                    orderUpdate.OrderDate = orderDate;
                     orderUpdate.DeliveryrDate = orderUpdate.OrderDate.AddHours(2.5);
                     orderUpdate.ShipDate = orderUpdate.OrderDate.AddHours(1);
                     try
@@ -235,7 +246,8 @@ internal class Project
                 default:
                     break;
             }
-            Console.WriteLine("Order: 0-Add");
+            Console.WriteLine("Order:");
+            Console.WriteLine("0-Add");
             Console.WriteLine("1-Delete");
             Console.WriteLine("2-Update");
             Console.WriteLine("3-GetOrder ");
@@ -249,11 +261,15 @@ internal class Project
     #region switchToOrderItems
     static void switchOrderItem()
     {
-        Console.WriteLine("OrderItem: 0-Add");
+        Console.WriteLine("OrderItem:");
+        Console.WriteLine("0-Add");
         Console.WriteLine("1-Delete");
         Console.WriteLine("2-Update");
-        Console.WriteLine("3-GetOrderItem ");
-        Console.WriteLine("4-GetOrderItems ");
+        Console.WriteLine("3-GetOrderItem");
+        Console.WriteLine("4-GetOrderItems");
+        Console.WriteLine("5-get order item by product and order");
+        Console.WriteLine("6-view all products in order");
+
         Console.WriteLine("-1-Exit ");
         ChoiceOrderItem choice;
         int num;
@@ -274,7 +290,6 @@ internal class Project
                     orderItem.ProductID = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Enter the amount of the products ");
                     orderItem.Amount = Convert.ToInt32(Console.ReadLine());
-                    DalOrderItem.Add(orderItem);
                     try
                     {
                         Console.WriteLine(DalOrderItem.Add(orderItem));
@@ -340,14 +355,36 @@ internal class Project
                         Console.WriteLine(item);
                     }
                     break;
+
+                case ChoiceOrderItem.GetOrderItembyProAndOrd:
+                    Console.WriteLine("enter id of your order");
+                    int idOrder = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter id of product");
+                    int idProduct = int.Parse(Console.ReadLine());
+                    Console.WriteLine(DalOrderItem.GetItemByIds(idProduct,idOrder));
+                    break;
+
+                case ChoiceOrderItem.viewAllProducts:
+                    Console.WriteLine("enter id of your order");
+                    int orderId = int.Parse(Console.ReadLine());
+                    OrderItem [] orderItems= DalOrderItem.AllProductsOfOrder(orderId);
+                    foreach (OrderItem item in orderItems)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
+
                 default:
                     break;
             }
-            Console.WriteLine("OrderItem: 0-Add");
+            Console.WriteLine("OrderItem:");
+            Console.WriteLine("0-Add");
             Console.WriteLine("1-Delete");
             Console.WriteLine("2-Update");
             Console.WriteLine("3-GetOrderItem ");
             Console.WriteLine("4-GetOrderItems ");
+            Console.WriteLine("5-get order item by product and order ");
+            Console.WriteLine("6-view all products in order ");
             Console.WriteLine("-1-Exit ");
             num = Convert.ToInt32(Console.ReadLine());
             choice = (ChoiceOrderItem)num;
@@ -360,7 +397,8 @@ internal class Project
 
         Choice choice;
         int num;
-        Console.WriteLine("Shop Menu: 0-Exit");
+        Console.WriteLine("Shop Menu:");
+        Console.WriteLine("0-Exit");
         Console.WriteLine("1-Product");
         Console.WriteLine("2-Order");
         Console.WriteLine("3-OrderItem ");

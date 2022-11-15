@@ -38,8 +38,8 @@ public struct Product
     /// </summary>
     /// <returns>The product details string</returns>
     public override string ToString() => $@"
-Product ID={ID}: {Name}, 
-category - {Category}
+        Product ID: {ID} : {Name}
+        category: {Category}
     	Price: {Price}
     	Amount in stock: {InStock}
 ";
