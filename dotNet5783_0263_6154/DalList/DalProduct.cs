@@ -1,10 +1,8 @@
 ﻿using DO;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-
 namespace Dal;
+using DalApi;
 
-public class DalProduct
+internal class DalProduct : IProduct
 {
 
     /// <summary>

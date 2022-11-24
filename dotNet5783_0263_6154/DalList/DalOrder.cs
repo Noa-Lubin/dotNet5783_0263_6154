@@ -1,6 +1,7 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 namespace Dal;
-public  class DalOrder
+internal class DalOrder:IOrder
 {
     //this function add new order to array
 

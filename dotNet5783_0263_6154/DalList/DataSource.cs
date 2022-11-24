@@ -24,10 +24,13 @@ internal static class DataSource
 
         internal static int NextOrderItem { get => s_nextOrderNumber++; }
     }
+    internal static List<Order> order = new List<Order>;
+    internal static List<Product> product = new List<Product>;
+    internal static List<OrderItem> orderItem = new List<OrderItem>;
 
-    internal static Order[] orderArr { get; } = new Order[100];
-    internal static Product[] productsArr { get; } = new Product[50];
-    internal static OrderItem[] orderItemArr { get; } = new OrderItem[200];
+    //internal static Order[] orderArr { get; } = new Order[100];
+    //internal static Product[] productsArr { get; } = new Product[50];
+    //internal static OrderItem[] orderItemArr { get; } = new OrderItem[200];
 
     static DataSource()
     {

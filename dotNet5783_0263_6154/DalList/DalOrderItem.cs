@@ -1,6 +1,8 @@
 ﻿using DO;
 namespace Dal;
-public class DalOrderItem
+using DalApi;
+
+internal class DalOrderItem : IOrderItem
 {
     //this function add new orderItem to array
 
