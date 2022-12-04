@@ -1,12 +1,11 @@
 ﻿﻿using DO;
 using Dal;
 using static DO.Enums;
+using DalApi;
+
 internal class Project
 {
-    static private DalOrder TestOrder = new DalOrder();
-    static private DalOrderItem TestOrderItem = new DalOrderItem();
-    static private DalProduct TestProduct = new DalProduct();
-
+    static IDal myDal = new Dal.DalList();
     #region switchToProducts
     static void switchProduct()
     {
@@ -49,7 +48,8 @@ internal class Project
                     product.InStock = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(DalProduct.Add(product));
+                        myDal.product.Add(product);
+                        //Console.WriteLine(myDal.product.Add(product));
                     }
                     catch (Exception str)
                     {
@@ -62,7 +62,7 @@ internal class Project
                     int id = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        DalProduct.delete(id);
+                        myDal.product.Delete(id);
                     }
                     catch (Exception str)
                     {
@@ -76,7 +76,7 @@ internal class Project
                     Console.WriteLine("Enter the  ID of the product");
                     productUpdate.ID = Convert.ToInt32(Console.ReadLine());
                     //print the product before update
-                    Console.WriteLine(DalProduct.GetProduct(productUpdate.ID));
+                    Console.WriteLine(myDal.product.Get(productUpdate.ID));
                     //insert values to updateProduct
                     Console.WriteLine("Enter the  name of the product");
                     productUpdate.Name = Console.ReadLine();
@@ -95,7 +95,7 @@ internal class Project
                     productUpdate.InStock = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        DalProduct.Update(productUpdate);
+                        myDal.product.Update(productUpdate);
                     }
                     catch (Exception str)
                     {
@@ -109,7 +109,7 @@ internal class Project
                     int idGetP = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(DalProduct.GetProduct(idGetP));
+                        Console.WriteLine(myDal.product.Get(idGetP));
                     }
                     catch (Exception str)
                     {
@@ -118,7 +118,7 @@ internal class Project
                     break;
 
                 case ChoiceProduct.GetProducts:
-                    Product[] newProduct = DalProduct.GetProducts();
+                    IEnumerable<Product> newProduct = myDal.product.GetAll();
                     foreach (Product item in newProduct)
                     {
                         Console.WriteLine(item);
@@ -174,7 +174,8 @@ internal class Project
                     order.ShipDate = order.OrderDate.AddHours(1);
                     try
                     {
-                        Console.WriteLine(DalOrder.Add(order));
+                        myDal.order.Add(order);
+                        //Console.WriteLine(myDal.order.Add(order));
                     }
                     catch (Exception str)
                     {
@@ -186,7 +187,7 @@ internal class Project
                     int id = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        DalOrder.delete(id);
+                        myDal.order.Delete(id);
                     }
                     catch (Exception str)
                     {
@@ -199,7 +200,7 @@ internal class Project
                     Console.WriteLine("Enter the ID of order ");
                     orderUpdate.ID = Convert.ToInt32(Console.ReadLine());
                     //print the order before update
-                    Console.WriteLine(DalOrder.GetOrder(orderUpdate.ID));
+                    Console.WriteLine(myDal.order.Get(orderUpdate.ID));
                     //insert values to updateOrder
                     Console.WriteLine("Enter your name ");
                     orderUpdate.CustomerName = Console.ReadLine();
@@ -217,7 +218,7 @@ internal class Project
                     orderUpdate.ShipDate = orderUpdate.OrderDate.AddHours(1);
                     try
                     {
-                        DalOrder.Update(orderUpdate);
+                        myDal.order.Update(orderUpdate);
                     }
                     catch (Exception str)
                     {
@@ -229,7 +230,7 @@ internal class Project
                     int idGet = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(DalOrder.GetOrder(idGet));
+                        Console.WriteLine(myDal.order.Get(idGet));
                     }
                     catch (Exception str)
                     {
@@ -237,7 +238,7 @@ internal class Project
                     }
                     break;
                 case ChoiceOrder.GetOrders:
-                    Order[] newOrders = DalOrder.GetOrders();
+                    IEnumerable<Order> newOrders = myDal.order.GetAll();
                     foreach (Order item in newOrders)
                     {
                         Console.WriteLine(item);
@@ -292,7 +293,8 @@ internal class Project
                     orderItem.Amount = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(DalOrderItem.Add(orderItem));
+                        myDal.orderItem.Add(orderItem);
+                        //Console.WriteLine(myDal.orderItem.Add(orderItem));
                     }
                     catch (Exception str)
                     {
@@ -304,7 +306,7 @@ internal class Project
                     int id = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        DalOrderItem.delete(id);
+                        myDal.orderItem.Delete(id);
                     }
                     catch (Exception str)
                     {
@@ -317,7 +319,7 @@ internal class Project
                     Console.WriteLine("Enter the orderItem ID ");
                     orderItemUpdate.ID = Convert.ToInt32(Console.ReadLine());
                     //print the orderItem before update
-                    Console.WriteLine(DalOrderItem.GetOrderItem(orderItemUpdate.ID));
+                    Console.WriteLine(myDal.orderItem.Get(orderItemUpdate.ID));
                     //insert values to updateOrderItem
                     Console.WriteLine("Enter the order ID ");
                     orderItemUpdate.OrderID = Convert.ToInt32(Console.ReadLine());
@@ -329,7 +331,7 @@ internal class Project
                     orderItemUpdate.Amount = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        DalOrderItem.Update(orderItemUpdate);
+                        myDal.orderItem.Update(orderItemUpdate);
                     }
                     catch (Exception str)
                     {
@@ -341,7 +343,7 @@ internal class Project
                     int idGetItem = Convert.ToInt32(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(DalOrderItem.GetOrderItem(idGetItem));
+                        Console.WriteLine(myDal.orderItem.Get(idGetItem));
                     }
                     catch (Exception str)
                     {
@@ -349,7 +351,7 @@ internal class Project
                     }
                     break;
                 case ChoiceOrderItem.GetOrderItems:
-                    OrderItem[] newOrderItems = DalOrderItem.GetOrderItems();
+                    IEnumerable<OrderItem> newOrderItems = myDal.orderItem.GetAll();
                     foreach (OrderItem item in newOrderItems)
                     {
                         Console.WriteLine(item);
@@ -361,13 +363,13 @@ internal class Project
                     int idOrder = int.Parse(Console.ReadLine());
                     Console.WriteLine("enter id of product");
                     int idProduct = int.Parse(Console.ReadLine());
-                    Console.WriteLine(DalOrderItem.GetItemByIds(idProduct,idOrder));
+                    Console.WriteLine(myDal.orderItem.GetItemByIds(idProduct,idOrder));
                     break;
 
                 case ChoiceOrderItem.viewAllProducts:
                     Console.WriteLine("enter id of your order");
                     int orderId = int.Parse(Console.ReadLine());
-                    OrderItem [] orderItems= DalOrderItem.AllProductsOfOrder(orderId);
+                    IEnumerable<OrderItem> orderItems= myDal.orderItem.AllProductsOfOrder(orderId);
                     foreach (OrderItem item in orderItems)
                     {
                         Console.WriteLine(item);
@@ -394,14 +396,14 @@ internal class Project
 
     static void Main(string[] arg)
     {
-
+        
         Choice choice;
         int num;
         Console.WriteLine("Shop Menu:");
         Console.WriteLine("0-Exit");
         Console.WriteLine("1-Product");
         Console.WriteLine("2-Order");
-        Console.WriteLine("3-OrderItem ");
+        Console.WriteLine("3-Cart ");
         num = Convert.ToInt32(Console.ReadLine());
         choice = (Choice)num;
         //You can only choose a number between 0 and 3
@@ -435,7 +437,7 @@ internal class Project
                 Console.WriteLine("Shop Menu: 0-Exit" +
                            "1-Product" +
                            "2-Order" +
-                           "3-OrderItem ");
+                           "3-Cart ");
                 num = Convert.ToInt32(Console.ReadLine());
                 choice = (Choice)num;
             }

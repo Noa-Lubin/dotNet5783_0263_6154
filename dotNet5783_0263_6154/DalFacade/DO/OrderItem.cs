@@ -9,7 +9,7 @@ namespace DO;
 public struct OrderItem
 {
     /// <summary>
-    /// ProductID
+    /// ID
     /// </summary>
     public int ID { get; set; }
 
@@ -39,6 +39,7 @@ public struct OrderItem
     /// </summary>
     /// <returns>The item details string in the order</returns>
     public override string ToString() => $@"
+        ID: {ID}
         Product ID: {ProductID}
         OrderID: {OrderID}
     	Price: {Price}

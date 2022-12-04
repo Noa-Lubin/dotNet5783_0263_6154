@@ -1,12 +1,12 @@
 ﻿namespace DalApi
 {
-    public interface ICrud <T>
+    public interface ICrud<T>
     {
         /// <summary>
         /// this function adds a new object to the list
         /// </summary>
         /// <param name="entity"></param>
-        public void Add(T entity);
+        public int Add(T entity);
         /// <summary>
         /// 
         /// </summary>
@@ -27,7 +27,7 @@
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        public void Updete(T entity);
+        public void Update(T entity);
 
     }
 }

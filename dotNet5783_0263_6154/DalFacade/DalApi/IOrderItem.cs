@@ -7,7 +7,7 @@ using DO;
 namespace DalApi;
 public interface IOrderItem : ICrud<OrderItem>
 {
-    public static OrderItem GetItemByIds(int idProuct, int idOrder);
-    public static IEnumerable<OrderItem> AllProductsOfOrder(int idOrder);
+    public  OrderItem GetItemByIds(int idProuct, int idOrder);
+    public  IEnumerable<OrderItem> AllProductsOfOrder(int idOrder);
 
 }

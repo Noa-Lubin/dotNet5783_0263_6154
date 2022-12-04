@@ -11,24 +11,11 @@ internal class DalProduct : IProduct
     /// <param name="product"></param>
     /// <returns>id of the product</returns>
     /// <exception cref="Exception"></exception>
-    public static int Add(Product product)
+    public int Add(Product product)
     {
-
-        if (DataSource.productsArr.Length - 1 != DataSource.config.NumOfProducts)
-        {
-
-            for (int i = 0; i < DataSource.config.NumOfProducts; i++)
-            {
-                if (product.ID == DataSource.productsArr[i].ID)
-                    throw new Exception("This product already exists in the array");
-            }
-            DataSource.productsArr[DataSource.config.NumOfProducts++] = product;
-        }
-        else
-        {
-            throw new Exception("There is no place in array");
-        }
+        DataSource.productList.Add(product);
         return product.ID;
+
     }
 
 
@@ -37,23 +24,36 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="Exception"></exception>
-    public static void delete(int id)
+    public void Delete(int id)
     {
-        for (int i = 0; i < DataSource.config.NumOfProducts; i++)
+
+        foreach (var item in DataSource.productList)
         {
-            if (id == DataSource.productsArr[i].ID)
+            if (item.ID == id)
             {
-                //delete product
-                DataSource.productsArr[i] = DataSource.productsArr[DataSource.config.NumOfProducts-1];
-                //update the stock of product
-                DataSource.config.NumOfProducts--;
+                DataSource.productList.Remove(item);
                 return;
             }
         }
+
         //if this product does not exist in array
         throw new Exception("this product does not exist");
     }
 
+    //public void Delete(int id)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //public Product Get(int id)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //public IEnumerable<Product> GetAll()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     /// <summary>
     /// this product return a product by ID
@@ -61,19 +61,18 @@ internal class DalProduct : IProduct
     /// <param name="id"></param>
     /// <returns>a product</returns>
     /// <exception cref="Exception"></exception>
-    public static Product GetProduct(int id)
+    public  Product Get(int id)
     {
-        Product[] p = DataSource.productsArr;
-        for (int i = 0; i < DataSource.config.NumOfProducts; i++)
+        //List<Product> product = DataSource.productList;
+        foreach (var item in DataSource.productList)
         {
-            if (id == p[i].ID)
-            {
-
-                return p[i];
-            }
+            if (item.ID == id)
+                return item;
         }
-        //if this id does not exist in array
-        throw new Exception("this id does not exist");
+
+        //if this product does not exist in array
+        throw new Exception("this product does not exist");
+        
     }
 
 
@@ -81,13 +80,13 @@ internal class DalProduct : IProduct
     /// this function return an array of all the products
     /// </summary>
     /// <returns>array of all the products</returns>
-    public static Product[] GetProducts()
+    public IEnumerable<Product> GetAll()
     {
-        Product[] p = DataSource.productsArr;
-        Product[] newProducts = new Product[DataSource.config.NumOfProducts];
-        for (int i = 0; i < DataSource.config.NumOfProducts; i++)
+        //        List<Product> product = DataSource._productList;
+        List< Product> newProducts = new List<Product>();
+        foreach (var item in DataSource.productList)
         {
-            newProducts[i] = p[i];
+            newProducts.Add(item);
         }
         return newProducts;
     }
@@ -98,20 +97,25 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="product"></param>
     /// <exception cref="Exception"></exception>
-    public static void Update(Product product)
+    public void Update(Product product)
     {
-        for (int i = 0; i < DataSource.config.NumOfProducts; i++)
+        foreach (var item in DataSource.productList)
         {
-            if (product.ID == DataSource.productsArr[i].ID)
+            
+            if (product.ID == item.ID)
             {
-                DataSource.productsArr[i] = product;
+                DataSource.productList.Remove(item);
+                DataSource.productList.Add(product);
                 return;
-                //return product.ID;
             }
         }
-        //if this product does not exist in array
+      //  if this product does not exist in array
         throw new Exception("this product does not exist");
-
+        
     }
 
+    //public void Updete(Product entity)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }

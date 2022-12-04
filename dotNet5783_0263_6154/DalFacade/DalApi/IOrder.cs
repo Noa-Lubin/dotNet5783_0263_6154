@@ -5,4 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 namespace DalApi;
-public interface IOrder : ICrud<Order> { ... }
+public interface IOrder : ICrud<Order>
+{
+    //void Add(global::BO.Order order);
+}

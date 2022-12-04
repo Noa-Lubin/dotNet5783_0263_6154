@@ -2,93 +2,86 @@
 namespace Dal;
 using DalApi;
 
-internal class DalOrderItem : IOrderItem
+public class DalOrderItem : IOrderItem
 {
     //this function add new orderItem to array
 
-    public static int Add(OrderItem orderItem)
+    public int Add(OrderItem orderItem)
     {
-        orderItem.ID = DataSource.config.NextOrderItem;
-        if (DataSource.orderItemArr.Length - 1 == DataSource.config.NumOfOrderItems)
-        {
-            throw new Exception("there is no place in this array");
-        }
-        else
-        {
-            DataSource.orderItemArr[DataSource.config.NumOfOrderItems++] = orderItem;
-        }
+        orderItem.ID = DataSource.config._nextOrderItem;
+        //insert new orderItem to list
+        DataSource.orderItemList.Add(orderItem);
         return orderItem.ID;
     }
     //delete this orderItem from array
-    public static void delete(int id)
+    public void Delete(int id)
     {
-        for (int i = 0; i < DataSource.config.NumOfOrderItems; i++)
+        foreach (var item in DataSource.orderItemList)
         {
-            if (id == DataSource.orderItemArr[i].ID)
+            if (item.ID == id)
             {
-                //delete orderItem
-                DataSource.orderItemArr[i] = DataSource.orderItemArr[DataSource.config.NumOfOrderItems - 1];
-                //update the stock of orderItem
-                DataSource.config.NumOfOrderItems--;
+                DataSource.orderItemList.Remove(item);
                 return;
             }
         }
+
+
         //if this orderItem does not exist in array
         throw new Exception("this orderItem does not exist");
     }
     //Returns a orderItem by ID number
-    public static OrderItem GetOrderItem(int id)
+    public OrderItem Get(int id)
     {
-        OrderItem[] oItem = DataSource.orderItemArr;
-        for (int i = 0; i < DataSource.config.NumOfOrderItems; i++)
+        //List<Product> product = DataSource.productList;
+        foreach (var item in DataSource.orderItemList)
         {
-            if (id == oItem[i].ID)
-            {
-
-                return oItem[i];
-            }
+            if (item.ID == id)
+                return item;
         }
-        //if this id does not exist in array
-        throw new Exception("this id of orderItem does not exist");
+
+        //if this OrderItem does not exist in array
+        throw new Exception("this OrderItem does not exist");
+
     }
 
 
     //return a list/array of all the orderItems that in stock
-    public static OrderItem[] GetOrderItems()
+    public IEnumerable<OrderItem> GetAll()
     {
-        OrderItem[] oItems = DataSource.orderItemArr;
-        OrderItem[] newOrderItems = new OrderItem[DataSource.config.NumOfOrderItems];
-        for (int i = 0; i < DataSource.config.NumOfOrderItems; i++)
+        //        List<Product> product = DataSource._productList;
+        List<OrderItem> newOrderItems = new List<OrderItem>();
+        foreach (var item in DataSource.orderItemList)
         {
-            newOrderItems[i] = oItems[i];
+            newOrderItems.Add(item);
         }
         return newOrderItems;
     }
 
 
     //Updates the orderItem with new data 
-    public static void Update(OrderItem orderItem)
+    public void Update(OrderItem orderItem)
     {
-        for (int i = 0; i < DataSource.config.NumOfOrderItems; i++)
+        foreach (var item in DataSource.orderItemList)
         {
-            if (orderItem.ID == DataSource.orderItemArr[i].ID)
+            if (orderItem.ID == item.ID)
             {
-                DataSource.orderItemArr[i] = orderItem;
+                DataSource.orderItemList.Remove(item);
+                DataSource.orderItemList.Add(orderItem);
                 return;
             }
         }
-        //if this orderItem does not exist in array
+        // if this orderItem does not exist in array
         throw new Exception("this orderItem does not exist");
 
     }
     //return object of orderItem by idProuct and idOrder
-    public static OrderItem GetItemByIds(int idProuct, int idOrder)
+    public OrderItem GetItemByIds(int idProuct, int idOrder)
     {
-        for (int i = 0; i < DataSource.config.NumOfOrderItems; i++)
+        foreach (var item in DataSource.orderItemList)
         {
-            if (idProuct == DataSource.orderItemArr[i].ProductID && idOrder == DataSource.orderItemArr[i].OrderID)
+            if (idProuct == item.ProductID && idOrder == item.OrderID)
             {
-                return DataSource.orderItemArr[i];
+                return item;
             }
         }
         //if this id does not exist in array
@@ -96,26 +89,21 @@ internal class DalOrderItem : IOrderItem
     }
 
     //return array of products by idOrder
-    public static OrderItem[] AllProductsOfOrder(int idOrder)
+    public IEnumerable<OrderItem> AllProductsOfOrder(int idOrder)
     {
-        int index = 0;
-        OrderItem[] orderItems = DataSource.orderItemArr;
-        OrderItem[] productsArr = new OrderItem[DataSource.config.NumOfOrderItems];
-        for (int i = 0; i < DataSource.config.NumOfOrderItems; i++)
+        List<OrderItem> productsInOrder = new List<OrderItem>();
+        foreach (var item in DataSource.orderItemList)
         {
-            if (idOrder == orderItems[i].OrderID)
+            if (idOrder == item.OrderID)
             {
-                productsArr[index++] = orderItems[i];
+                productsInOrder.Add(item);
             }
         }
-        OrderItem[] newProductsArr = new OrderItem[index];
-        for (int i = 0; i < index; i++)
-        {
-            newProductsArr[i] = productsArr[i];
-        }
-        if (productsArr.Length > 0)
-            return newProductsArr;
+        //if (productsInOrder.Count() > 0)
+            return productsInOrder;
         //if this id does not exist in array
-        throw new Exception("this id of orderItem does not exist");
+        //throw new Exception("this id of orderItem does not exist");
     }
+
+
 }

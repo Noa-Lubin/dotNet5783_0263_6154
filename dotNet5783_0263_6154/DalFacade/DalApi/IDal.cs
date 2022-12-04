@@ -7,9 +7,10 @@ using DO;
 namespace DalApi;
 public interface IDal
 {
-    IProduct product { get};
-    IOrder order { get};
-    IOrderItem orderItem { get};
+    IProduct product { get; }
+    object Product { get; }
+    IOrder order { get; }
+    IOrderItem orderItem { get; }
 
 
 }
