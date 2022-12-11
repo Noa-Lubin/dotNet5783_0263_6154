@@ -129,11 +129,11 @@ namespace BlImplementation
                 BO.OrderItem newOrderItem = new BO.OrderItem()
                 {
                     IdOrderItem = idOrder,
-                    IdProduct = item.ProductID,
+                    IdProduct = item?.ProductID,
                     Name = nameProduct,
-                    Price = item.Price,
+                    Price = item?.Price,
                     AmountInCart = item?.Amount,
-                    TotalPrice = item.Price * item.Amount//Calculation of the final price
+                    TotalPrice = item?.Price * item?.Amount//Calculation of the final price
 
                 };
                 orderItemList.Add(newOrderItem);//add this order item to the list of all
