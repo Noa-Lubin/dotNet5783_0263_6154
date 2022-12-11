@@ -22,9 +22,9 @@ namespace BO
         /// רשימה של צמדים(תאריך, תיאור התקדמות חבילה
         /// </summary>
 
-        public IEnumerable<Tuple<DateTime, string>> Tracking { get; set; }
+        public IEnumerable<Tuple<DateTime, string>?>? Tracking { get; set; }
 
-        public Enums.OrderStatus Status { get; set; }
+        public Enums.OrderStatus? Status { get; set; }
 
     }
 }

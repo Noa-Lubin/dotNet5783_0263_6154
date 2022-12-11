@@ -20,7 +20,7 @@ namespace BO
         /// 
         /// </summary>
         public int IdProduct { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -29,7 +29,7 @@ namespace BO
         /// 
         /// </summary>
         
-        public Enums.Category Category { get; set; }
+        public Enums.Category? Category { get; set; }
         /// <summary>
         /// זמינות(האם במלאי)
         /// </summary>

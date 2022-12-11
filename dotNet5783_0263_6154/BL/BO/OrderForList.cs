@@ -22,13 +22,13 @@ namespace BO
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
        
         /// <summary>
         /// 
         /// </summary>
 
-        public Enums.OrderStatus status { get; set; }
+        public Enums.OrderStatus? status { get; set; }
        
         /// <summary>
         /// כמות פריטים

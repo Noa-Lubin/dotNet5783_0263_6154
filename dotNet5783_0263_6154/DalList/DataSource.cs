@@ -4,6 +4,7 @@ using static DO.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using DalApi;
 
 namespace Dal;
 
@@ -29,9 +30,9 @@ internal static class DataSource
 
         internal static int _nextOrderItem { get => s_nextOrderItem++; }
     }
-    internal static List<Order> orderList { get; } = new List<Order>();
-    internal static List<OrderItem> orderItemList { get; } = new List<OrderItem>();
-    internal static List<Product> productList { get; } = new List<Product>();
+    internal static List<Order?> orderList { get; } = new List<Order?>();
+    internal static List<OrderItem?> orderItemList { get; } = new List<OrderItem?>();
+    internal static List<Product?> productList { get; } = new List<Product?>();
 
     private static void s_Initialize()
     {
@@ -115,19 +116,25 @@ internal static class DataSource
         for (int i = 0; i < 40; i++)
         {
             int product = rnd.Next(10) + 100000;
-            foreach (var item in productList)
-            {
-                if (item.ID == product)
-                {
-                    flag = true;
-                    price = item.Price;
-                }
-            }
-
-            if (!flag)
-            {
+            
+           Product p =  productList.FirstOrDefault(p => p?.ID == product)??
                 throw new Exception("the product is not exist");
-            }
+            price = p.Price;
+
+
+            //foreach (var item in productList)
+            //{
+            //    if (item?.ID == product)
+            //    {
+            //        flag = true;
+            //        price = item?.Price;
+            //    }
+            //}
+
+            //if (!flag)
+            //{
+            //    throw new Exception("the product is not exist");
+            //}
 
             OrderItem newOrderItem = new OrderItem()
             {

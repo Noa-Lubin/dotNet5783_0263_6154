@@ -19,37 +19,37 @@ namespace BO
         /// <summary>
         /// CustomerName
         /// </summary>
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
         /// <summary>
         /// CustomerEmail
         /// </summary>
-        public string CustomerEmail { get; set; }
+        public string? CustomerEmail { get; set; }
 
         /// <summary>
         /// CustomerAdress
         /// </summary>
-        public string CustomerAdress { get; set; }
+        public string? CustomerAdress { get; set; }
 
         /// <summary>
         /// OrderDate
         /// </summary>
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
 
         /// <summary>
         /// ShipDate
         /// </summary>
-        public DateTime ShipDate { get; set; }
+        public DateTime? ShipDate { get; set; }
 
         /// <summary>
         /// DeliveryrDate
         /// </summary>
-        public DateTime DeliveryrDate { get; set; }
+        public DateTime? DeliveryrDate { get; set; }
 
         /// <summary>
         /// status
         /// </summary>
-        public Enums.OrderStatus Status { get; set; }
+        public Enums.OrderStatus? Status { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -57,6 +57,6 @@ namespace BO
         /// <summary>
         /// 
         /// </summary>
-        public List<OrderItem> Items { get; set; }
+        public List<OrderItem?>? Items { get; set; }
     }
 }

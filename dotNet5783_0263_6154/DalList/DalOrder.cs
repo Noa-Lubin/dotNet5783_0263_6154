@@ -18,7 +18,7 @@ internal class DalOrder : IOrder
     {
         foreach (var item in DataSource.orderList)
         {
-            if (item.ID == id)
+            if (item?.ID == id)
             {
                 DataSource.orderList.Remove(item);
                 return;
@@ -31,25 +31,27 @@ internal class DalOrder : IOrder
 
 
 
-    
+
     /// <summary>
     /// this function return an order by ID
     /// </summary>
     /// <param name="id"></param>
     /// <returns>order</returns>
     /// <exception cref="Exception"></exception>
+    //public Product Get(int id)
+    //{
+    //    //List<Product> product = DataSource.productList;
+    //    return DataSource.productList.FirstOrDefault(p => p?.ID == id) ??
+
+    //    //if this product does not exist in array
+    //    throw new Exception("this product does not exist");
+    //}
     public Order Get(int id)
     {
-        //List<Product> product = DataSource.productList;
-        foreach (var item in DataSource.orderList)
-        {
-            if (item.ID == id)
-                return item;
-        }
-
+        List<Order?> product = DataSource.orderList;
+            return DataSource.orderList.FirstOrDefault(o => o?.ID == id) ??        
         //if this product does not exist in array
         throw new Exception("this order does not exist");
-
     }
 
 
@@ -57,17 +59,12 @@ internal class DalOrder : IOrder
     /// this function return array of orders
     /// </summary>
     /// <returns>array of orders</returns>
-    public IEnumerable<Order> GetAll()
 
+    
+    public IEnumerable<Order?> GetAll(Func<Order?, bool> func = null)
     {
-        //        List<Product> product = DataSource._productList;
-        List<Order> newOrders = new List<Order>();
-        foreach (var item in DataSource.orderList)
-        {
-            newOrders.Add(item);
-        }
-        return newOrders;
-
+        return func is null ? DataSource.orderList.Select(o => o) : 
+            DataSource.orderList.Where(func);
     }
 
     /// <summary>
@@ -79,7 +76,7 @@ internal class DalOrder : IOrder
     {
         foreach (var item in DataSource.orderList)
         {
-            if (order.ID == item.ID)
+            if (order.ID == item?.ID)
             {
                 DataSource.orderList.Remove(item);
                 DataSource.orderList.Add(order);
@@ -91,4 +88,5 @@ internal class DalOrder : IOrder
 
     }
 
+    
 }

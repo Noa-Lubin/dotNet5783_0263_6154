@@ -29,7 +29,7 @@ internal class DalProduct : IProduct
 
         foreach (var item in DataSource.productList)
         {
-            if (item.ID == id)
+            if (item?.ID == id)
             {
                 DataSource.productList.Remove(item);
                 return;
@@ -64,15 +64,10 @@ internal class DalProduct : IProduct
     public  Product Get(int id)
     {
         //List<Product> product = DataSource.productList;
-        foreach (var item in DataSource.productList)
-        {
-            if (item.ID == id)
-                return item;
-        }
+        return DataSource.productList.FirstOrDefault(p => p?.ID == id) ??
 
         //if this product does not exist in array
-        throw new Exception("this product does not exist");
-        
+        throw new Exception("this product does not exist");        
     }
 
 
@@ -80,15 +75,11 @@ internal class DalProduct : IProduct
     /// this function return an array of all the products
     /// </summary>
     /// <returns>array of all the products</returns>
-    public IEnumerable<Product> GetAll()
+    public IEnumerable<Product?> GetAll(Func<Product?, bool> func = null)
     {
-        //        List<Product> product = DataSource._productList;
-        List< Product> newProducts = new List<Product>();
-        foreach (var item in DataSource.productList)
-        {
-            newProducts.Add(item);
-        }
-        return newProducts;
+       
+        return func is null ? DataSource.productList.Select(p => p) :
+             DataSource.productList.Where(func);
     }
 
 
@@ -102,7 +93,7 @@ internal class DalProduct : IProduct
         foreach (var item in DataSource.productList)
         {
             
-            if (product.ID == item.ID)
+            if (product.ID == item?.ID)
             {
                 DataSource.productList.Remove(item);
                 DataSource.productList.Add(product);

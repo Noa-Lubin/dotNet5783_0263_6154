@@ -8,6 +8,6 @@ namespace DalApi;
 public interface IOrderItem : ICrud<OrderItem>
 {
     public  OrderItem GetItemByIds(int idProuct, int idOrder);
-    public  IEnumerable<OrderItem> AllProductsOfOrder(int idOrder);
+    public IEnumerable<OrderItem?> AllProductsOfOrder(int idOrder);
 
 }

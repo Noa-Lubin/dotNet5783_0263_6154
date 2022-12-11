@@ -1,6 +1,7 @@
 ﻿using DO;
 namespace Dal;
 using DalApi;
+using System;
 
 public class DalOrderItem : IOrderItem
 {
@@ -18,7 +19,7 @@ public class DalOrderItem : IOrderItem
     {
         foreach (var item in DataSource.orderItemList)
         {
-            if (item.ID == id)
+            if (item?.ID == id)
             {
                 DataSource.orderItemList.Remove(item);
                 return;
@@ -32,12 +33,8 @@ public class DalOrderItem : IOrderItem
     //Returns a orderItem by ID number
     public OrderItem Get(int id)
     {
-        //List<Product> product = DataSource.productList;
-        foreach (var item in DataSource.orderItemList)
-        {
-            if (item.ID == id)
-                return item;
-        }
+        List<OrderItem?> orderItems = DataSource.orderItemList;
+        return DataSource.orderItemList.FirstOrDefault(oI => oI?.ID == id) ??
 
         //if this OrderItem does not exist in array
         throw new Exception("this OrderItem does not exist");
@@ -46,24 +43,19 @@ public class DalOrderItem : IOrderItem
 
 
     //return a list/array of all the orderItems that in stock
-    public IEnumerable<OrderItem> GetAll()
-    {
-        //        List<Product> product = DataSource._productList;
-        List<OrderItem> newOrderItems = new List<OrderItem>();
-        foreach (var item in DataSource.orderItemList)
-        {
-            newOrderItems.Add(item);
-        }
-        return newOrderItems;
-    }
 
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool> func = null)
+    {
+        return func is null ? DataSource.orderItemList.Select(oI => oI) :
+            DataSource.orderItemList.Where(func);
+    }
 
     //Updates the orderItem with new data 
     public void Update(OrderItem orderItem)
     {
         foreach (var item in DataSource.orderItemList)
         {
-            if (orderItem.ID == item.ID)
+            if (orderItem.ID == item?.ID)
             {
                 DataSource.orderItemList.Remove(item);
                 DataSource.orderItemList.Add(orderItem);
@@ -77,33 +69,21 @@ public class DalOrderItem : IOrderItem
     //return object of orderItem by idProuct and idOrder
     public OrderItem GetItemByIds(int idProuct, int idOrder)
     {
-        foreach (var item in DataSource.orderItemList)
-        {
-            if (idProuct == item.ProductID && idOrder == item.OrderID)
-            {
-                return item;
-            }
-        }
+        List<OrderItem?> orderItems = DataSource.orderItemList;
+        return DataSource.orderItemList.FirstOrDefault(oI => oI?.ProductID == idProuct && oI?.OrderID == idOrder) ??
         //if this id does not exist in array
         throw new Exception("this id of orderItem does not exist");
     }
 
     //return array of products by idOrder
-    public IEnumerable<OrderItem> AllProductsOfOrder(int idOrder)
+
+    public IEnumerable<OrderItem?> AllProductsOfOrder(int idOrder)
     {
-        List<OrderItem> productsInOrder = new List<OrderItem>();
-        foreach (var item in DataSource.orderItemList)
-        {
-            if (idOrder == item.OrderID)
-            {
-                productsInOrder.Add(item);
-            }
-        }
-        //if (productsInOrder.Count() > 0)
-            return productsInOrder;
-        //if this id does not exist in array
-        //throw new Exception("this id of orderItem does not exist");
+        List<OrderItem?> orderItems = DataSource.orderItemList;
+        return DataSource.orderItemList.Where(oI => oI?.ID == idOrder) ??
+
+            throw new Exception("This order is empty");
     }
 
-
+    
 }

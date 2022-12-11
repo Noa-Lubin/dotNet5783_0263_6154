@@ -7,5 +7,4 @@ using DO;
 namespace DalApi;
 public interface IOrder : ICrud<Order>
 {
-    //void Add(global::BO.Order order);
 }

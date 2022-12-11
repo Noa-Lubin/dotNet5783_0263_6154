@@ -19,7 +19,7 @@ namespace BlImplementation
         {
             foreach (var item in myDal.product.GetAll())
             {
-                if (item.ID == product.ID)
+                if (item?.ID == product.ID)
                     throw new Duplication("This product is already exist");
             }
             if (product.Name == " ")
@@ -47,19 +47,19 @@ namespace BlImplementation
         /// <exception cref="ExistInOrder"></exception>
         public void DeleteProduct(int id)
         {
-            List<BO.Order> ordersList = new List<BO.Order>();
-            List<BO.OrderItem> orderItemList = new List<BO.OrderItem>(); //create list of OrderItem for the list of items in the new order
+            List<BO.Order?> ordersList = new List<BO.Order?>();
+            List<BO.OrderItem?> orderItemList = new List<BO.OrderItem?>(); //create list of OrderItem for the list of items in the new order
             foreach (var item in myDal.order.GetAll())
             {
                 //Goes through all the products of the received order
-                foreach (var itemOrderItem in myDal.orderItem.AllProductsOfOrder(item.ID))
+                foreach (var itemOrderItem in myDal.orderItem.AllProductsOfOrder(item?.ID))
                 {
                     //create a new Product object to keep the name of product in parameter
                     DO.Product p;
                     string nameProduct;
                     try
                     {
-                        p = myDal.product.Get(itemOrderItem.ProductID);
+                        p = myDal.product.Get(itemOrderItem?.ProductID);
                         nameProduct = p.Name;
                     }
                     catch
@@ -68,24 +68,24 @@ namespace BlImplementation
                     }
                     BO.OrderItem newOrderItem = new BO.OrderItem()
                     {
-                        IdOrderItem = item.ID,
-                        IdProduct = itemOrderItem.ProductID,
+                        IdOrderItem = item?.ID,
+                        IdProduct = itemOrderItem?.ProductID,
                         Name = nameProduct,
-                        Price = itemOrderItem.Price,
-                        AmountInCart = itemOrderItem.Amount,
-                        TotalPrice = itemOrderItem.Price * itemOrderItem.Amount//Calculation of the final price
+                        Price = itemOrderItem?.Price,
+                        AmountInCart = itemOrderItem?.Amount,
+                        TotalPrice = itemOrderItem?.Price * itemOrderItem?.Amount//Calculation of the final price
 
                     };
                     orderItemList.Add(newOrderItem);//add this order item to the list of all
                     BO.Order newOrder = new BO.Order
                     {
-                        ID = item.ID,
-                        CustomerName = item.CustomerName,
-                        CustomerAdress = item.CustomerAdress,
-                        CustomerEmail = item.CustomerEmail,
-                        OrderDate = item.OrderDate,
-                        ShipDate = item.ShipDate,
-                        DeliveryrDate = item.DeliveryrDate,
+                        ID = item?.ID,
+                        CustomerName = item?.CustomerName,
+                        CustomerAdress = item?.CustomerAdress,
+                        CustomerEmail = item?.CustomerEmail,
+                        OrderDate = item?.OrderDate,
+                        ShipDate = item?.ShipDate,
+                        DeliveryrDate = item?.DeliveryrDate,
                         Items = orderItemList
                     };
                     ordersList.Add(newOrder);
@@ -94,7 +94,7 @@ namespace BlImplementation
                 {
                     foreach (var pItem in myDal.orderItem.AllProductsOfOrder(item1.ID))//all orderItems of every order
                     {
-                        if (pItem.ProductID == id) //if the producte is exist in an orser
+                        if (pItem?.ProductID == id) //if the producte is exist in an orser
                             throw new ExistInOrder("Delete is faild. The product is exist in an order");
                     }
                 }

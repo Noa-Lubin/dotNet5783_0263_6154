@@ -13,17 +13,17 @@ namespace BO
         /// <summary>
         /// CustomerName
         /// </summary>
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
         /// <summary>
         /// CustomerEmail
         /// </summary>
-        public string CustomerEmail { get; set; }
+        public string? CustomerEmail { get; set; }
 
         /// <summary>
         /// CustomerAdress
         /// </summary>
-        public string CustomerAdress { get; set; }
+        public string? CustomerAdress { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -31,6 +31,6 @@ namespace BO
         /// <summary>
         /// 
         /// </summary>
-        public List<OrderItem> Items { get; set; }
+        public List<OrderItem?>? Items { get; set; }
     }
 }

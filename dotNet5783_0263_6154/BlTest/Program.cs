@@ -11,8 +11,8 @@ namespace BlTest
         static IBl myBl = new BlImplementation.Bl();
         private static BO.Cart boCart = new BO.Cart()
         {
-            CustomerName = "shira nussbacher",
-            CustomerAdress = "baal atania 20 bb",
+            CustomerName = "shira Cohen",
+            CustomerAdress = "remez 22",
             CustomerEmail = "shira6557@gmail.com",
             Items = new List<BO.OrderItem>(),
             TotalPrice = 0,
@@ -22,9 +22,7 @@ namespace BlTest
         static void switchProduct()
         {
             int idProduct;
-
-            // { AddProduct, DeleteProduct, GetAllProducts, GetProduct, GetProductForList, UpdateProduct };
-
+            // { AddProduct, DeleteProduct, GetAllProducts, GetProduct, GetProductForList, UpdateProduct }
             Console.WriteLine("Product:");
             Console.WriteLine("0-Add");
             Console.WriteLine("1-Delete");

@@ -28,34 +28,34 @@ namespace BlImplementation
             foreach (var item in myDal.order.GetAll())
             {
                 //checkint what is the status of this order
-                if (item.DeliveryrDate != default && item.DeliveryrDate <= DateTime.Now)
+                if (item?.DeliveryrDate != default && item?.DeliveryrDate <= DateTime.Now)
                     statusEnum = OrderStatus.provided;
-                else if (item.ShipDate != default && item.ShipDate <= DateTime.Now)
+                else if (item?.ShipDate != default && item?.ShipDate <= DateTime.Now)
                     statusEnum = OrderStatus.sent;
                 List<BO.OrderItem> orderItemsList = new List<BO.OrderItem>();
                 foreach (var item1 in myDal.orderItem.GetAll())
                 {
-                    if (item1.OrderID == item.ID)
+                    if (item1?.OrderID == item?.ID)
                     {
                         //create a new Product object to keep the name of product in parameter
                         DO.Product p;
                         string nameProduct;
                         try
                         {
-                            p = myDal.product.Get(item1.ProductID);
+                            p = myDal.product.Get(item1?.ProductID);
                             nameProduct = p.Name;
                         }
                         catch
                         {
                             throw new NotFound("Product is not found");
                         }
-                        sum += (item1.Price * item1.Amount); //calculate the totalPrice of newOrder of BO
+                        sum += (item1?.Price * item1?.Amount); //calculate the totalPrice of newOrder of BO
                         BO.OrderItem newOrderItem = new BO.OrderItem()
                         {
-                            IdProduct = item1.ProductID,
+                            IdProduct = item1?.ProductID,
                             Name = nameProduct,
-                            Price = item1.Price,
-                            AmountInCart = item1.Amount,
+                            Price = item1?.Price,
+                            AmountInCart = item1?.Amount,
                             TotalPrice = item1.Price * item1.Amount//Calculation of the final price
 
                         };
@@ -65,13 +65,13 @@ namespace BlImplementation
 
                 BO.Order newOrder = new BO.Order()
                 {
-                    ID = item.ID,
-                    CustomerName = item.CustomerName,
-                    CustomerAdress = item.CustomerAdress,
-                    CustomerEmail = item.CustomerEmail,
-                    OrderDate = item.OrderDate,
-                    ShipDate = item.ShipDate,
-                    DeliveryrDate = item.DeliveryrDate,
+                    ID = item?.ID,
+                    CustomerName = item?.CustomerName,
+                    CustomerAdress = item?.CustomerAdress,
+                    CustomerEmail = item?.CustomerEmail,
+                    OrderDate = item?.OrderDate,
+                    ShipDate = item?.ShipDate,
+                    DeliveryrDate = item?.DeliveryrDate,
                     Status = statusEnum,
                     TotalPrice = sum,
                     Items = orderItemsList
@@ -132,7 +132,7 @@ namespace BlImplementation
                     IdProduct = item.ProductID,
                     Name = nameProduct,
                     Price = item.Price,
-                    AmountInCart = item.Amount,
+                    AmountInCart = item?.Amount,
                     TotalPrice = item.Price * item.Amount//Calculation of the final price
 
                 };
