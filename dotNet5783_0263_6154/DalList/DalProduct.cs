@@ -1,10 +1,8 @@
 ﻿using DO;
 namespace Dal;
 using DalApi;
-
 internal class DalProduct : IProduct
 {
-
     /// <summary>
     /// this function add new product to array
     /// </summary>
@@ -15,9 +13,7 @@ internal class DalProduct : IProduct
     {
         DataSource.productList.Add(product);
         return product.ID;
-
     }
-
 
     /// <summary>
     /// this function delete product from the array
@@ -26,34 +22,20 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-
-        foreach (var item in DataSource.productList)
-        {
-            if (item?.ID == id)
-            {
-                DataSource.productList.Remove(item);
-                return;
-            }
-        }
-
-        //if this product does not exist in array
-        throw new Exception("this product does not exist");
+        Product pro = DataSource.productList.FirstOrDefault(p => p?.ID == id) ??
+        //  if this product does not exist in array
+        throw new Exception("This product is not exist");
+        DataSource.productList.Remove(pro);
+        //foreach (var item in DataSource.productList)
+        //{
+        //    if (item?.ID == id)
+        //    {
+        //        DataSource.productList.Remove(item);
+        //        return;
+        //    }
+        //}
     }
 
-    //public void Delete(int id)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public Product Get(int id)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public IEnumerable<Product> GetAll()
-    //{
-    //    throw new NotImplementedException();
-    //}
 
     /// <summary>
     /// this product return a product by ID
@@ -61,15 +43,13 @@ internal class DalProduct : IProduct
     /// <param name="id"></param>
     /// <returns>a product</returns>
     /// <exception cref="Exception"></exception>
-    public  Product Get(int id)
+    public Product Get(int id)
     {
         //List<Product> product = DataSource.productList;
         return DataSource.productList.FirstOrDefault(p => p?.ID == id) ??
-
         //if this product does not exist in array
-        throw new Exception("this product does not exist");        
+        throw new Exception("this product does not exist");
     }
-
 
     /// <summary>
     /// this function return an array of all the products
@@ -77,12 +57,10 @@ internal class DalProduct : IProduct
     /// <returns>array of all the products</returns>
     public IEnumerable<Product?> GetAll(Func<Product?, bool> func = null)
     {
-       
         return func is null ? DataSource.productList.Select(p => p) :
              DataSource.productList.Where(func);
     }
-
-
+    
     /// <summary>
     /// update a product with new data
     /// </summary>
@@ -90,23 +68,23 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Update(Product product)
     {
-        foreach (var item in DataSource.productList)
-        {
-            
-            if (product.ID == item?.ID)
-            {
-                DataSource.productList.Remove(item);
-                DataSource.productList.Add(product);
-                return;
-            }
-        }
-      //  if this product does not exist in array
-        throw new Exception("this product does not exist");
-        
-    }
+        Product pro = DataSource.productList.FirstOrDefault(p => p?.ID == product.ID) ??
+        //  if this product does not exist in array
+        throw new Exception("This product is not exist");
+        DataSource.productList.Remove(pro);
+        DataSource.productList.Add(product);
 
-    //public void Updete(Product entity)
-    //{
-    //    throw new NotImplementedException();
-    //}
+        //  foreach (var item in DataSource.productList)
+        //  {
+
+        //      if (product.ID == item?.ID)
+        //      {
+        //          DataSource.productList.Remove(item);
+        //          DataSource.productList.Add(product);
+        //          return;
+        //      }
+        //  }
+        ////  if this product does not exist in array
+        //  throw new Exception("this product does not exist");
+    }
 }

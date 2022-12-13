@@ -11,17 +11,17 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        static IBl myBl = new BlImplementation.Bl();
+        private IBl myBl = new BlImplementation.Bl();
 
         public MainWindow()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
-
-        //private void InitializeComponent()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// Redirects to the list of products window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToProductsListButton_Click(object sender, RoutedEventArgs e) => new ProductForListWIndow(myBl).Show();
     }
 

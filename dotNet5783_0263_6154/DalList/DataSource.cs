@@ -111,7 +111,7 @@ internal static class DataSource
     //fill  orderItem to array
     private static void InitCreatOrderItemToList()
     {
-        bool flag = false;
+        //bool flag = false;
         double price = 0;
         for (int i = 0; i < 40; i++)
         {

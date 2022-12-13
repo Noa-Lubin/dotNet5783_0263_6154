@@ -2,6 +2,7 @@
 using BO;
 using DalApi;
 using DO;
+using System.Collections.Generic;
 using static BO.Enums;
 
 
@@ -33,51 +34,82 @@ namespace BlImplementation
                 else if (item?.ShipDate != default && item?.ShipDate <= DateTime.Now)
                     statusEnum = OrderStatus.sent;
                 List<BO.OrderItem> orderItemsList = new List<BO.OrderItem>();
-                foreach (var item1 in myDal.orderItem.GetAll())
-                {
-                    if (item1?.OrderID == item?.ID)
-                    {
-                        //create a new Product object to keep the name of product in parameter
-                        DO.Product p;
-                        string nameProduct;
-                        try
-                        {
-                            p = myDal.product.Get(item1?.ProductID);
-                            nameProduct = p.Name;
-                        }
-                        catch
-                        {
-                            throw new NotFound("Product is not found");
-                        }
-                        sum += (item1?.Price * item1?.Amount); //calculate the totalPrice of newOrder of BO
-                        BO.OrderItem newOrderItem = new BO.OrderItem()
-                        {
-                            IdProduct = item1?.ProductID,
-                            Name = nameProduct,
-                            Price = item1?.Price,
-                            AmountInCart = item1?.Amount,
-                            TotalPrice = item1.Price * item1.Amount//Calculation of the final price
 
-                        };
-                        orderItemsList.Add(newOrderItem);
-                    }
+                IEnumerable<DO.OrderItem?> orderItems = myDal.orderItem.GetAll();
+                DO.OrderItem ord = orderItems.FirstOrDefault(o => o?.ID == item?.ID) ??
+                    throw new NotFound("this orderItem is not exist");
+                //create a new Product object to keep the name of product in parameter
+                DO.Product p;
+                string nameProduct;
+                try
+                {
+                    p = myDal.product.Get(ord.ProductID);
+                    nameProduct = p.Name;
                 }
-
-                BO.Order newOrder = new BO.Order()
+                catch
                 {
-                    ID = item?.ID,
-                    CustomerName = item?.CustomerName,
-                    CustomerAdress = item?.CustomerAdress,
-                    CustomerEmail = item?.CustomerEmail,
-                    OrderDate = item?.OrderDate,
-                    ShipDate = item?.ShipDate,
-                    DeliveryrDate = item?.DeliveryrDate,
-                    Status = statusEnum,
-                    TotalPrice = sum,
-                    Items = orderItemsList
+                    throw new NotFound("Product is not found");
+                }
+                sum += (ord.Price * ord.Amount); //calculate the totalPrice of newOrder of BO
+                BO.OrderItem newOrderItem = new BO.OrderItem()
+                {
+                    IdProduct = ord.ProductID,
+                    Name = nameProduct,
+                    Price = ord.Price,
+                    AmountInCart = ord.Amount,
+                    TotalPrice = ord.Price * ord.Amount//Calculation of the final price
+
                 };
-                ordersList.Add(newOrder); //add to list
+                orderItemsList.Add(newOrderItem);
             }
+            #region foreach
+
+            //foreach (var item1 in myDal.orderItem.GetAll())
+            //    {
+            //        if (item1?.OrderID == item?.ID)
+            //        {
+            //            //create a new Product object to keep the name of product in parameter
+            //            DO.Product p;
+            //            string nameProduct;
+            //            try
+            //            {
+            //                p = myDal.product.Get(item1.ProductID);
+            //                nameProduct = p.Name;
+            //            }
+            //            catch
+            //            {
+            //                throw new NotFound("Product is not found");
+            //            }
+            //            sum += (item1?.Price * item1?.Amount); //calculate the totalPrice of newOrder of BO
+            //            BO.OrderItem newOrderItem = new BO.OrderItem()
+            //            {
+            //                IdProduct = item1?.ProductID,
+            //                Name = nameProduct,
+            //                Price = item1?.Price,
+            //                AmountInCart = item1?.Amount,
+            //                TotalPrice = item1.Price * item1.Amount//Calculation of the final price
+
+            //            };
+            //            orderItemsList.Add(newOrderItem);
+            //        }
+            //    }
+            //   
+            //    BO.Order newOrder = new BO.Order()
+            //    {
+            //        ID = item?.ID,
+            //        CustomerName = item?.CustomerName,
+            //        CustomerAdress = item?.CustomerAdress,
+            //        CustomerEmail = item?.CustomerEmail,
+            //        OrderDate = item?.OrderDate,
+            //        ShipDate = item?.ShipDate,
+            //        DeliveryrDate = item?.DeliveryrDate,
+            //        Status = statusEnum,
+            //        TotalPrice = sum,
+            //        Items = orderItemsList
+            //    };
+            //    ordersList.Add(newOrder); //add to list
+            //}
+            #endregion
             foreach (var item in ordersList) // pass all orderList
             {
                 sum = 0; //reset
@@ -121,19 +153,24 @@ namespace BlImplementation
             else if (o.ShipDate != default && o.ShipDate <= DateTime.Today)
                 statusEnum = OrderStatus.sent;
             //Goes through all the products of the received order
+
+            IEnumerable<DO.OrderItem?> orderItems = myDal.orderItem.AllProductsOfOrder(idOrder);
+            IEnumerable<DO.OrderItem?> newOrderItems;
+            newOrderItems = orderItems.Select(o => o);
+
             foreach (var item in myDal.orderItem.AllProductsOfOrder(idOrder))
             {
                 //create a new Product object to keep the name of product in parameter
-                DO.Product p = myDal.product.Get(item.ProductID);
+                DO.Product p = myDal.product.Get(item?.ProductID ?? 0);
                 string nameProduct = p.Name;
                 BO.OrderItem newOrderItem = new BO.OrderItem()
                 {
                     IdOrderItem = idOrder,
-                    IdProduct = item?.ProductID,
+                    IdProduct = item?.ProductID ?? 0,
                     Name = nameProduct,
-                    Price = item?.Price,
-                    AmountInCart = item?.Amount,
-                    TotalPrice = item?.Price * item?.Amount//Calculation of the final price
+                    Price = item?.Price ?? 0,
+                    AmountInCart = item?.Amount ?? 0,
+                    TotalPrice = item?.Price ?? 0 * item?.Amount ?? 0//Calculation of the final price
 
                 };
                 orderItemList.Add(newOrderItem);//add this order item to the list of all
@@ -178,16 +215,16 @@ namespace BlImplementation
             foreach (var item in myDal.orderItem.AllProductsOfOrder(idOrder))
             {
                 //create a new Product object to keep the name of product
-                DO.Product p = myDal.product.Get(item.ProductID);
+                DO.Product p = myDal.product.Get(item?.ProductID??0);
                 string nameProduct = p.Name;
                 BO.OrderItem newOrderItem = new BO.OrderItem()
                 {
                     IdOrderItem = idOrder,
-                    IdProduct = item.ProductID,
+                    IdProduct = item?.ProductID ?? 0,
                     Name = nameProduct,
-                    Price = item.Price,
-                    AmountInCart = item.Amount,
-                    TotalPrice = item.Price * item.Amount
+                    Price = item?.Price ?? 0,
+                    AmountInCart = item?.Amount ?? 0,
+                    TotalPrice = item?.Price ?? 0 * item?.Amount ?? 0
                 };
                 orderItemList.Add(newOrderItem); //add the new orderItem to the list
             }
@@ -263,16 +300,16 @@ namespace BlImplementation
             foreach (var item in myDal.orderItem.AllProductsOfOrder(idOrder))
             {
                 //create a new Product object to keep the name of product
-                DO.Product p = myDal.product.Get(item.ProductID);
+                DO.Product p = myDal.product.Get(item?.ProductID ?? 0);
                 string nameProduct = p.Name;
                 BO.OrderItem newOrderItem = new BO.OrderItem()
                 {
                     IdOrderItem = idOrder,
-                    IdProduct = item.ProductID,
+                    IdProduct = item?.ProductID ?? 0,
                     Name = nameProduct,
-                    Price = item.Price,
-                    AmountInCart = item.Amount,
-                    TotalPrice = item.Price * item.Amount
+                    Price = item?.Price ?? 0,
+                    AmountInCart = item?.Amount ?? 0,
+                    TotalPrice = item?.Price ?? 0 * item?.Amount ?? 0
 
                 };
                 orderItemList.Add(newOrderItem);//add the new orderItem to the list
