@@ -20,6 +20,12 @@ namespace DalApi
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public T GetByPredicat(Func<T?, bool> func);
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         IEnumerable<T?> GetAll(Func<T?, bool> func = null);
 

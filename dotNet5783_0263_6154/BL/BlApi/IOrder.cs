@@ -12,7 +12,7 @@ namespace BlApi
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<OrderForList> GetAllOrders();
+        public IEnumerable<OrderForList> GetAllOrders(Func<DO.Product?, bool> func = null);
         /// <summary>
         /// 
         /// </summary>

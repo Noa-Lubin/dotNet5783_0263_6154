@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace PL.Product
         {
             InitializeComponent();
             _myBl = bl;
+            CategorySelector.SelectedValue = "select";
 
             _productsForList = _myBl.Product.GetAllProducts();//Inserts the list of all products into a variable 
             ProductsListview.ItemsSource = _productsForList; //Displays the returned list
@@ -42,19 +44,24 @@ namespace PL.Product
             //Filter products by category
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
             //Puts the selected filter value into a variable
-            Enums.Category categorySelect = (Enums.Category)CategorySelector.SelectedItem;
+            BO.Enums.Category categorySelect = (BO.Enums.Category)CategorySelector.SelectedItem;
             //Calls the appropriate function and sends a delegate that it selects by category
-            productsByCategory = _myBl.Product.GetAllProducts(c => c.Value.Category == categorySelect);
+            productsByCategory = _myBl.Product.GetAllProducts(c => c.Value.Category == (DO.Enums.Category)(categorySelect));
             //Displaying the list of returned products
             ProductsListview.ItemsSource = productsByCategory;
         }
-
+        
         /// <summary>
         /// Redirects to the add product window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAddProduct_Click(object sender, RoutedEventArgs e) => new ProductWindow().Show();
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductWindow().ShowDialog();
+            _productsForList = _myBl.Product.GetAllProducts();//Inserts the list of all products into a variable 
+            ProductsListview.ItemsSource = _productsForList; //Displays the returned list
+        }
 
         private void clear_Click(object sender, RoutedEventArgs e)
         {
@@ -62,6 +69,17 @@ namespace PL.Product
             ProductsListview.ItemsSource = _productsForList; //Displays the returned list
         }
 
-        private void ProductsListview_SelectionChanged(object sender, SelectionChangedEventArgs e) => new ProductWindow().Show();
+        //private void ProductsListview_SelectionChanged(object sender, SelectionChangedEventArgs e) => new ProductWindow(100001).Show();
+
+        private void ProductsListview_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int id = ((BO.ProductForList)((System.Windows.Controls.ListView)sender).SelectedItem).IdProduct;
+            new ProductWindow(id).ShowDialog();
+            //_productsForList.re
+            //ProductsListview.ItemsSource = _productsForList;
+        }
+
+        
     }
-}
+
+    }

@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    
-    <Grid>
-        <Button x:Name="ToProductsListButton" Content="ToProductsList" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Height="54" Width="124" Click="ToProductsListButton_Click"/> 
+        Title="MainWindow" Height="450" Width="800" Background="#FFE52865">
+
+        <Grid>
+        <Button x:Name="ToProductsListButton"  Background="White" VerticalAlignment="Top" Height="54" Width="80" Click="ToProductsListButton_Click" Content="productsList"/>
 
     </Grid>
 </Window>

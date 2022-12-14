@@ -22,17 +22,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Margin="10,0,50,0" Grid.Column="1"/>
-            <Button x:Name="clear" Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="355,0,0,0" VerticalAlignment="Center" Click="clear_Click" Height="47" Width="45"/>
+            <ComboBox Name="CategorySelector"  Background="#FFE52865"  SelectionChanged="CategorySelector_SelectionChanged" Margin="15,0,143,0" Grid.Column="1"/>
+            <Button x:Name="clear"  Background="#FFE52865" Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Click="clear_Click" Height="47" Width="45" FontFamily="Stencil"/>
         </Grid>
-        <Label Content="Category:" Grid.Column="0" HorizontalAlignment="Left" Width="400"/>
-        <ListView x:Name="ProductsListview" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ProductsListview_SelectionChanged" Grid.ColumnSpan="2" Margin="0,29,0,0" Grid.RowSpan="2">
+        <Label Content="סנן לפי קטגוריה:"   Grid.Column="0" HorizontalAlignment="Left" Width="138" Foreground="#FFE52865" FontSize="14" FontFamily="BN Cloud" Margin="157,-4,0,2"/>
+        <ListView x:Name="ProductsListview" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2" Margin="0,10,0,0" MouseDoubleClick="ProductsListview_MouseDoubleClick" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnAddProduct" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="691,5,0,5" Padding="5" Click="btnAddProduct_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnAddProduct" Background="#FFE52865" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="591,0,0,2" Padding="5" Click="btnAddProduct_Click" Grid.ColumnSpan="2" FontFamily="Stencil" Width="205" Height="26" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

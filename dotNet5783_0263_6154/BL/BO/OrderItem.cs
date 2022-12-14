@@ -18,7 +18,7 @@ namespace BO
         /// <summary>
         /// 
         /// </summary>
-        public int IdOrderItem { get; set; }
+        public int OrderID { get; set; }
         /// <summary>
         /// 
         /// </summary>

@@ -48,10 +48,22 @@ internal class DalOrder : IOrder
    
     public Order Get(int id)
     {
-        List<Order?> product = DataSource.orderList;
             return DataSource.orderList.FirstOrDefault(o => o?.ID == id) ??        
         //if this product does not exist in array
         throw new Exception("this order does not exist");
+    }
+
+ /// <summary>
+ /// 
+ /// </summary>
+ /// <param name="func"></param>
+ /// <returns></returns>
+ /// <exception cref="Exception"></exception>
+    public Order GetByPredicat(Func<Order?, bool> func)
+    {
+        return DataSource.orderList.FirstOrDefault(func) ??
+    //if this product does not exist in array
+    throw new Exception("this order does not exist");
     }
 
 
@@ -59,7 +71,7 @@ internal class DalOrder : IOrder
     /// this function return list of orders
     /// </summary>
     /// <returns>array of orders</returns>
-   
+
     public IEnumerable<Order?> GetAll(Func<Order?, bool> func = null)
     {
         return func is null ? DataSource.orderList.Select(o => o) : 

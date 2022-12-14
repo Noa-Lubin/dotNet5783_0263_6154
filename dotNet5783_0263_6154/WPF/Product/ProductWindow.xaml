@@ -7,20 +7,23 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="640" Width="800">
     <Grid>
-
-        <Label Content="Id" Margin="79,113,666,478"/>
-        <TextBox x:Name="txtId" HorizontalAlignment="Left" Margin="372,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Category" Margin="79,167,666,424"/>
-        <ComboBox  x:Name="cmbCategory"  HorizontalAlignment="Left" Margin="372,170,0,0" VerticalAlignment="Top" Width="120" />
-
-        <Label Content="Name" Margin="79,217,666,374"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="372,226,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Price" Margin="79,278,666,313"/>
+        <TextBox x:Name="txtId" HorizontalAlignment="Left" Margin="372,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="txtId_TextChanged"/>
+        <ComboBox  x:Name="cmbCategory" Text="none" HorizontalAlignment="Left" Margin="372,170,0,0" VerticalAlignment="Top" Width="120"  />
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="372,226,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" MouseLeave="txtName_MouseLeave"/>
         <TextBox x:Name="txtPrice"  HorizontalAlignment="Left" Margin="372,341,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="In stock"  Margin="79,332,666,259"/>
         <TextBox x:Name="txtInStock"  HorizontalAlignment="Left" Margin="372,287,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="270,406,0,0" VerticalAlignment="Top" Click="btnAdd_Click"/>
-        <Button x:Name="btnUpdateProduct" Content="update" HorizontalAlignment="Left" Margin="391,406,0,0" VerticalAlignment="Top" Click="btnUpdateProduct_Click"/>
+        <Button x:Name="btnAddOrUpdate" Content="addOrUpdate" BorderThickness="2"  HorizontalAlignment="Left" Margin="317,406,0,0" VerticalAlignment="Top" Click="btnAddOrUpdate_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="120"/>
+        <!--<Button x:Name="btnUpdateProduct" Content="update" HorizontalAlignment="Left" Margin="391,406,0,0" VerticalAlignment="Top" Click="btnUpdateProduct_Click"/>-->
+        <Button x:Name="btnDelete" Content="Delete" BorderThickness="2" HorizontalAlignment="Left" Margin="475,406,0,0" VerticalAlignment="Top" Click="btnDelete_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="120"/>
+        <Button x:Name="btnCancel" Content="Cancel" BorderThickness="2" HorizontalAlignment="Left" Margin="418,446,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black"/>
+        <Label x:Name="lblId" Content="מזהה מוצר" HorizontalAlignment="Left" Margin="510,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076"/>
+        <Label x:Name="lblCategory" Content="קטגוריה" HorizontalAlignment="Left" Margin="510,163,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblName" Content="שם" HorizontalAlignment="Left" Margin="516,222,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171"/>
+        <Label x:Name="lblPrice" Content="מחיר" HorizontalAlignment="Left" Margin="512,283,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblAmount" Content="כמות במלאי" HorizontalAlignment="Left" Margin="511,337,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblTitle" Content="Title" HorizontalAlignment="Left" Margin="390,43,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="lblIncorrectId" Content="מזהה מכיל מספרים בין 0 ל9 בלבד" HorizontalAlignment="Left" Margin="385,133,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red"/>
+        <Label x:Name="lblIncorrectName" Content="בבקשה הזינו שם תקין" HorizontalAlignment="Left" Margin="420,238,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red" />
 
     </Grid>
 </Window>

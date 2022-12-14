@@ -118,7 +118,7 @@ internal class Project
                     break;
 
                 case ChoiceProduct.GetProducts:
-                    IEnumerable<Product> newProduct = myDal.product.GetAll();
+                    IEnumerable<Product?> newProduct = myDal.product.GetAll();
                     foreach (Product item in newProduct)
                     {
                         Console.WriteLine(item);
@@ -238,7 +238,7 @@ internal class Project
                     }
                     break;
                 case ChoiceOrder.GetOrders:
-                    IEnumerable<Order> newOrders = myDal.order.GetAll();
+                    IEnumerable<Order?> newOrders = myDal.order.GetAll();
                     foreach (Order item in newOrders)
                     {
                         Console.WriteLine(item);
@@ -351,7 +351,7 @@ internal class Project
                     }
                     break;
                 case ChoiceOrderItem.GetOrderItems:
-                    IEnumerable<OrderItem> newOrderItems = myDal.orderItem.GetAll();
+                    IEnumerable<OrderItem?> newOrderItems = myDal.orderItem.GetAll();
                     foreach (OrderItem item in newOrderItems)
                     {
                         Console.WriteLine(item);
@@ -369,7 +369,7 @@ internal class Project
                 case ChoiceOrderItem.viewAllProducts:
                     Console.WriteLine("enter id of your order");
                     int orderId = int.Parse(Console.ReadLine());
-                    IEnumerable<OrderItem> orderItems= myDal.orderItem.AllProductsOfOrder(orderId);
+                    IEnumerable<OrderItem?> orderItems= myDal.orderItem.AllProductsOfOrder(orderId);
                     foreach (OrderItem item in orderItems)
                     {
                         Console.WriteLine(item);

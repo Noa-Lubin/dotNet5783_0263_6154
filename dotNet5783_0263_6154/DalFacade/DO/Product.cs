@@ -32,7 +32,6 @@ public struct Product
     public int InStock { get; set; }
 
 
-
     /// <summary>
     /// ToString function
     /// </summary>

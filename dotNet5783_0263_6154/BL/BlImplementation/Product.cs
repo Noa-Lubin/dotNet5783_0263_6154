@@ -2,6 +2,8 @@
 using BO;
 using DalApi;
 using DO;
+using System;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using static BO.Enums;
 
@@ -10,6 +12,24 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         static IDal myDal = new Dal.DalList();
+
+        /// <summary>
+        /// Help func - casting object from DO.Product? to BO.ProductForList
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private BO.ProductForList casting(DO.Product? p)
+        {
+            BO.ProductForList pr = new BO.ProductForList()
+            {
+                Name = p?.Name,
+                Price = p?.Price ?? 0,
+                Category = (BO.Enums.Category)p?.Category,
+                IdProduct = p?.ID ?? 0
+            };
+            return pr;
+        }
+
         /// <summary>
         /// Add a new product to the list of all products
         /// </summary>
@@ -64,7 +84,7 @@ namespace BlImplementation
             //Request from the data layer of all orders
             IEnumerable<DO.Order?> orders = myDal.order.GetAll();
 
-            bool isExsistProduct = orders.Any(currenOrder => myDal.orderItem.AllProductsOfOrder(currenOrder?.ID ?? throw new IncorrectData("ID of order is incorrect"))
+            bool isExsistProduct = orders.Any(currenOrder => myDal.orderItem.GetAll(x=>x?.OrderID == currenOrder?.ID)
             .Any(item => item?.ProductID == idProduct));
             if (!isExsistProduct)
                 throw new ExistInOrder("This product cannot be deleted");
@@ -95,7 +115,7 @@ namespace BlImplementation
         //            }
         //            BO.OrderItem newOrderItem = new BO.OrderItem()
         //            {
-        //                IdOrderItem = item?.ID ?? 0,
+        //                OrderID = item?.ID ?? 0,
         //                IdProduct = itemOrderItem?.ProductID??0,
         //                Name = nameProduct,
         //                Price = itemOrderItem?.Price??0,
@@ -128,6 +148,7 @@ namespace BlImplementation
         //    }
         //    myDal.product.Delete(id); //Delete
         //}
+       
         /// <summary>
         /// Build a list of products of the ProductForList type and return the built list
         /// </summary>
@@ -135,52 +156,9 @@ namespace BlImplementation
         public IEnumerable<ProductForList> GetAllProducts(Func<DO.Product?, bool> func = null)
         {
             IEnumerable<DO.Product?> allProducts = myDal.product.GetAll(func);
-            List<BO.ProductForList> products = new List<BO.ProductForList>();
+            //List<BO.ProductForList> products = new List<BO.ProductForList>();
             //the loop go at all products
-            foreach (DO.Product? item in allProducts)
-            {
-                BO.ProductForList pr = new BO.ProductForList()
-                {
-                    Name = item?.Name,
-                    Price = item?.Price ?? 0,
-                    Category = (BO.Enums.Category)item?.Category,
-                    IdProduct = item?.ID ?? 0
-                };
-                products.Add(pr);
-            }
-            return products;
-            //return func is null ? from item in myDal.product.GetAll()
-            //                      select new BO.Product()
-            //                      {
-            //                          ID = item?.ID ?? throw new IncorrectData("ID is incorrect"),
-            //                          Name = item?.Name,
-            //                          Price = item?.Price ?? throw new IncorrectData("Price is incorrect"),
-            //                          InStock = item?.InStock ?? throw new IncorrectData("Amount in stock is incorrect"),
-            //                          Category = (BO.Enums.Category)item?.Category ?? throw new IncorrectData("Category is incorrect")
-            //                      } :
-            //        from item in myDal.product.GetAll()
-            //        where (func)
-            //        select new BO.Product()
-            //        {
-            //            ID = item?.ID ?? throw new IncorrectData("ID is incorrect"),
-            //            Name = item?.Name,
-            //            Price = item?.Price ?? throw new IncorrectData("Price is incorrect"),
-            //            InStock = item?.InStock ?? throw new IncorrectData("Amount in stock is incorrect"),
-            //            Category = (BO.Enums.Category)item?.Category ?? throw new IncorrectData("Category is incorrect")
-            //        };
-
-            //List<BO.ProductForList> productsList = new List<BO.ProductForList>();
-            ////return productsList.Select(p => myDal.product.GetAll());
-            //foreach (var item in myDal.product.GetAll())
-            //{
-            //    BO.ProductForList newProduct = new BO.ProductForList();
-            //    newProduct.Name = item?.Name;
-            //    newProduct.Price = item?.Price ?? 0;
-            //    newProduct.Category = (BO.Enums.Category)item?.Category;
-            //    newProduct.IdProduct = item?.ID ?? 0;
-            //    productsList.Add(newProduct);
-            //}
-            //return productsList;
+            return allProducts.Select(p => casting(p));
         }
 
         /// <summary>
@@ -297,7 +275,3 @@ namespace BlImplementation
     }
 
 }
-
-
-
-

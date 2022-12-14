@@ -45,10 +45,26 @@ public class DalOrderItem : IOrderItem
         throw new Exception("this OrderItem does not exist");
 
     }
-
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    public OrderItem GetByPredicat(Func<OrderItem?, bool> func)
+    {
+        return DataSource.orderItemList.FirstOrDefault(func) ??
+    //if this product does not exist in array
+    throw new Exception("this order does not exist");
+    }
 
     //return a list/array of all the orderItems that in stock
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool> func = null)
     {
         return func is null ? DataSource.orderItemList.Select(oI => oI) :
@@ -77,23 +93,23 @@ public class DalOrderItem : IOrderItem
 
     }
     //return object of orderItem by idProuct and idOrder
-    public OrderItem GetItemByIds(int idProuct, int idOrder)
-    {
-        List<OrderItem?> orderItems = DataSource.orderItemList;
-        return DataSource.orderItemList.FirstOrDefault(oI => oI?.ProductID == idProuct && oI?.OrderID == idOrder) ??
-        //if this id does not exist in array
-        throw new Exception("this id of orderItem does not exist");
-    }
+    //public OrderItem GetItemByIds(int idProuct, int idOrder)
+    //{
+    //    List<OrderItem?> orderItems = DataSource.orderItemList;
+    //    return DataSource.orderItemList.FirstOrDefault(oI => oI?.ProductID == idProuct && oI?.OrderID == idOrder) ??
+    //    //if this id does not exist in array
+    //    throw new Exception("this id of orderItem does not exist");
+    //}
 
     //return array of products by idOrder
 
-    public IEnumerable<OrderItem?> AllProductsOfOrder(int idOrder)
-    {
-        List<OrderItem?> orderItems = DataSource.orderItemList;
-        return DataSource.orderItemList.Where(oI => oI?.ID == idOrder) ??
+    //public IEnumerable<OrderItem?> AllProductsOfOrder(int idOrder)
+    //{
+    //    List<OrderItem?> orderItems = DataSource.orderItemList;
+    //    return DataSource.orderItemList.Where(oI => oI?.ID == idOrder) ??
 
-            throw new Exception("This order is empty");
-    }
+    //        throw new Exception("This order is empty");
+    //}
 
     
 }

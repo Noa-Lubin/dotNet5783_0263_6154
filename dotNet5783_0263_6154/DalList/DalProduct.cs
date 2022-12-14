@@ -52,6 +52,20 @@ internal class DalProduct : IProduct
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    public Product GetByPredicat(Func<Product?, bool> func)
+    {
+        return DataSource.productList.FirstOrDefault(func) ??
+    //if this product does not exist in array
+    throw new Exception("this order does not exist");
+    }
+
+
+    /// <summary>
     /// this function return an array of all the products
     /// </summary>
     /// <returns>array of all the products</returns>
