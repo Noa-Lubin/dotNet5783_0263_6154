@@ -32,11 +32,13 @@ namespace BlApi
         /// </summary>
         /// <param name="product"></param>
         public void AddProduct(Product product);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         public void DeleteProduct(int id);
+
         /// <summary>
         /// 
         /// </summary>

@@ -25,7 +25,7 @@
             <ComboBox Name="CategorySelector"  Background="#FFE52865"  SelectionChanged="CategorySelector_SelectionChanged" Margin="15,0,143,0" Grid.Column="1"/>
             <Button x:Name="clear"  Background="#FFE52865" Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Click="clear_Click" Height="47" Width="45" FontFamily="Stencil"/>
         </Grid>
-        <Label Content="סנן לפי קטגוריה:"   Grid.Column="0" HorizontalAlignment="Left" Width="138" Foreground="#FFE52865" FontSize="14" FontFamily="BN Cloud" Margin="157,-4,0,2"/>
+        <Label Content="קטגוריה"   Grid.Column="0" HorizontalAlignment="Left" Width="138" Foreground="#FFE52865" FontSize="14" FontFamily="BN Cloud" Margin="157,-4,0,2"/>
         <ListView x:Name="ProductsListview" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2" Margin="0,10,0,0" MouseDoubleClick="ProductsListview_MouseDoubleClick" Grid.Row="1">
             <ListView.View>
                 <GridView>

@@ -8,7 +8,7 @@ namespace BO
 {
     public class Enums
     {
-        public enum Category { miniDonuts, general, belgianWaffles, bigDonuts, desserts, cupcakes, specials };
+        public enum Category { miniDonuts, general, belgianWaffles, bigDonuts, desserts, cupcakes, specials, none };
         public enum OrderStatus { approved, sent, provided };
         public enum Choice { Exit, Product, Order, Cart };
         public enum ChoiceOrder { GetAllOrders, GetOrder, OrderDeliveryUpdate, OrderOfTracking, ShippingUpdate, UpdateOrder };

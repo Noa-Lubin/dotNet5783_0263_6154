@@ -363,17 +363,14 @@ internal class Project
                     int idOrder = int.Parse(Console.ReadLine());
                     Console.WriteLine("enter id of product");
                     int idProduct = int.Parse(Console.ReadLine());
-                    Console.WriteLine(myDal.orderItem.GetItemByIds(idProduct,idOrder));
+                    //Console.WriteLine(myDal.orderItem.GetItemByIds(idProduct,idOrder));
                     break;
 
                 case ChoiceOrderItem.viewAllProducts:
                     Console.WriteLine("enter id of your order");
                     int orderId = int.Parse(Console.ReadLine());
-                    IEnumerable<OrderItem?> orderItems= myDal.orderItem.AllProductsOfOrder(orderId);
-                    foreach (OrderItem item in orderItems)
-                    {
-                        Console.WriteLine(item);
-                    }
+                    //IEnumerable<OrderItem> orderItems = myDal.orderItem.GetAll(x => x. == orderId);
+
                     break;
 
                 default:

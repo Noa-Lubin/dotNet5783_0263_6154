@@ -11,6 +11,7 @@ namespace BlImplementation
     internal class Cart : ICart
     {
         static IDal myDal = new Dal.DalList();
+
         /// <summary>
         /// add a product to the cart and update the stock
         /// </summary>
@@ -21,36 +22,76 @@ namespace BlImplementation
         public BO.Cart AddProductToCart(int idProduct, BO.Cart cart)
         {
             DO.Product p = myDal.product.Get(idProduct); //Find the desired product by product code 
-            foreach (var item in cart.Items) // checking if this product is already exist
-            {
-                if (item.IdProduct == idProduct) //check by id
-                {
-                    if (p.InStock >= 1)
-                    {
-                        item.AmountInCart += 1;
-                        item.TotalPrice += item.Price;
-                        cart.TotalPrice += p.Price;//update the total price of all the cart
-                        return cart;
-                    }
-                    //הודעה מתאימה שהמוצר כבר קיים בסל ואין עוד ממנו במלאי
-                    throw new outOfStock("The product is already in the cart and there is no more of it in stock");
-                }
-            }
             if (p.InStock < 1) // Checking whether the product is out of stock
                 // הודעה מתאימה שהמוצר אזל
                 throw new outOfStock("The product is out of stock");
-            BO.OrderItem newOrderItem = new BO.OrderItem()//creat a new OrderItem
+            //foreach (var item in cart.Items) // checking if this product is already exist
+            //{
+            //    if (item.IdProduct == idProduct) //check by id
+            //    {
+            //        if (p.InStock >= 1)
+            //        {
+            //            item.AmountInCart += 1;
+            //            item.TotalPrice += item.Price;//for only one iem
+            //            cart.TotalPrice += p.Price;//update the total price of all the cart
+            //            return cart;
+            //        }
+
+            //    }
+            //}
+            bool existInCart = cart.Items.Any(orderItem => orderItem.IdProduct == idProduct);
+            if (!existInCart)//if this product is not exixt in cart
             {
-                Name = p.Name,
-                Price = p.Price,
-                IdProduct = p.ID,
-                AmountInCart = 1,
-                TotalPrice = p.Price
-            };
-            cart.Items.Add(newOrderItem);//add to list of cart
-            cart.TotalPrice += p.Price;//update the total price of all the cart
-            return cart;// return the cart
+                BO.OrderItem newOrderItem = new BO.OrderItem()//creat a new OrderItem
+                {
+                    Name = p.Name,
+                    Price = p.Price,
+                    IdProduct = p.ID,
+                    AmountInCart = 1,
+                    TotalPrice = p.Price
+                };
+                cart.Items.Add(newOrderItem);//add to list of cart
+                cart.TotalPrice += p.Price;//update the total price of all the cart
+                return cart;// return the cart
+            }
+            else//product is already in cart so only add one
+            {
+                BO.OrderItem ord = cart.Items.FirstOrDefault(orderItem => orderItem.IdProduct == idProduct);//find this item in cart
+                cart.Items.Remove(ord);//delete it
+                ord!.AmountInCart += 1;
+                ord.TotalPrice += ord.Price;//for only one item
+                cart.TotalPrice += p.Price;//update the total price of all the cart
+                cart.Items.Add(ord);//and add the updated
+                return cart;
+            }
         }
+
+
+        //private void DataIntegrityOfItem(BO.OrderItem orderItem)
+        //{
+            
+        //        if (orderItem.AmountInCart < 1) //Incorrect amount
+        //            throw new IncorrectData("The amount in cart is incorrect");
+        //        DO.Product p;
+        //        try
+        //        {
+        //            p = myDal.product.Get(orderItem.IdProduct);//Find the desired product by product id 
+        //        }
+        //        catch
+        //        {
+        //            throw new NotFound("The product is not found");
+        //        }
+
+        //        if (p.InStock < orderItem.AmountInCart)//there is no in stock
+        //            throw new outOfStock("There is no in stock");
+        //        if (orderItem.Name == null) //there is no name
+        //            throw new IncorrectData("Name is incorrect");
+        //        if (orderItem.Price <= 0) //Incorrect price
+        //            throw new IncorrectData("price is incorrect");
+            
+        //}
+
+
         /// <summary>
         /// make an order - add a new order and all the orderItems in this order
         /// </summary>
@@ -70,6 +111,7 @@ namespace BlImplementation
             if (address == null)
                 throw new IncorrectData("Address is incorrect");
             //Checking the integrity of the data
+            //cart.Items.Select(item => DataIntegrityOfItem(item));
             foreach (var item in cart.Items)
             {
                 if (item.AmountInCart < 1) //Incorrect amount
@@ -83,6 +125,7 @@ namespace BlImplementation
                 {
                     throw new NotFound("The product is not found");
                 }
+
                 if (p.InStock < item.AmountInCart)//there is no in stock
                     throw new outOfStock("There is no in stock");
                 if (item.Name == null) //there is no name
@@ -102,13 +145,13 @@ namespace BlImplementation
             int idOrder = myDal.order.Add(newOrder);//add order to list of orders
             foreach (var item in cart.Items)
             {
-                //create a new order
+                //create a new OrderItem
                 DO.OrderItem newOrderItem = new DO.OrderItem()
                 {
                     ProductID = item.IdProduct,
                     OrderID = idOrder,
                     Price = item.Price,
-                    Amount = item.AmountInCart,
+                    Amount = item.AmountInCart                    
                 };
                 myDal.orderItem.Add(newOrderItem);
 
@@ -118,6 +161,8 @@ namespace BlImplementation
             }
 
         }
+       
+
         /// <summary>
         /// Updating the quantity of a product in the cart
         /// </summary>
@@ -138,38 +183,33 @@ namespace BlImplementation
             {
                 throw new NotFound("The product is not found");
             }
+            BO.OrderItem ord = cart.Items.FirstOrDefault(orderItem => orderItem.IdProduct == idProduct);//find this item in cart
             if (amount == 0)// if the user want to delete this product from cart Completely
-                foreach (var item in cart.Items) //Go through all the products in the cart
-                {
-                    if (item.IdProduct == idProduct)
-                        cart.Items.Remove(item); //delete
-                }
-            if (p.InStock >= amount)//If there is the quantity in stock
             {
-                foreach (var item in cart.Items)//Go through all the products in the cart
-                {
-                    if (item.IdProduct == idProduct)
-                    {
-                        cart.TotalPrice += amount - item.AmountInCart * p.Price; //update the new price of the cart
-                        cart.Items.Remove(item);//delete this item
-                        //create a new OrderItem
-                        BO.OrderItem newOrderItem = new BO.OrderItem()
-                        {
-                            Name = p.Name,
-                            Price = p.Price,
-                            IdProduct = p.ID,
-                            AmountInCart = amount,
-                            TotalPrice = amount * p.Price
-                        };
-                        cart.Items.Add(newOrderItem); //add the new object
-                        return cart;
-                    }
-                }
+                cart.Items.Remove(ord);//delete it              
                 return cart;
             }
-            else
+            if (p.InStock < amount)//If there is no the quantity in stock
+            {
                 // If the quantity is not in stock
                 throw new outOfStock("There is no in stock");//הודעה מתאימה שהמוצר לא במלאי אין מספיק
+            }
+            else//If the user wants to add or subtract from the quantity of the item
+            {
+                cart.TotalPrice += (amount - ord.AmountInCart) * p.Price; //update the new price of the cart
+                cart.Items.Remove(ord);//delete this item
+                //create a new OrderItem
+                BO.OrderItem newOrderItem = new BO.OrderItem()
+                {
+                    Name = p.Name,
+                    Price = p.Price,
+                    IdProduct = p.ID,
+                    AmountInCart = amount,
+                    TotalPrice = amount * p.Price
+                };
+                cart.Items.Add(newOrderItem); //add the new object
+                return cart;
+            }
         }
     }
 }

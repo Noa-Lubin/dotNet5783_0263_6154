@@ -10,15 +10,17 @@ namespace BO
     {
         public override string ToString() => this.ToStringProperty();//ToString
 
-        // מזהה פריט הזמנה
+
+        //        מזהה פריט הזמנה
         //מזהה מוצר
         //שם מוצר
         //מחיר מוצר
         //כמות פריטים של מוצר בסל\הזמנה
+        //מחיר כולל של פריט(לפי מחיר מוצר וכמותו בהזמנה\סל)
         /// <summary>
         /// 
         /// </summary>
-        public int OrderID { get; set; }
+        public int OrderItemID { get; set; }
         /// <summary>
         /// 
         /// </summary>

@@ -26,7 +26,7 @@ namespace BlImplementation
             string nameProduct = p.Name;
             BO.OrderItem newOrderItem = new BO.OrderItem()
             {
-                OrderID = o?.OrderID ?? throw new IncorrectData("ID of orderItem is incorrect"),
+                //OrderID = o?.OrderID ?? throw new IncorrectData("ID of orderItem is incorrect"),
                 IdProduct = o?.ProductID ?? throw new IncorrectData("ID is incorrect"),
                 Name = nameProduct,
                 Price = o?.Price ?? throw new IncorrectData("Price is incorrect"),
@@ -157,6 +157,7 @@ namespace BlImplementation
         //    }
         //    return ordersForList;//retuen the list of OrderForList
         //}
+
         /// <summary>
         /// Help func - Casting object fromDO.Order? to BO.OrderForList
         /// </summary>
@@ -167,12 +168,10 @@ namespace BlImplementation
         {
             //parameter for status of order
             BO.Enums.OrderStatus statusEnum = OrderStatus.approved;
-            double sum = 0;
-            int amount = 0;
             //checkint what is the status of this order
-            if (o?.DeliveryrDate != default && o?.DeliveryrDate <= DateTime.Now)
+            if (o?.DeliveryrDate != default)
                 statusEnum = OrderStatus.provided;
-            else if (o?.ShipDate != default && o?.ShipDate <= DateTime.Now)
+            else if (o?.ShipDate != default )
                 statusEnum = OrderStatus.sent;
 
             IEnumerable<DO.OrderItem?> orderItems = myDal.orderItem.GetAll(orderItem => orderItem?.OrderID == o?.ID);//list of all orderItems
@@ -213,9 +212,9 @@ namespace BlImplementation
             DO.Order o = myDal.order.Get(idOrder);
             List<BO.OrderItem> orderItemList = new List<BO.OrderItem>(); //create list of OrderItem for the list of items in the new order
             //checkint what is the status of this order by the dates
-            if (o.DeliveryrDate != default && o.DeliveryrDate <= DateTime.Today)
+            if (o.DeliveryrDate != default)
                 statusEnum = OrderStatus.provided;
-            else if (o.ShipDate != default && o.ShipDate <= DateTime.Today)
+            else if (o.ShipDate != default)
                 statusEnum = OrderStatus.sent;
             //Goes through all the products of the received order
             orderItemList = myDal.orderItem.GetAll(x => x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList();
@@ -244,11 +243,11 @@ namespace BlImplementation
         public BO.Order OrderDeliveryUpdate(int idOrder)
         {
             DO.Order o = myDal.order.Get(idOrder);
-            if (o.DeliveryrDate != default && o.DeliveryrDate < DateTime.Now) //If the order has already been delivered
+            if (o.DeliveryrDate != default ) //If the order has already been delivered
             {
                 throw new IncorrectDateOrder("The order has already been delivered");//ההזמנה כבר סופקה
             }
-            if (o.ShipDate != default && o.ShipDate > DateTime.Now)//If the order has not yet been sent
+            if (o.ShipDate != default)//If the order has not yet been sent
             {
                 throw new IncorrectDateOrder("The order has not been sent yet");// ההזמנה לא נשלחה עדיין
             }
@@ -271,6 +270,7 @@ namespace BlImplementation
             };
             return newOrder;
         }
+
         /// <summary>
         /// Construct a ProductItem object Calculate missing information and return a constructed Product object
         /// </summary>
@@ -321,7 +321,7 @@ namespace BlImplementation
         public BO.Order ShippingUpdate(int idOrder)
         {
             DO.Order o = myDal.order.Get(idOrder);
-            if (o.ShipDate != default && o.ShipDate < DateTime.Now)//If the order has already been sent
+            if (o.ShipDate != default )//If the order has already been sent
             {
                 throw new IncorrectDateOrder("The order has already been sent");//ההזמנה כבר נשלחה
             }
@@ -368,7 +368,7 @@ namespace BlImplementation
         /// <exception cref="IncorrectDateOrder"></exception>
         public void UpdateOrder(BO.Order order)
         {
-            if (order.ShipDate != default && order.ShipDate <= DateTime.Now)
+            if (order.ShipDate != default)
                 //הודעה מתאימה שהמוצר כבר נשלח
                 throw new IncorrectDateOrder("The order has already been sent");
 
