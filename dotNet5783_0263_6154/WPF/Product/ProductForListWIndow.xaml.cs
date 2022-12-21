@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using BO;
+﻿using BO;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -18,26 +16,28 @@ namespace PL.Product
     /// </summary>
     public partial class ProductForListWIndow : Window
     {
-        private IBl _myBl = new BlImplementation.Bl();
-        private IBl _bl = new BlImplementation.Bl();
-        private IEnumerable<BO.ProductForList> _productsForList;
-        private IEnumerable<BO.ProductForList> productsByCategory;
+        //private IBl _myBl = new BlImplementation.Bl();
+        //private IBl _bl = new BlImplementation.Bl();
+        BlApi.IBl? _myBl = BlApi.Factory.Get();
+        BlApi.IBl? _bl = BlApi.Factory.Get();
+        private IEnumerable<BO.ProductForList?> _productsForList;
+        private IEnumerable<BO.ProductForList?> productsByCategory;
 
 
         /// <summary>
         /// Ctor - initializes the display of the list of all products
         /// </summary>
         /// <param name="bl"></param>
-        public ProductForListWIndow(IBl bl)
+        public ProductForListWIndow(BlApi.IBl? bl)
         {
             InitializeComponent();
             _myBl = bl;
-            CategorySelector.SelectedValue = "select";
 
-            _productsForList = _myBl.Product.GetAllProducts();//Inserts the list of all products into a variable 
+            _productsForList = _myBl?.Product.GetAllProducts()?? throw new Exception("There are no products");//Inserts the list of all products into a variable 
             ProductsListview.ItemsSource = _productsForList; //Displays the returned list
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));//Filter products by category
-            CategorySelector.SelectedIndex = 7;
+            CategorySelector.SelectedIndex = 7;//initialization to none
+            productsByCategory = _myBl?.Product.GetAllProducts() ?? throw new Exception("not connect to dataBase");//Initialize
         }
 
 
@@ -53,10 +53,10 @@ namespace PL.Product
             //Puts the selected filter value into a variable
             BO.Enums.Category categorySelect = (BO.Enums.Category)CategorySelector.SelectedItem;
             if ((BO.Enums.Category)(CategorySelector.SelectedItem) == BO.Enums.Category.none)
-                productsByCategory = _myBl.Product.GetAllProducts();
+                productsByCategory = _myBl?.Product.GetAllProducts() ?? throw new Exception("not connect to dataBase");
             else
             { //Calls the appropriate function and sends a delegate that it selects by category
-                productsByCategory = _myBl.Product.GetAllProducts(c => c.Value.Category == (DO.Enums.Category)(categorySelect));
+                productsByCategory = _myBl?.Product.GetAllProducts(x => x?.Category == (DO.Enums.Category)(categorySelect)) ?? throw new Exception("not connect to dataBase");
             }
            
             //Displaying the list of returned products
@@ -72,7 +72,7 @@ namespace PL.Product
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
             new ProductWindow().ShowDialog();
-            _productsForList = _myBl.Product.GetAllProducts();//Inserts the list of all products into a variable 
+            _productsForList = _myBl?.Product.GetAllProducts()?? throw new Exception("not connect to dataBase"); //Inserts the list of all products into a variable 
             ProductsListview.ItemsSource = _productsForList; //Displays the returned list
         }
 
@@ -84,7 +84,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void clear_Click(object sender, RoutedEventArgs e)
         {
-            _productsForList = _myBl.Product.GetAllProducts();//Inserts the list of all products into a variable 
+            _productsForList = _myBl?.Product.GetAllProducts() ?? throw new Exception("not connect to dataBase");//Inserts the list of all products into a variable 
             ProductsListview.ItemsSource = _productsForList; //Displays the returned list
         }
 
@@ -98,7 +98,7 @@ namespace PL.Product
         {
             int id = ((BO.ProductForList)((System.Windows.Controls.ListView)sender).SelectedItem).IdProduct;
             new ProductWindow(id).ShowDialog();
-            _productsForList = _myBl.Product.GetAllProducts();//Inserts the list of all products into a variable 
+            _productsForList = _myBl?.Product.GetAllProducts()?? throw new Exception("not connect to dataBase"); ;//Inserts the list of all products into a variable 
             ProductsListview.ItemsSource = _productsForList; //Displays the returned list
         }
         

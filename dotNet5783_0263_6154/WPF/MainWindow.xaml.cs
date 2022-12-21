@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.Windows;
-using BlApi;
 using PL.Product;
 
 namespace WPF
@@ -11,7 +10,7 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IBl myBl = new BlImplementation.Bl();
+        private BlApi.IBl? myBl = BlApi.Factory.Get();
 
         public MainWindow()
         {

@@ -27,7 +27,7 @@ namespace DalApi
         /// 
         /// </summary>
         /// <returns></returns>
-        IEnumerable<T?> GetAll(Func<T?, bool> func = null);
+        IEnumerable<T?> GetAll(Func<T?, bool>? func = null);
 
         /// <summary>
         /// 

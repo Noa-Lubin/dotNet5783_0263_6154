@@ -1,4 +1,4 @@
-﻿namespace DO
+﻿namespace BO
 {
     /// <summary>
     /// Exception for entity not found or ID missing

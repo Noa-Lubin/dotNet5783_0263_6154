@@ -1,5 +1,4 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using PL.Product;
 using System;
 using System.Linq;
@@ -8,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Xml.Linq;
-
 namespace WPF.Product
 {
     /// <summary>
@@ -16,7 +14,9 @@ namespace WPF.Product
     /// </summary>
     public partial class ProductWindow : Window
     {
-        private IBl _myBl = new BlImplementation.Bl();
+        //private IBl _myBl = new BlImplementation.Bl();
+        BlApi.IBl? _myBl = BlApi.Factory.Get();
+
         private string state = "";
 
 
@@ -47,7 +47,7 @@ namespace WPF.Product
             InitializeComponent();
             state = "update";
             //btnDelete.Visibility = Visibility.Hidden;//not now
-            //lblIncorrectName.Visibility = Visibility.Hidden; //not now
+            lblIncorrectName.Visibility = Visibility.Hidden; //not now
             btnAddOrUpdate.Content = state; //id add or update
             cmbCategory.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
             //Imports the desired product and brings all its data into the textBox
@@ -55,9 +55,9 @@ namespace WPF.Product
             txtId.Text = Convert.ToString(p?.ID);
             txtId.IsEnabled = false;
             txtName.Text = p?.Name;
-            txtPrice.Text = Convert.ToString(p.Price);
-            txtInStock.Text = Convert.ToString(p.InStock);
-            cmbCategory.SelectedItem = p.Category;
+            txtPrice.Text = Convert.ToString(p?.Price);
+            txtInStock.Text = Convert.ToString(p?.InStock);
+            cmbCategory.SelectedItem = p?.Category;
             lblTitle.Content = "עדכון מוצר"; //for the title
             lblIncorrectId.Visibility = Visibility.Hidden; //if the ID is incorrect so put a warrning
         }
@@ -94,7 +94,7 @@ namespace WPF.Product
                     // add a product to the list of products in the data layer
                     try
                     {
-                        _myBl.Product.AddProduct(p);
+                        _myBl?.Product.AddProduct(p);
                         MessageBox.Show("מוצר נוסף בהצלחה");
 
                     }
@@ -122,7 +122,7 @@ namespace WPF.Product
                         Name = txtName.Text,
                         Category = (BO.Enums.Category)(cmbCategory.SelectedItem)
                     };
-                    _myBl.Product.UpdateProduct(p);
+                    _myBl?.Product.UpdateProduct(p);
                     MessageBox.Show("מוצר התעדכן בהצלחה");
                     Close();
                 }

@@ -71,7 +71,7 @@ internal class DalProduct : IProduct
     /// this function return an array of all the products
     /// </summary>
     /// <returns>array of all the products</returns>
-    public IEnumerable<Product?> GetAll(Func<Product?, bool> func = null)
+    public IEnumerable<Product?> GetAll(Func<Product?, bool>? func = null)
     {
         return func is null ? DataSource.productList.Select(p => p) :
              DataSource.productList.Where(func);

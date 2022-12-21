@@ -12,7 +12,7 @@ namespace BlApi
         /// Request a list of products from the data layer and build a list of products based on the data
         /// </summary>
         /// <returns>the new list</returns>
-        public IEnumerable<ProductForList> GetAllProducts(Func<DO.Product?, bool> func = null);
+        public IEnumerable<ProductForList?> GetAllProducts(Func<DO.Product?, bool>? func = null);
 
         /// <summary>
         /// 

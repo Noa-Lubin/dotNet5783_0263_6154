@@ -1,5 +1,4 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using DalApi;
 using DO;
 using static BO.Enums;
@@ -8,13 +7,15 @@ namespace BlTest
 {
     internal class Program
     {
-        static IBl myBl = new BlImplementation.Bl();
+        //static IBl myBl = new BlImplementation.Bl();
+       static BlApi.IBl? myBl = BlApi.Factory.Get();
+
         private static BO.Cart boCart = new BO.Cart()
         {
             CustomerName = "shira Cohen",
             CustomerAdress = "remez 22",
             CustomerEmail = "shira6557@gmail.com",
-            Items = new List<BO.OrderItem>(),
+            Items = new List<BO.OrderItem?>(),
             TotalPrice = 0,
         };
 
@@ -52,7 +53,7 @@ namespace BlTest
                         Console.WriteLine("Choose from the following options:");
                         Console.WriteLine("miniDonuts, general, belgianWaffles, bigDonuts, desserts, cupcakes, specials");
                         Category c;
-                        string input = Console.ReadLine();
+                        string? input = Console.ReadLine();
                         bool check = Category.TryParse(input, out c);
                         if (!check)
                             throw new Exception("you press a wrong Ctegory");
@@ -63,7 +64,7 @@ namespace BlTest
                         product.InStock = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            myBl.Product.AddProduct(product);
+                            myBl?.Product.AddProduct(product);
                         }
                         catch (Exception str)
                         {
@@ -76,7 +77,7 @@ namespace BlTest
                         idProduct = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            myBl.Product.DeleteProduct(idProduct);
+                            myBl?.Product.DeleteProduct(idProduct);
                         }
                         catch (Exception str)
                         {
@@ -88,7 +89,7 @@ namespace BlTest
                         IEnumerable<ProductForList> products = new List<ProductForList>();
                         try
                         {
-                            products = myBl.Product.GetAllProducts();
+                            products = myBl?.Product.GetAllProducts() ?? throw new Exception("not connect to dataBase");
                         }
                         catch (Exception str)
                         {
@@ -106,7 +107,7 @@ namespace BlTest
                         idProduct = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            Console.WriteLine(myBl.Product.GetProduct(idProduct));
+                            Console.WriteLine(myBl?.Product.GetProduct(idProduct));
                         }
                         catch (Exception str)
                         {
@@ -118,7 +119,7 @@ namespace BlTest
                         idProduct = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            Console.WriteLine(myBl.Product.GetProductForList(idProduct, boCart));
+                            Console.WriteLine(myBl?.Product.GetProductForList(idProduct, boCart) ?? throw new Exception("not connect to dataBase"));
                         }
                         catch (Exception str)
                         {
@@ -141,7 +142,7 @@ namespace BlTest
                         Console.WriteLine("Choose from the following options:");
                         Console.WriteLine("miniDonuts, general, belgianWaffles, bigDonuts, desserts, cupcakes, specials");
                         Category c1;
-                        string input1 = Console.ReadLine();
+                        string? input1 = Console.ReadLine();
                         bool check1 = Category.TryParse(input1, out c1);
                         if (!check1)
                             throw new Exception("you press a wrong Ctegory");
@@ -150,7 +151,7 @@ namespace BlTest
                         product1.InStock = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            myBl.Product.UpdateProduct(product1);
+                            myBl?.Product.UpdateProduct(product1);
                         }
                         catch (Exception str)
                         {
@@ -201,7 +202,7 @@ namespace BlTest
 
                         try
                         {
-                            orders = myBl.Order.GetAllOrders();
+                            orders = myBl?.Order.GetAllOrders() ?? throw new Exception("not connect to dataBase");
                         }
                         catch (Exception str)
                         {
@@ -217,7 +218,7 @@ namespace BlTest
                         orderID = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            Console.WriteLine( myBl.Order.GetOrder(orderID));
+                            Console.WriteLine( myBl?.Order.GetOrder(orderID));
                         }
                         catch (Exception str)
                         {
@@ -229,7 +230,7 @@ namespace BlTest
                         orderID = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            Console.WriteLine(myBl.Order.OrderDeliveryUpdate(orderID));
+                            Console.WriteLine(myBl?.Order.OrderDeliveryUpdate(orderID));
                         }
                         catch (Exception str)
                         {
@@ -241,7 +242,7 @@ namespace BlTest
                         orderID = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            Console.WriteLine(myBl.Order.OrderOfTracking(orderID));
+                            Console.WriteLine(myBl?.Order.OrderOfTracking(orderID));
                         }
                         catch (Exception str)
                         {
@@ -253,7 +254,7 @@ namespace BlTest
                         orderID = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            Console.WriteLine(myBl.Order.ShippingUpdate(orderID));
+                            Console.WriteLine(myBl?.Order.ShippingUpdate(orderID));
                         }
                         catch (Exception str)
                         {
@@ -280,7 +281,7 @@ namespace BlTest
                             throw new IncorrectData("Email is Incorrect");
                         try
                         {
-                            myBl.Order.UpdateOrder(order);
+                            myBl?.Order.UpdateOrder(order);
                         }
                         catch (Exception str)
                         {
@@ -326,7 +327,7 @@ namespace BlTest
                         int idProduct = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            myBl.Cart.AddProductToCart(idProduct,boCart);
+                            myBl?.Cart.AddProductToCart(idProduct,boCart);
                         }
                         catch (Exception str)
                         {
@@ -336,14 +337,14 @@ namespace BlTest
 
                     case ChoiceCart.MakeOrder:
                         Console.WriteLine("enter your name:");
-                        string name = Console.ReadLine();
+                        string? name = Console.ReadLine();
                         Console.WriteLine("enter your email:");
-                        string email =Console.ReadLine();
+                        string? email =Console.ReadLine();
                         Console.WriteLine("enter your address:");
-                       string address = Console.ReadLine();
+                       string? address = Console.ReadLine();
                         try
                         {
-                            myBl.Cart.MakeOrder(boCart, name, email, address);
+                            myBl?.Cart.MakeOrder(boCart, name, email, address);
                         }
                         catch (Exception str)
                         {
@@ -359,7 +360,7 @@ namespace BlTest
                         int amount = Convert.ToInt32(Console.ReadLine());
                         try
                         {
-                            myBl.Cart.UpdateAmountOfProduct(idProduct, boCart, amount);
+                            myBl?.Cart.UpdateAmountOfProduct(idProduct, boCart, amount);
                         }
                         catch (Exception str)
                         {

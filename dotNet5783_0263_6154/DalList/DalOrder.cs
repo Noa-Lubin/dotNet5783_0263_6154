@@ -72,7 +72,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <returns>array of orders</returns>
 
-    public IEnumerable<Order?> GetAll(Func<Order?, bool> func = null)
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? func = null)
     {
         return func is null ? DataSource.orderList.Select(o => o) : 
             DataSource.orderList.Where(func);

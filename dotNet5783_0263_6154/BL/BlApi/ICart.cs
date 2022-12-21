@@ -34,6 +34,6 @@ namespace BlApi
         /// <param name="name">name</param>
         /// <param name="email">email</param>
         /// <param name="address">address</param>
-        public void MakeOrder(Cart cart, string name, string email, string address);
+        public void MakeOrder(Cart cart, string? name, string? email, string? address);
     }
 }

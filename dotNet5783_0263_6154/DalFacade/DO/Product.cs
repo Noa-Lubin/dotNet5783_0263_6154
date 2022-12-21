@@ -14,7 +14,7 @@ public struct Product
     /// <summary>
     /// Name
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Price
@@ -24,7 +24,7 @@ public struct Product
     /// <summary>
     /// Category
     /// </summary>
-    public Enums.Category Category { get; set; }
+    public Enums.Category? Category { get; set; }
 
     /// <summary>
     /// InStock

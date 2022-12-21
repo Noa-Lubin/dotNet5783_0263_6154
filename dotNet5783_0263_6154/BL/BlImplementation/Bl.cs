@@ -2,7 +2,7 @@
 using DO;
 namespace BlImplementation
 {
-    public class Bl : IBl
+    internal class Bl : IBl
     {
         public IProduct Product => new Product();
 

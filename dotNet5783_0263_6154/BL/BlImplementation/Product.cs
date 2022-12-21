@@ -1,6 +1,5 @@
 ﻿using BlApi;
 using BO;
-using DalApi;
 using DO;
 using System;
 using System.Runtime.CompilerServices;
@@ -11,7 +10,7 @@ namespace BlImplementation
 {
     internal class Product : BlApi.IProduct
     {
-        static IDal myDal = new Dal.DalList();
+        DalApi.IDal? myDal = DalApi.Factory.Get();
 
         /// <summary>
         /// Help func - casting object from DO.Product? to BO.ProductForList
@@ -24,7 +23,7 @@ namespace BlImplementation
             {
                 Name = p?.Name,
                 Price = p?.Price ?? 0,
-                Category = (BO.Enums.Category)p?.Category,
+                Category = (Category?)p?.Category,
                 IdProduct = p?.ID ?? 0
             };
             return pr;
@@ -39,12 +38,12 @@ namespace BlImplementation
         public void AddProduct(BO.Product product)
         {
             //Request from the data layer of all products
-            IEnumerable<DO.Product?> products = myDal.product.GetAll();
+            IEnumerable<DO.Product?> products = myDal?.product.GetAll()?? throw new Exception("not connect to dataBase");
             bool exist = false;
             exist = products.Any(p => p?.ID == product.ID);
             if (exist == true)
             {
-                throw new Duplication("This product is already exist");
+                throw new BO.Duplication("This product is already exist");
             }
             if (product.Name == " ")
                 throw new IncorrectData("Name is incorrect");
@@ -59,16 +58,16 @@ namespace BlImplementation
                 ID = product.ID,
                 Price = product.Price,
                 InStock = product.InStock,
-                Name = product.Name,
-                Category = (DO.Enums.Category)(product.Category)
+                Name = product?.Name ?? throw new Exception("not connect to dataBase"),
+                Category = (DO.Enums.Category)(product?.Category?? throw new Exception("not connect to dataBase"))
             };
             try
             {
-                myDal.product.Add(p);
+                myDal?.product.Add(p);
             }
             catch
             {
-                throw new NotFound("Add failed");
+                throw new BO.NotFound("Add failed");
             }
 
 
@@ -82,14 +81,14 @@ namespace BlImplementation
         public void DeleteProduct(int idProduct)
         {
             //Request from the data layer of all orders
-            IEnumerable<DO.Order?> orders = myDal.order.GetAll();
+            IEnumerable<DO.Order?> orders = myDal?.order.GetAll()?? throw new Exception("not connect to dataBase");
 
             bool isExsistProduct = orders.Any(currenOrder => myDal.orderItem.GetAll(x=>x?.OrderID == currenOrder?.ID)
             .Any(item => item?.ProductID == idProduct));
             if (!isExsistProduct)
                 throw new ExistInOrder("This product cannot be deleted");
             try { myDal.product.Delete(idProduct); }
-            catch { throw new NotFound("A non-existent product cannot be deleted"); }
+            catch { throw new BO.NotFound("A non-existent product cannot be deleted"); }
 
         }
         //public void DeleteProduct(int id)
@@ -153,9 +152,9 @@ namespace BlImplementation
         /// Build a list of products of the ProductForList type and return the built list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProductForList> GetAllProducts(Func<DO.Product?, bool> func = null)
+        public IEnumerable<ProductForList> GetAllProducts(Func<DO.Product?, bool>? func = null)
         {
-            IEnumerable<DO.Product?> allProducts = myDal.product.GetAll(func);
+            IEnumerable<DO.Product?> allProducts = myDal?.product.GetAll(func)?? throw new Exception("not connect to dataBase");
             //List<BO.ProductForList> products = new List<BO.ProductForList>();
             //the loop go at all products
             return allProducts.Select(p => casting(p));
@@ -175,11 +174,11 @@ namespace BlImplementation
             DO.Product p;
             try
             {
-                p = myDal.product.Get(idProduct);
+                p = myDal?.product.Get(idProduct) ?? throw new Exception("not connect to dataBase");
             }
-            catch (Exception ex)
+            catch
             {
-                throw new NotFound("Product is not exist");
+                throw new BO.NotFound("Product is not exist");
             }
             BO.Product product = new BO.Product() //create a new object to return
             {
@@ -187,7 +186,7 @@ namespace BlImplementation
                 Name = p.Name,
                 Price = p.Price,
                 InStock = p.InStock,
-                Category = (BO.Enums.Category)(p.Category),
+                Category = (BO.Enums.Category?)(p.Category),
             };
             return product;
         }
@@ -207,16 +206,16 @@ namespace BlImplementation
             DO.Product p;
             try
             {
-                p = myDal.product.Get(id);
+                p = myDal?.product.Get(id) ?? throw new Exception("not connect to dataBase");
             }
-            catch (Exception ex)
+            catch
             {
-                throw new NotFound("Product is not exist");
+                throw new BO.NotFound("Product is not exist");
             }
 
             //for know the amount
             BO.OrderItem? oI = cart.Items?.FirstOrDefault(p => p?.IdProduct == id);
-            amount = oI?.AmountInCart ?? throw new NotFound("This product is not exist in your cart");
+            amount = oI?.AmountInCart ?? throw new BO.NotFound("This product is not exist in your cart");
             //foreach (var item in cart.Items)
             //{
             //    if (item.IdProduct == id)
@@ -233,7 +232,7 @@ namespace BlImplementation
                 IdProduct = id,
                 Name = p.Name,
                 Price = p.Price,
-                Category = (BO.Enums.Category)(p.Category),
+                Category = (BO.Enums.Category?)(p.Category),
                 InStock = exist, //we calculated
                 Amount = amount //we calculated
             };
@@ -259,16 +258,16 @@ namespace BlImplementation
                 ID = product.ID,
                 Price = product.Price,
                 InStock = product.InStock,
-                Name = product.Name,
-                Category = (DO.Enums.Category)(product.Category)
+                Name = product?.Name ?? throw new IncorrectData("This product is wrong, name is incorrect"),
+                Category = (DO.Enums.Category)(product?.Category?? throw new IncorrectData("This product is wrong, Category is incorrect"))
             };
             try
             {
-                myDal.product.Update(p);
+                myDal?.product.Update(p);
             }
-            catch (Exception ex)
+            catch 
             {
-                throw new NotFound("The update failed");/*??Exception????*/
+                throw new BO.NotFound("The update failed");/*??Exception????*/
             }
         }
 

@@ -8,8 +8,10 @@ using DO;
 
 namespace Dal
 {
-    sealed public class DalList : IDal
+    sealed internal class DalList : IDal
     {
+        private DalList() {}//private ctor of class
+        public static IDal Instance { get; } = new DalList();
         public IProduct product => new DalProduct();
 
         public object Product => throw new NotImplementedException();

@@ -65,7 +65,7 @@ public class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
-    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool> func = null)
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? func = null)
     {
         return func is null ? DataSource.orderItemList.Select(oI => oI) :
             DataSource.orderItemList.Where(func);
