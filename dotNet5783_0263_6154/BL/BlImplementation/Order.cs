@@ -10,7 +10,7 @@ namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
     {
-        DalApi.IDal? myDal = DalApi.Factory.Get();
+        DalApi.IDal? _myDal = DalApi.Factory.Get();
 
         /// <summary>
         /// Help func - Casting object from DO.OrderItem? to BO.OrderItem
@@ -21,7 +21,7 @@ namespace BlImplementation
         private BO.OrderItem Casting(DO.OrderItem? o)
         {
             //create a new Product object to keep the name of product
-            DO.Product p = myDal?.product.Get(o?.ProductID ?? throw new IncorrectData("ID of product is incorrect"))?? throw new Exception("not connect to dataBase"); 
+            DO.Product p = _myDal!.product.Get(o?.ProductID ?? throw new IncorrectData("ID of product is incorrect")); 
             string? nameProduct = p.Name;
             BO.OrderItem newOrderItem = new BO.OrderItem()
             {
@@ -52,10 +52,7 @@ namespace BlImplementation
             else if (o?.ShipDate != default )
                 statusEnum = OrderStatus.sent;
 
-            IEnumerable<DO.OrderItem?> orderItems = myDal?.orderItem.GetAll(orderItem => orderItem?.OrderID == o?.ID)?? throw new Exception("not connect to dataBase");//list of all orderItems
-            //orderItems.Select(x => sum += x?.Price ?? 0 * x?.Amount ?? 0); //for totalPrice of order
-            //orderItems.Select(x => amount += x?.Amount ?? 0);//for amount in order
-
+            IEnumerable<DO.OrderItem?> orderItems = _myDal!.orderItem.GetAll(orderItem => orderItem?.OrderID == o?.ID);//list of all orderItems
             BO.OrderForList newOrderForList = new BO.OrderForList()
             {
                 IdOrder = o?.ID ?? throw new IncorrectData("ID of orderItem is incorrect"),
@@ -72,7 +69,7 @@ namespace BlImplementation
         /// <returns></returns>
         public IEnumerable<OrderForList> GetAllOrders(Func<DO.Product?, bool>? func = null)
         {
-            IEnumerable<DO.Order?> allOrders = myDal?.order.GetAll()?? throw new Exception("not connect to dataBase"); 
+            IEnumerable<DO.Order?> allOrders = _myDal!.order.GetAll(); 
             return allOrders.Select(p => castingOrder(p));
         }
 
@@ -87,7 +84,7 @@ namespace BlImplementation
             BO.Enums.OrderStatus statusEnum = OrderStatus.approved;//parameter for status of order Initialized to approved
             if (idOrder < 1) //checking if the id is possitive
                 throw new IncorrectData("ID of order is not incorrect");
-            DO.Order o = myDal?.order.Get(idOrder)?? throw new Exception("not connect to dataBase");
+            DO.Order o = _myDal!.order.Get(idOrder);
             List<BO.OrderItem> orderItemList = new List<BO.OrderItem>(); //create list of OrderItem for the list of items in the new order
             //checkint what is the status of this order by the dates
             if (o.DeliveryrDate != default)
@@ -95,7 +92,7 @@ namespace BlImplementation
             else if (o.ShipDate != default)
                 statusEnum = OrderStatus.sent;
             //Goes through all the products of the received order
-            orderItemList = myDal?.orderItem.GetAll(x => x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList()?? throw new Exception("not connect to dataBase");
+            orderItemList = _myDal!.orderItem.GetAll(x => x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList();
             BO.Order newOrder = new BO.Order()
             {
                 ID = idOrder,
@@ -120,7 +117,7 @@ namespace BlImplementation
         /// <exception cref="IncorrectDateOrder"></exception>
         public BO.Order OrderDeliveryUpdate(int idOrder)
         {
-            DO.Order o = myDal?.order.Get(idOrder)?? throw new Exception("not connect to dataBase");
+            DO.Order o = _myDal!.order.Get(idOrder);
             if (o.DeliveryrDate != default ) //If the order has already been delivered
             {
                 throw new IncorrectDateOrder("The order has already been delivered");//ההזמנה כבר סופקה
@@ -130,10 +127,10 @@ namespace BlImplementation
                 throw new IncorrectDateOrder("The order has not been sent yet");// ההזמנה לא נשלחה עדיין
             }
             o.DeliveryrDate = DateTime.Now; //update the DeliveryrDate
-            myDal?.order.Update(o);//update the DeliveryrDate in date
+            _myDal?.order.Update(o);//update the DeliveryrDate in date
             //I create a list of orderItems for the new order that has a figure that is a list of all the orderItems
             List<BO.OrderItem> orderItemList = new List<BO.OrderItem>();//A list for all orderItems
-            orderItemList = myDal?.orderItem.GetAll(x=>x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList()?? throw new Exception("not connect to dataBase"); 
+            orderItemList = _myDal!.orderItem.GetAll(x=>x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList(); 
 
             BO.Order newOrder = new BO.Order() //create order to return
             {
@@ -161,7 +158,7 @@ namespace BlImplementation
             DO.Order o;
             try
             {
-                o = myDal?.order.Get(idOrder)?? throw new Exception("not connect to dataBase");//checking if exist
+                o = _myDal!.order.Get(idOrder);//checking if exist
             }
             catch
             {
@@ -197,33 +194,16 @@ namespace BlImplementation
         /// <exception cref="IncorrectDateOrder"></exception>
         public BO.Order ShippingUpdate(int idOrder)
         {
-            DO.Order o = myDal?.order.Get(idOrder)?? throw new Exception("not connect to dataBase");
+            DO.Order o = _myDal!.order.Get(idOrder);
             if (o.ShipDate != default )//If the order has already been sent
             {
                 throw new IncorrectDateOrder("The order has already been sent");//ההזמנה כבר נשלחה
             }
             o.ShipDate = DateTime.Now;//update the ShipDate
-            myDal?.order.Update(o);//update the ShipDate in date
+            _myDal?.order.Update(o);//update the ShipDate in date
             //I create a list of orderItems for the new order that has a figure that is a list of all the orderItems
             List<BO.OrderItem> orderItemList = new List<BO.OrderItem>();//A list for all orderItems
-            orderItemList = myDal?.orderItem.GetAll(x => x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList()?? throw new Exception("not connect to dataBase");
-            //foreach (var item in myDal.orderItem.AllProductsOfOrder(idOrder))
-            //{
-            //    //create a new Product object to keep the name of product
-            //    DO.Product p = myDal.product.Get(item?.ProductID ?? 0);
-            //    string nameProduct = p.Name;
-            //    BO.OrderItem newOrderItem = new BO.OrderItem()
-            //    {
-            //        OrderID = idOrder,
-            //        IdProduct = item?.ProductID ?? throw new IncorrectData("ID is incorrect"),
-            //        Name = nameProduct,
-            //        Price = item?.Price ?? throw new IncorrectData("Price is incorrect"),
-            //        AmountInCart = item?.Amount ?? throw new IncorrectData("AmountInCart is incorrect"),
-            //        TotalPrice = item?.Price ?? 0 * item?.Amount ?? 0//Calculation of the final price
-
-            //    };
-            //    orderItemList.Add(newOrderItem);//add the new orderItem to the list
-            //}
+            orderItemList = _myDal!.orderItem.GetAll(x => x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList();
             BO.Order newOrder = new BO.Order()
             {
                 CustomerEmail = o.CustomerEmail,
@@ -249,20 +229,20 @@ namespace BlImplementation
                 //הודעה מתאימה שהמוצר כבר נשלח
                 throw new IncorrectDateOrder("The order has already been sent");
 
-            DO.Order o = myDal?.order.Get(order.ID)?? throw new Exception("not connect to dataBase");
+            DO.Order o = _myDal!.order.Get(order.ID);
 
             DO.Order newOrder = new DO.Order() //create order to add
             {
                 ID = order.ID,
-                CustomerEmail = order?.CustomerEmail ?? throw new Exception("This order is wrong, mail is incorrect"),
-                CustomerName = order?.CustomerName ?? throw new Exception("This order is wrong, name is incorrect"),
-                CustomerAdress = order?.CustomerAdress ?? throw new Exception("This order is wrong, address is incorrect"),
+                CustomerEmail = order?.CustomerEmail ?? throw new IncorrectData("This order is wrong, mail is incorrect"),
+                CustomerName = order?.CustomerName ?? throw new IncorrectData("This order is wrong, name is incorrect"),
+                CustomerAdress = order?.CustomerAdress ?? throw new IncorrectData("This order is wrong, address is incorrect"),
                 OrderDate = o.OrderDate,
                 ShipDate = o.ShipDate,
                 DeliveryrDate = o.DeliveryrDate,
 
             };
-            myDal?.order.Update(newOrder); //update by dal
+            _myDal?.order.Update(newOrder); //update by dal
         }
     }
 }

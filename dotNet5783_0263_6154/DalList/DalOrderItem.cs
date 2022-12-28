@@ -17,7 +17,12 @@ public class DalOrderItem : IOrderItem
         DataSource.orderItemList.Add(orderItem);
         return orderItem.ID;
     }
-    //delete this orderItem from array
+
+    /// <summary>
+    /// Delete this orderItem from array
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
         OrderItem oI = DataSource.orderItemList.FirstOrDefault(o => o?.ID == id) ??
@@ -35,7 +40,13 @@ public class DalOrderItem : IOrderItem
         //if this orderItem does not exist in array
         //throw new Exception("this orderItem does not exist");
     }
-    //Returns a orderItem by ID number
+
+    /// <summary>
+    /// Returns a orderItem by ID number
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public OrderItem Get(int id)
     {
         List<OrderItem?> orderItems = DataSource.orderItemList;
@@ -59,9 +70,8 @@ public class DalOrderItem : IOrderItem
     throw new Exception("this order does not exist");
     }
 
-    //return a list/array of all the orderItems that in stock
     /// <summary>
-    /// 
+    /// return a list/array of all the orderItems that in stock
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
@@ -71,7 +81,12 @@ public class DalOrderItem : IOrderItem
             DataSource.orderItemList.Where(func);
     }
 
-    //Updates the orderItem with new data 
+    /// <summary>
+    /// Updates the orderItem with new data 
+    /// </summary>
+    /// <param name="orderItem"></param>
+    /// <exception cref="Exception"></exception>
+    /// 
     public void Update(OrderItem orderItem)
     {
         OrderItem oI = DataSource.orderItemList.FirstOrDefault(o => o?.ID == orderItem.ID) ??
@@ -79,17 +94,6 @@ public class DalOrderItem : IOrderItem
        throw new Exception("This orderItem is not exist");
         DataSource.orderItemList.Remove(oI);
         DataSource.orderItemList.Add(orderItem);
-        //foreach (var item in DataSource.orderItemList)
-        //{
-        //    if (orderItem.ID == item?.ID)
-        //    {
-        //        DataSource.orderItemList.Remove(item);
-        //        DataSource.orderItemList.Add(orderItem);
-        //        return;
-        //    }
-        //}
-        //// if this orderItem does not exist in array
-        //throw new Exception("this orderItem does not exist");
 
     }
     //return object of orderItem by idProuct and idOrder

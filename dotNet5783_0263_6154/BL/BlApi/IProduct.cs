@@ -14,39 +14,33 @@ namespace BlApi
         /// <returns>the new list</returns>
         public IEnumerable<ProductForList?> GetAllProducts(Func<DO.Product?, bool>? func = null);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+       /// <summary>
+       /// Get product by id
+       /// </summary>
+       /// <param name="id"></param>
+       /// <returns></returns>
         public Product GetProduct(int id);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        //public ProductItem GetProductById(int id, Cart c);
 
         /// <summary>
-        /// 
+        /// add new product to list
         /// </summary>
         /// <param name="product"></param>
         public void AddProduct(Product product);
 
         /// <summary>
-        /// 
+        /// delete a product from list
         /// </summary>
         /// <param name="id"></param>
         public void DeleteProduct(int id);
 
         /// <summary>
-        /// 
+        /// update a specific product
         /// </summary>
         /// <param name="product"></param>
         public void UpdateProduct(Product product);
 
         /// <summary>
-        /// 
+        /// Get product of ProductForList
         /// </summary>
         /// <returns></returns>
         public ProductItem GetProductForList(int id, BO.Cart cart);

@@ -20,25 +20,10 @@ namespace BlImplementation
         /// <exception cref="outOfStock"></exception>
         public BO.Cart AddProductToCart(int idProduct, BO.Cart cart)
         {
-            DO.Product p = myDal?.product.Get(idProduct) ?? throw new Exception("not connect to dataBase"); //Find the desired product by product code 
+            DO.Product p = myDal!.product.Get(idProduct); //Find the desired product by product code 
             if (p.InStock < 1) // Checking whether the product is out of stock
                 // הודעה מתאימה שהמוצר אזל
                 throw new outOfStock("The product is out of stock");
-            //foreach (var item in cart.Items) // checking if this product is already exist
-            //{
-            //    if (item.IdProduct == idProduct) //check by id
-            //    {
-            //        if (p.InStock >= 1)
-            //        {
-            //            item.AmountInCart += 1;
-            //            item.TotalPrice += item.Price;//for only one iem
-            //            cart.TotalPrice += p.Price;//update the total price of all the cart
-            //            return cart;
-            //        }
-
-            //    }
-            //}
-
             bool existInCart = cart.Items?.Any(orderItem => orderItem?.IdProduct == idProduct) ?? false;
             if (!existInCart)//if this product is not exist in cart
             {
@@ -118,7 +103,7 @@ namespace BlImplementation
                 DO.Product p;
                 try
                 {
-                    p = myDal?.product.Get(item?.IdProduct ?? throw new BO.NotFound("Product is not exist, your cart is incorrect")) ?? throw new Exception("not connect to dataBase");//Find the desired product by product id 
+                    p = myDal!.product.Get(item?.IdProduct ?? throw new BO.NotFound("Product is not exist, your cart is incorrect")) ;//Find the desired product by product id 
                 }
                 catch
                 {
@@ -141,7 +126,7 @@ namespace BlImplementation
                 ShipDate = DateTime.MinValue,
                 DeliveryrDate = DateTime.MinValue,
             };
-            int idOrder = myDal?.order.Add(newOrder) ?? throw new Exception("not connect to dataBase");//add order to list of orders
+            int idOrder = myDal!.order.Add(newOrder) ;//add order to list of orders
             foreach (BO.OrderItem? item in cart.Items)
             {
                 //create a new OrderItem
@@ -154,7 +139,7 @@ namespace BlImplementation
                 };
                 myDal?.orderItem.Add(newOrderItem);
 
-                DO.Product p = myDal?.product.Get(item?.IdProduct ?? throw new BO.NotFound("Product is not exist, your cart is incorrect")) ?? throw new Exception("not connect to dataBase"); ; //Find the desired product by product code 
+                DO.Product p = myDal!.product.Get(item?.IdProduct ?? throw new BO.NotFound("Product is not exist, your cart is incorrect")) ; //Find the desired product by product code 
                 p.InStock -= item.AmountInCart; //update in stock of this product
                 myDal?.product.Update(p);
             }
@@ -176,7 +161,7 @@ namespace BlImplementation
             DO.Product p;
             try
             {
-                p = myDal?.product.Get(idProduct) ?? throw new Exception("not connect to dataBase"); ;//find product by id
+                p = myDal!.product.Get(idProduct); ;//find product by id
             }
             catch
             {

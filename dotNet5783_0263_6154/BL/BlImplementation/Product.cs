@@ -10,7 +10,7 @@ namespace BlImplementation
 {
     internal class Product : BlApi.IProduct
     {
-        DalApi.IDal? myDal = DalApi.Factory.Get();
+        DalApi.IDal? _myDal = DalApi.Factory.Get();
 
         /// <summary>
         /// Help func - casting object from DO.Product? to BO.ProductForList
@@ -38,7 +38,7 @@ namespace BlImplementation
         public void AddProduct(BO.Product product)
         {
             //Request from the data layer of all products
-            IEnumerable<DO.Product?> products = myDal?.product.GetAll()?? throw new Exception("not connect to dataBase");
+            IEnumerable<DO.Product?> products = _myDal!.product.GetAll();
             bool exist = false;
             exist = products.Any(p => p?.ID == product.ID);
             if (exist == true)
@@ -58,12 +58,12 @@ namespace BlImplementation
                 ID = product.ID,
                 Price = product.Price,
                 InStock = product.InStock,
-                Name = product?.Name ?? throw new Exception("not connect to dataBase"),
-                Category = (DO.Enums.Category)(product?.Category?? throw new Exception("not connect to dataBase"))
+                Name = product!.Name,
+                Category = (DO.Enums.Category)product!.Category
             };
             try
             {
-                myDal?.product.Add(p);
+                _myDal?.product.Add(p);
             }
             catch
             {
@@ -81,72 +81,16 @@ namespace BlImplementation
         public void DeleteProduct(int idProduct)
         {
             //Request from the data layer of all orders
-            IEnumerable<DO.Order?> orders = myDal?.order.GetAll()?? throw new Exception("not connect to dataBase");
+            IEnumerable<DO.Order?> orders = _myDal!.order.GetAll();
 
-            bool isExsistProduct = orders.Any(currenOrder => myDal.orderItem.GetAll(x=>x?.OrderID == currenOrder?.ID)
+            bool isExsistProduct = orders.Any(currenOrder => _myDal.orderItem.GetAll(x=>x?.OrderID == currenOrder?.ID)
             .Any(item => item?.ProductID == idProduct));
             if (!isExsistProduct)
                 throw new ExistInOrder("This product cannot be deleted");
-            try { myDal.product.Delete(idProduct); }
+            try { _myDal.product.Delete(idProduct); }
             catch { throw new BO.NotFound("A non-existent product cannot be deleted"); }
 
         }
-        //public void DeleteProduct(int id)
-        //{
-        //    List<BO.Order?> ordersList = new List<BO.Order?>();
-        //    List<BO.OrderItem?> orderItemList = new List<BO.OrderItem?>(); //create list of OrderItem for the list of items in the new order
-        //    foreach (var item in myDal.order.GetAll())
-        //    {
-        //        //Goes through all the products of the received order
-        //        foreach (var itemOrderItem in myDal.orderItem.AllProductsOfOrder(item?.ID??0))
-        //        {
-        //            //create a new Product object to keep the name of product in parameter
-        //            DO.Product p;
-        //            string nameProduct;
-        //            try
-        //            {
-        //                p = myDal.product.Get(itemOrderItem?.ProductID??0);
-        //                nameProduct = p.Name;
-        //            }
-        //            catch
-        //            {
-        //                throw new NotFound("Product is not found");
-        //            }
-        //            BO.OrderItem newOrderItem = new BO.OrderItem()
-        //            {
-        //                OrderID = item?.ID ?? 0,
-        //                IdProduct = itemOrderItem?.ProductID??0,
-        //                Name = nameProduct,
-        //                Price = itemOrderItem?.Price??0,
-        //                AmountInCart = itemOrderItem?.Amount??0,
-        //                TotalPrice = itemOrderItem?.Price??0 * itemOrderItem?.Amount??0//Calculation of the final price
-
-        //            };
-        //            orderItemList.Add(newOrderItem);//add this order item to the list of all
-        //            BO.Order newOrder = new BO.Order
-        //            {
-        //                ID = item?.ID??0,
-        //                CustomerName = item?.CustomerName,
-        //                CustomerAdress = item?.CustomerAdress,
-        //                CustomerEmail = item?.CustomerEmail,
-        //                OrderDate = item?.OrderDate,
-        //                ShipDate = item?.ShipDate,
-        //                DeliveryrDate = item?.DeliveryrDate,
-        //                Items = orderItemList
-        //            };
-        //            ordersList.Add(newOrder);
-        //        }
-        //        foreach (var item1 in ordersList)//all orders
-        //        {
-        //            foreach (var pItem in myDal.orderItem.AllProductsOfOrder(item1.ID))//all orderItems of every order
-        //            {
-        //                if (pItem?.ProductID == id) //if the producte is exist in an orser
-        //                    throw new ExistInOrder("Delete is faild. The product is exist in an order");
-        //            }
-        //        }
-        //    }
-        //    myDal.product.Delete(id); //Delete
-        //}
        
         /// <summary>
         /// Build a list of products of the ProductForList type and return the built list
@@ -154,7 +98,7 @@ namespace BlImplementation
         /// <returns></returns>
         public IEnumerable<ProductForList> GetAllProducts(Func<DO.Product?, bool>? func = null)
         {
-            IEnumerable<DO.Product?> allProducts = myDal?.product.GetAll(func)?? throw new Exception("not connect to dataBase");
+            IEnumerable<DO.Product?> allProducts = _myDal!.product.GetAll(func);
             //List<BO.ProductForList> products = new List<BO.ProductForList>();
             //the loop go at all products
             return allProducts.Select(p => casting(p));
@@ -174,7 +118,7 @@ namespace BlImplementation
             DO.Product p;
             try
             {
-                p = myDal?.product.Get(idProduct) ?? throw new Exception("not connect to dataBase");
+                p = _myDal!.product.Get(idProduct);
             }
             catch
             {
@@ -206,7 +150,7 @@ namespace BlImplementation
             DO.Product p;
             try
             {
-                p = myDal?.product.Get(id) ?? throw new Exception("not connect to dataBase");
+                p = _myDal!.product.Get(id);
             }
             catch
             {
@@ -216,12 +160,6 @@ namespace BlImplementation
             //for know the amount
             BO.OrderItem? oI = cart.Items?.FirstOrDefault(p => p?.IdProduct == id);
             amount = oI?.AmountInCart ?? throw new BO.NotFound("This product is not exist in your cart");
-            //foreach (var item in cart.Items)
-            //{
-            //    if (item.IdProduct == id)
-            //        amount = item.AmountInCart;
-            //}
-
             //checking if this is exist in stock or not
             bool exist = false;
             if (p.InStock > 0)
@@ -263,7 +201,7 @@ namespace BlImplementation
             };
             try
             {
-                myDal?.product.Update(p);
+                _myDal?.product.Update(p);
             }
             catch 
             {

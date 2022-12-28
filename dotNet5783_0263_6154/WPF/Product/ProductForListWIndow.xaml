@@ -33,6 +33,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnAddProduct" Background="#FFE52865" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="591,0,0,2" Padding="5" Click="btnAddProduct_Click" Grid.ColumnSpan="2" FontFamily="Stencil" Width="205" Height="26" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnAddProduct" Background="#FFE52865" Content="הוספת מוצר" Grid.Row="2" HorizontalAlignment="Left" Margin="591,0,0,2" Padding="5" Click="btnAddProduct_Click" Grid.ColumnSpan="2"  BorderThickness="2" FontFamily="Stencil" Width="205" Height="30" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

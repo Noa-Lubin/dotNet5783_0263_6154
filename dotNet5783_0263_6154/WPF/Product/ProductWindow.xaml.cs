@@ -1,12 +1,6 @@
-﻿using BO;
-using PL.Product;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Xml.Linq;
 namespace WPF.Product
 {
     /// <summary>
@@ -14,11 +8,8 @@ namespace WPF.Product
     /// </summary>
     public partial class ProductWindow : Window
     {
-        //private IBl _myBl = new BlImplementation.Bl();
-        BlApi.IBl? _myBl = BlApi.Factory.Get();
-
+        BlApi.IBl _myBl = BlApi.Factory.Get();
         private string state = "";
-
 
         /// <summary>
         /// ctor for add
@@ -34,9 +25,7 @@ namespace WPF.Product
             lblTitle.Content = "הוספת מוצר";
             lblIncorrectId.Visibility = Visibility.Hidden;
             lblIncorrectName.Visibility = Visibility.Hidden;
-
         }
-
 
         /// <summary>
         /// ctor with parameter for update
@@ -78,7 +67,6 @@ namespace WPF.Product
                     MessageBox.Show("מזהה מוצר שהוקש לא תקין");
                 else if (cmbCategory.SelectedIndex == 7) //checking if the selected category is not none
                     MessageBox.Show("לא נבחרה קטגוריה למוצר");
-
                 else
                 {
                     bool succeed = true;
@@ -94,7 +82,7 @@ namespace WPF.Product
                     // add a product to the list of products in the data layer
                     try
                     {
-                        _myBl?.Product.AddProduct(p);
+                        _myBl.Product.AddProduct(p);
                         MessageBox.Show("מוצר נוסף בהצלחה");
 
                     }
@@ -122,7 +110,7 @@ namespace WPF.Product
                         Name = txtName.Text,
                         Category = (BO.Enums.Category)(cmbCategory.SelectedItem)
                     };
-                    _myBl?.Product.UpdateProduct(p);
+                    _myBl.Product.UpdateProduct(p);
                     MessageBox.Show("מוצר התעדכן בהצלחה");
                     Close();
                 }
@@ -137,6 +125,7 @@ namespace WPF.Product
         //    MessageBox.Show("מוצר נמחק בהצלחה");
         //    Close();
         //}
+
 
         /// <summary>
         /// for close this window if the user regreted

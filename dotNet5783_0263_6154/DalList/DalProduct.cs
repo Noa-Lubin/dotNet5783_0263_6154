@@ -28,16 +28,7 @@ internal class DalProduct : IProduct
         //  if this product does not exist in array
         throw new Exception("This product is not exist");
         DataSource.productList.Remove(pro);
-        //foreach (var item in DataSource.productList)
-        //{
-        //    if (item?.ID == id)
-        //    {
-        //        DataSource.productList.Remove(item);
-        //        return;
-        //    }
-        //}
     }
-
 
     /// <summary>
     /// this product return a product by ID
@@ -89,18 +80,5 @@ internal class DalProduct : IProduct
         throw new Exception("This product is not exist");
         DataSource.productList.Remove(pro);
         DataSource.productList.Add(product);
-
-        //  foreach (var item in DataSource.productList)
-        //  {
-
-        //      if (product.ID == item?.ID)
-        //      {
-        //          DataSource.productList.Remove(item);
-        //          DataSource.productList.Add(product);
-        //          return;
-        //      }
-        //  }
-        ////  if this product does not exist in array
-        //  throw new Exception("this product does not exist");
     }
 }
