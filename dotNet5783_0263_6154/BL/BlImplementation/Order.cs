@@ -1,8 +1,9 @@
-﻿
-using BO;
+﻿using BO;
+using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using static BO.Enums;
 
 
@@ -42,7 +43,7 @@ namespace BlImplementation
         /// <param name="o"></param>
         /// <returns></returns>
         /// <exception cref="IncorrectData"></exception>
-        private BO.OrderForList castingOrder(DO.Order? o)
+        private BO.Enums.OrderStatus Status(DO.Order? o)
         {
             //parameter for status of order
             BO.Enums.OrderStatus statusEnum = OrderStatus.approved;
@@ -51,17 +52,7 @@ namespace BlImplementation
                 statusEnum = OrderStatus.provided;
             else if (o?.ShipDate != default )
                 statusEnum = OrderStatus.sent;
-
-            IEnumerable<DO.OrderItem?> orderItems = _myDal!.orderItem.GetAll(orderItem => orderItem?.OrderID == o?.ID);//list of all orderItems
-            BO.OrderForList newOrderForList = new BO.OrderForList()
-            {
-                IdOrder = o?.ID ?? throw new IncorrectData("ID of orderItem is incorrect"),
-                Name = o?.CustomerName ?? throw new IncorrectData("ID is incorrect"),
-                status = statusEnum,
-                amount = orderItems.Count(),
-                TotalPrice = orderItems.Sum(orderItem => orderItem?.Price * orderItem?.Amount) ?? 0
-            };
-            return newOrderForList;
+            return statusEnum;
         }
         /// <summary>
         /// build a new list of OrderForList and return this
@@ -69,8 +60,18 @@ namespace BlImplementation
         /// <returns></returns>
         public IEnumerable<OrderForList> GetAllOrders(Func<DO.Product?, bool>? func = null)
         {
-            IEnumerable<DO.Order?> allOrders = _myDal!.order.GetAll(); 
-            return allOrders.Select(p => castingOrder(p));
+            IEnumerable<DO.Order?> allOrders = _myDal!.order.GetAll();
+
+            return from DO.Order? o in allOrders
+                   let orderItems = _myDal.orderItem.GetAll(x => x?.OrderID == o?.ID)
+                   select new BO.OrderForList()
+                   {
+                       IdOrder = o?.ID ?? throw new IncorrectData("ID of orderItem is incorrect"),
+                       Name = o?.CustomerName ?? throw new IncorrectData("ID is incorrect"),
+                       status = Status(o),
+                       amount = orderItems.Count(),
+                       TotalPrice = orderItems.Sum(orderItem => orderItem?.Price * orderItem?.Amount) ?? 0
+                   };
         }
 
         /// <summary>
@@ -102,10 +103,11 @@ namespace BlImplementation
                 OrderDate = o.OrderDate,
                 ShipDate = o.ShipDate,
                 DeliveryrDate = o.DeliveryrDate,
-                //TotalPrice = ,
+                TotalPrice = orderItemList.Sum(orderItem => orderItem?.Price * orderItem?.AmountInCart) ?? 0,
                 Status = statusEnum,
                 Items = orderItemList as List<BO.OrderItem?>//the list I created before
             };
+
             return newOrder; //return the order
         }
 
@@ -121,10 +123,6 @@ namespace BlImplementation
             if (o.DeliveryrDate != default ) //If the order has already been delivered
             {
                 throw new IncorrectDateOrder("The order has already been delivered");//ההזמנה כבר סופקה
-            }
-            if (o.ShipDate != default)//If the order has not yet been sent
-            {
-                throw new IncorrectDateOrder("The order has not been sent yet");// ההזמנה לא נשלחה עדיין
             }
             o.DeliveryrDate = DateTime.Now; //update the DeliveryrDate
             _myDal?.order.Update(o);//update the DeliveryrDate in date
@@ -210,7 +208,7 @@ namespace BlImplementation
                 CustomerName = o.CustomerName,
                 CustomerAdress = o.CustomerAdress,
                 OrderDate = o.OrderDate,
-                ShipDate = o.ShipDate, //now
+                ShipDate = DateTime.Now, //now
                 DeliveryrDate = o.DeliveryrDate,
                 Status = BO.Enums.OrderStatus.sent,
                 Items = orderItemList as List<BO.OrderItem?>//the list I created before

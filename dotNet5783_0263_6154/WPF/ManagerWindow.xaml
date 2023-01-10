@@ -1,0 +1,15 @@
+﻿<Window x:Class="PL.ManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+     Title="ManagerWindow" Height="450" Width="800" Background="#FFE52865">
+
+    <Grid>
+        <Button x:Name="ToProductsListButton"  Background="White" VerticalAlignment="Top" Height="54"  Content="רשימת מוצרים" Margin="341,42,360,0" Click="ToProductsListButton_Click"/>
+        <Button x:Name="ToOrdersListButton"  Background="White" VerticalAlignment="Top" Height="54" Content="רשימת הזמנות" Margin="341,138,360,0" Click="ToOrdersListButton_Click"/>
+
+    </Grid>
+</Window>

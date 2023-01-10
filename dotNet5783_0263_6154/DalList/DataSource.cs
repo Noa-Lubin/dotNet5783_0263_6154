@@ -54,26 +54,43 @@ internal static class DataSource
     private static int[] priceStart = new int[7] { 12, 10, 15, 20, 25, 30, 22 };
     private static int[] priceTo = new int[7] { 35, 40, 50, 60, 57, 45, 70 };
     //array to stock
-    private static int[] inStock = new int[7] { 50, 90, 45, 30, 20, 17, 80 };
+    private static int[] inStock = new int[7] { 50, 0, 45, 30, 20, 17, 80 };
     //fill 10 product in array
     private static void InitCreatProductToList()
     {
-        for (int i = 0; i < 10; i++)
+        int c = 0;
+        for (int i = 0; i < 7; i++)
         {
-            int category = rnd.Next(4);
-            int name = rnd.Next(2);
-            Product newProduct = new Product
+            for (int j = 0; j < 4; j++)
             {
-                ID = i + 100000,
-                Name = nameProduct[category, name],
-                Price = rnd.Next(priceStart[category], priceTo[category]),
+                Product newProduct = new Product
+                {
+                    ID = c++ + 100000,
+                    Name = nameProduct[i, j],
+                    Price = rnd.Next(priceStart[i], priceTo[i]),
+                    InStock = rnd.Next(inStock[i]),
+                    Category = (Enums.Category)i
+                };
+                productList.Add(newProduct);
 
-                InStock = rnd.Next(inStock[category]),
-                Category = (Category)category
-            };
+            }
 
-            productList.Add(newProduct);
         }
+        //for (int i = 0; i < 12; i++)
+        //{
+        //    int category = rnd.Next(7);
+        //    int name = rnd.Next(4);
+        //    Product newProduct = new Product
+        //    {
+        //        ID = i + 100000,
+        //        Name = nameProduct[category, name],
+        //        Price = rnd.Next(priceStart[category], priceTo[category]),
+        //        InStock = rnd.Next(inStock[category]),
+        //        Category = (Category)category
+        //    };
+
+        //    productList.Add(newProduct);
+        //}
     }
     #endregion
 

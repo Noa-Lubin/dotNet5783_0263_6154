@@ -44,5 +44,7 @@ namespace BlApi
         /// </summary>
         /// <returns></returns>
         public ProductItem GetProductForList(int id, BO.Cart cart);
+        public IEnumerable<ProductItem> GetCatalog(Func<DO.Product?, bool>? func = null);
+
     }
 }

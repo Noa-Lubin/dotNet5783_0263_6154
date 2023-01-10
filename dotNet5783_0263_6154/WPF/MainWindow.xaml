@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="#FFE52865">
 
-        <Grid>
-        <Button x:Name="ToProductsListButton"  Background="White" VerticalAlignment="Top" Height="54" Width="80" Click="ToProductsListButton_Click" Content="productsList"/>
+    <Grid>
+        <Button x:Name="ToCatalog"  Background="White" VerticalAlignment="Top" Height="54" Content="יצירת הזמנה" Margin="340,226,360,0" Click="ToCatalog_Click"/>
+        <Button x:Name="ToTracking"  Background="White" VerticalAlignment="Top" Height="54" Content="למעקב הזמנה" Margin="340,327,360,0" Click="ToTracking_Click"/>
+        <Button x:Name="Manager"  Background="White" VerticalAlignment="Top" Height="54" Content="כניסת מנהל" Margin="346,90,355,0" RenderTransformOrigin="2.286,0.624" Click="Manager_Click"/>
 
     </Grid>
 </Window>

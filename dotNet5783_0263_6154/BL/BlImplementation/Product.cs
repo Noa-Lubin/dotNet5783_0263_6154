@@ -4,6 +4,7 @@ using DO;
 using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Xml.Linq;
 using static BO.Enums;
 
 namespace BlImplementation
@@ -11,6 +12,7 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         DalApi.IDal? _myDal = DalApi.Factory.Get();
+
 
         /// <summary>
         /// Help func - casting object from DO.Product? to BO.ProductForList
@@ -28,6 +30,22 @@ namespace BlImplementation
             };
             return pr;
         }
+
+
+        private BO.ProductItem castingProduct(DO.Product? p)
+        {
+            BO.ProductItem? productItem = new BO.ProductItem()
+            {
+                IdProduct = p?.ID??0,
+                Name = p?.Name,
+                Price = p?.Price ?? 0,
+                Category = (Category?)p?.Category,
+                InStock = p?.InStock > 0 ? true : false,
+                Amount = p?.InStock??0
+            };
+            return productItem;
+        }
+
 
         /// <summary>
         /// Add a new product to the list of all products
@@ -69,9 +87,9 @@ namespace BlImplementation
             {
                 throw new BO.NotFound("Add failed");
             }
-
-
         }
+
+
         /// <summary>
         /// Delete a product from the list of all products
         /// </summary>
@@ -92,6 +110,7 @@ namespace BlImplementation
 
         }
        
+       
         /// <summary>
         /// Build a list of products of the ProductForList type and return the built list
         /// </summary>
@@ -99,10 +118,19 @@ namespace BlImplementation
         public IEnumerable<ProductForList> GetAllProducts(Func<DO.Product?, bool>? func = null)
         {
             IEnumerable<DO.Product?> allProducts = _myDal!.product.GetAll(func);
-            //List<BO.ProductForList> products = new List<BO.ProductForList>();
             //the loop go at all products
-            return allProducts.Select(p => casting(p));
+            return from DO.Product? p in allProducts
+                   orderby p?.Name
+                   select new BO.ProductForList()
+                   {
+                       Name = p?.Name,
+                       Price = p?.Price ?? 0,
+                       Category = (Category?)p?.Category,
+                       IdProduct = p?.ID ?? 0
+                   };
+            //return allProducts.Select(p => casting(p));
         }
+
 
         /// <summary>
         /// Get Product by ID
@@ -134,6 +162,8 @@ namespace BlImplementation
             };
             return product;
         }
+       
+        
         /// <summary>
         /// Build a ProductItem object based on the received data and calculate missing information and return a built productItem
         /// </summary>
@@ -159,7 +189,7 @@ namespace BlImplementation
 
             //for know the amount
             BO.OrderItem? oI = cart.Items?.FirstOrDefault(p => p?.IdProduct == id);
-            amount = oI?.AmountInCart ?? throw new BO.NotFound("This product is not exist in your cart");
+            amount = oI?.AmountInCart ?? 0;
             //checking if this is exist in stock or not
             bool exist = false;
             if (p.InStock > 0)
@@ -176,6 +206,8 @@ namespace BlImplementation
             };
             return productItem;
         }
+      
+        
         /// <summary>
         /// update details of product 
         /// </summary>
@@ -209,6 +241,25 @@ namespace BlImplementation
             }
         }
 
+
+        public IEnumerable<ProductItem> GetCatalog(Func<DO.Product?, bool>? func = null)
+        {
+            IEnumerable<DO.Product?> allProducts = _myDal!.product.GetAll(func);
+            //the loop go at all products
+            return from DO.Product? p in allProducts
+                   orderby p?.Name
+                   select new BO.ProductItem()
+                   {
+                       IdProduct = p?.ID ?? 0,
+                       Name = p?.Name,
+                       Price = p?.Price ?? 0,
+                       Category = (Category?)p?.Category,
+                       InStock = p?.InStock > 0 ? true : false,
+                       Amount = p?.InStock ?? 0
+                   };
+
+            //return allProducts.Select(p => castingProduct(p));
+        }
     }
 
 }

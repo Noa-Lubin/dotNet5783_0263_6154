@@ -1,6 +1,8 @@
 ﻿using BlApi;
 using BO;
+using DalApi;
 using DO;
+using System;
 using System.Data;
 using static BO.Enums;
 
@@ -24,6 +26,17 @@ namespace BlImplementation
             if (p.InStock < 1) // Checking whether the product is out of stock
                 // הודעה מתאימה שהמוצר אזל
                 throw new outOfStock("The product is out of stock");
+            if(cart.Items == null) cart.Items = new List<BO.OrderItem?>();
+            DO.Product newProduct = new DO.Product()
+            {
+                ID = idProduct,
+                Name = p.Name,
+                Category = p.Category,
+                Price = p.Price,
+                InStock = p.InStock - 1,
+            };
+            myDal!.product.Delete(idProduct);
+            myDal.product.Add(newProduct);
             bool existInCart = cart.Items?.Any(orderItem => orderItem?.IdProduct == idProduct) ?? false;
             if (!existInCart)//if this product is not exist in cart
             {
@@ -51,29 +64,40 @@ namespace BlImplementation
             }
         }
 
-        //private void DataIntegrityOfItem(BO.OrderItem orderItem)
-        //{
+        private void DataIntegrityOfItem(BO.OrderItem orderItem, int idOrder)
+        {
 
-        //        if (orderItem.AmountInCart < 1) //Incorrect amount
-        //            throw new IncorrectData("The amount in cart is incorrect");
-        //        DO.Product p;
-        //        try
-        //        {
-        //            p = myDal.product.Get(orderItem.IdProduct);//Find the desired product by product id 
-        //        }
-        //        catch
-        //        {
-        //            throw new NotFound("The product is not found");
-        //        }
+            if (orderItem.AmountInCart < 1) //Incorrect amount
+                throw new IncorrectData("The amount in cart is incorrect");
+            DO.Product p;
+            try
+            {
+                p = myDal!.product.Get(orderItem.IdProduct);//Find the desired product by product id 
+            }
+            catch
+            {
+                throw new BO.NotFound("The product is not found");
+            }
 
-        //        if (p.InStock < orderItem.AmountInCart)//there is no in stock
-        //            throw new outOfStock("There is no in stock");
-        //        if (orderItem.Name == null) //there is no name
-        //            throw new IncorrectData("Name is incorrect");
-        //        if (orderItem.Price <= 0) //Incorrect price
-        //            throw new IncorrectData("price is incorrect");
+            if (p.InStock < orderItem.AmountInCart)//there is no in stock
+                throw new outOfStock("There is no in stock");
+            if (orderItem.Name == null) //there is no name
+                throw new IncorrectData("Name is incorrect");
+            if (orderItem.Price <= 0) //Incorrect price
+                throw new IncorrectData("price is incorrect");
 
-        //}
+            //create a new OrderItem
+            DO.OrderItem newOrderItem = new DO.OrderItem()
+            {
+                ProductID = orderItem?.IdProduct ?? 0,
+                OrderID = idOrder,
+                Price = orderItem?.Price ?? 0,
+                Amount = orderItem?.AmountInCart ?? 0
+            };
+            myDal?.orderItem.Add(newOrderItem);
+            p.InStock -= orderItem!.AmountInCart; //update in stock of this product
+            myDal?.product.Update(p);
+        }
 
 
         /// <summary>
@@ -94,29 +118,6 @@ namespace BlImplementation
                 throw new IncorrectData("Email is incorrect");
             if (address == null)
                 throw new IncorrectData("Address is incorrect");
-            //Checking the integrity of the data
-            //cart.Items.Select(item => DataIntegrityOfItem(item));
-            foreach (BO.OrderItem? item in cart.Items!)
-            {
-                if (item?.AmountInCart < 1) //Incorrect amount
-                    throw new IncorrectData("The amount in cart is incorrect");
-                DO.Product p;
-                try
-                {
-                    p = myDal!.product.Get(item?.IdProduct ?? throw new BO.NotFound("Product is not exist, your cart is incorrect")) ;//Find the desired product by product id 
-                }
-                catch
-                {
-                    throw new BO.NotFound("The product is not found");
-                }
-
-                if (p.InStock < item.AmountInCart)//there is no in stock
-                    throw new outOfStock("There is no in stock");
-                if (item.Name == null) //there is no name
-                    throw new IncorrectData("Name is incorrect");
-                if (item.Price <= 0) //Incorrect price
-                    throw new IncorrectData("price is incorrect");
-            }
             DO.Order newOrder = new DO.Order()
             {
                 CustomerName = name,
@@ -126,27 +127,11 @@ namespace BlImplementation
                 ShipDate = DateTime.MinValue,
                 DeliveryrDate = DateTime.MinValue,
             };
-            int idOrder = myDal!.order.Add(newOrder) ;//add order to list of orders
-            foreach (BO.OrderItem? item in cart.Items)
-            {
-                //create a new OrderItem
-                DO.OrderItem newOrderItem = new DO.OrderItem()
-                {
-                    ProductID = item?.IdProduct ?? 0,
-                    OrderID = idOrder,
-                    Price = item?.Price ?? 0,
-                    Amount = item?.AmountInCart ?? 0
-                };
-                myDal?.orderItem.Add(newOrderItem);
-
-                DO.Product p = myDal!.product.Get(item?.IdProduct ?? throw new BO.NotFound("Product is not exist, your cart is incorrect")) ; //Find the desired product by product code 
-                p.InStock -= item.AmountInCart; //update in stock of this product
-                myDal?.product.Update(p);
-            }
-
+            int idOrder = myDal!.order.Add(newOrder);//add order to list of orders
+            //Checking the integrity of the data
+            cart.Items!.ForEach(item => DataIntegrityOfItem(item!, idOrder));
+        
         }
-
-
         /// <summary>
         /// Updating the quantity of a product in the cart
         /// </summary>
@@ -173,18 +158,30 @@ namespace BlImplementation
                 cart.Items?.Remove(ord);//delete it              
                 return cart;
             }
-            if (p.InStock < amount)//If there is no the quantity in stock
+            if (p.InStock+ord!.AmountInCart < amount)//If there is no the quantity in stock
             {
                 // If the quantity is not in stock
                 throw new outOfStock("There is no in stock");//הודעה מתאימה שהמוצר לא במלאי אין מספיק
             }
             else//If the user wants to add or subtract from the quantity of the item
             {
+                DO.Product newProduct = new DO.Product()
+                {
+                    ID = idProduct,
+                    Name = p.Name,
+                    Category = p.Category,
+                    Price = p.Price,
+                    InStock = p.InStock + ord.AmountInCart - amount,
+                };
+                myDal!.product.Delete(idProduct);
+                myDal.product.Add(newProduct);
+
                 cart.TotalPrice += (amount - ord?.AmountInCart ?? 0) * p.Price; //update the new price of the cart
                 cart.Items?.Remove(ord);//delete this item
                 //create a new OrderItem
                 BO.OrderItem newOrderItem = new BO.OrderItem()
                 {
+
                     Name = p.Name,
                     Price = p.Price,
                     IdProduct = p.ID,

@@ -1,6 +1,8 @@
 ﻿
 using System;
 using System.Windows;
+using PL;
+using PL.Order;
 using PL.Product;
 
 namespace WPF
@@ -21,7 +23,13 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ToProductsListButton_Click(object sender, RoutedEventArgs e) => new ProductForListWIndow(myBl).Show();
+
+
+        private void ToCatalog_Click(object sender, RoutedEventArgs e) => new CatalogWindow(myBl!).Show();
+
+        private void ToTracking_Click(object sender, RoutedEventArgs e) => new OrderTrackingWindow().Show();
+
+        private void Manager_Click(object sender, RoutedEventArgs e) => new ManagerWindow().Show();
     }
 
     

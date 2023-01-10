@@ -11,7 +11,7 @@ namespace BO
         public override string ToString() => this.ToStringProperty();//ToString
 
 
-        //        מזהה פריט הזמנה
+        //מזהה פריט הזמנה
         //מזהה מוצר
         //שם מוצר
         //מחיר מוצר

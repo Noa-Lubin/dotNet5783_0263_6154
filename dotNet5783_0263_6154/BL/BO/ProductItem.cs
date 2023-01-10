@@ -9,7 +9,7 @@ namespace BO
     public class ProductItem
     {
         public override string ToString() => this.ToStringProperty();//ToString
-        //        מזהה(מוצר)
+        //מזהה(מוצר)
         //שם מוצר
         //מחיר מוצר
         //קטגוריה

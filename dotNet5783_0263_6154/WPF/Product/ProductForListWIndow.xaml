@@ -5,34 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
-        Title="ProductForListWIndow" Height="450" Width="800">
-    <Grid x:Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="39*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        DataContext="{Binding Path=_productsForList, RelativeSource={RelativeSource Mode=Self}}"
+        Title="ProductForListWIndow" Height="700" Width="800">
+    
+    <Window.Resources>
+        <DataTemplate x:Key="MyTemplate" DataType="local:ProductForList">
+            
+            <Grid x:Name="MainGrid" >
 
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector"  Background="#FFE52865"  SelectionChanged="CategorySelector_SelectionChanged" Margin="15,0,143,0" Grid.Column="1"/>
-            <Button x:Name="clear"  Background="#FFE52865" Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Click="clear_Click" Height="47" Width="45" FontFamily="Stencil"/>
-        </Grid>
-        <Label Content="קטגוריה"   Grid.Column="0" HorizontalAlignment="Left" Width="138" Foreground="#FFE52865" FontSize="14" FontFamily="BN Cloud" Margin="157,-4,0,2"/>
-        <ListView x:Name="ProductsListview" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2" Margin="0,10,0,0" MouseDoubleClick="ProductsListview_MouseDoubleClick" Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button x:Name="btnAddProduct" Background="#FFE52865" Content="הוספת מוצר" Grid.Row="2" HorizontalAlignment="Left" Margin="591,0,0,2" Padding="5" Click="btnAddProduct_Click" Grid.ColumnSpan="2"  BorderThickness="2" FontFamily="Stencil" Width="205" Height="30" VerticalAlignment="Bottom"/>
-    </Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding Path=IdProduct}" />
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" />
+                <TextBlock Grid.Column="2" Text="{Binding Path=Price}" />
+                <TextBlock Grid.Column="3" Text="{Binding Path=Category}" />
+
+                <!--<Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions >
+                </Grid>-->
+
+
+                <!--<ListView ItemsSource="{Binding}" x:Name="ProductsListview" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2" Margin="0,10,0,0"  Grid.Row="1" MouseDoubleClick="ProductsListview_MouseDoubleClick">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>-->
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+   
+    <StackPanel>
+        <ListBox x:Name="ProductsListview" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="ListBox_MouseDoubleClick" />
+        <Label Content="קטגוריה" Margin="350,0,0,0"  Foreground="#FFE52865" FontSize="20"  FontFamily="BN Cloud"/>
+        <ComboBox Name="CategorySelector"  Background="#FFE52865" Width="200" SelectionChanged="CategorySelector_SelectionChanged" RenderTransformOrigin="0.888,-0.844"/>
+        <Button x:Name="clear"  Background="#FFE52865" Content="clear" Click="clear_Click" Height="27" Width="45" FontFamily="BN Cloud"/>
+        <Button x:Name="btnAddProduct" Background="#FFE52865" Margin="0,20,0,0" Height="27" Content="הוספת מוצר" FontFamily="BN Cloud" Click="btnAddProduct_Click"  BorderThickness="2"/>
+
+    </StackPanel>
 </Window>

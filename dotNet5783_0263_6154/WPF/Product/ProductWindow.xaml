@@ -4,25 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF.Product"
+        DataContext="{Binding Path = ProdCurrent, RelativeSource={RelativeSource self} }"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="640" Width="800">
-    <Grid>
-        <TextBox x:Name="txtId" HorizontalAlignment="Left" Margin="372,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="txtId_TextChanged"/>
-        <ComboBox  x:Name="cmbCategory"  HorizontalAlignment="Left" Margin="372,170,0,0" VerticalAlignment="Top" Width="120"  />
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="372,226,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" MouseLeave="txtName_MouseLeave"/>
-        <TextBox x:Name="txtPrice"  HorizontalAlignment="Left" Margin="372,285,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtInStock"  HorizontalAlignment="Left" Margin="372,341,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnAddOrUpdate" Content="addOrUpdate" BorderThickness="2"  HorizontalAlignment="Left" Margin="317,406,0,0" VerticalAlignment="Top" Click="btnAddOrUpdate_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="120"/>
+        Title="ProductWindow" Height="504" Width="500">
+
+    <Window.Resources>
+        <Style x:Key="myButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="#FFE52865" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Width" Value="132" />
+            <Setter Property="Height" Value="43" />
+        </Style>
+
+        <LinearGradientBrush x:Key="myLinearGradientBrush">
+            <GradientStop Color="Blue" Offset="0" />
+            <GradientStop Color="Yellow" Offset="0.5" />
+            <GradientStop Color="Red" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Grid Margin="218,0,0,60">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="185*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="165*"/>
+            <RowDefinition Height="30.003"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblTitle" Content="Title" HorizontalAlignment="Left" Margin="-30,43,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
+
+        <Label x:Name="lblId" Content="מזהה מוצר" HorizontalAlignment="Left" Margin="120,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076"/>
+        <TextBox x:Name="txtId" Text="{Binding Path=ID}" Background="{StaticResource myLinearGradientBrush}" HorizontalAlignment="Left" Margin="-80,118,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" TextChanged="txtId_TextChanged"/>
+
+        <Label x:Name="lblCategory" Content="קטגוריה" HorizontalAlignment="Left" Margin="120,163,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <ComboBox  x:Name="cmbCategory" SelectedItem="{Binding Path=Category}" HorizontalAlignment="Left" Margin="-80,170,0,0" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"  />
+
+        <Label x:Name="lblName" Content="שם" HorizontalAlignment="Left" Margin="120,37,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Grid.RowSpan="2" Grid.Row="1"/>
+        <TextBox x:Name="txtName" Text="{Binding Path=Name}" HorizontalAlignment="Left" Margin="-80,41,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" MouseLeave="txtName_MouseLeave" Grid.RowSpan="2" Grid.Row="1"/>
+
+        <Label x:Name="lblPrice" Content="מחיר" HorizontalAlignment="Left" Margin="120,50,0,0" VerticalAlignment="Top" Grid.Row="2"/>
+        <TextBox x:Name="txtPrice" Text="{Binding Path=Price}"  HorizontalAlignment="Left" Margin="-80,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="2"/>
+
+
+        <Button x:Name="btnAddOrUpdate" Content="addOrUpdate" Style="{StaticResource myButtonStyle}" BorderThickness="2"  HorizontalAlignment="Left" Margin="80,139,0,0" VerticalAlignment="Top" Click="btnAddOrUpdate_Click" Grid.Row="2" Grid.RowSpan="2"/>
         <!--<Button x:Name="btnDelete" Content="Delete" BorderThickness="2" HorizontalAlignment="Left" Margin="475,406,0,0" VerticalAlignment="Top" Click="btnDelete_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="120"/>-->
-        <Button x:Name="btnCancel" Content="Cancel" BorderThickness="2" HorizontalAlignment="Left" Margin="418,446,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black"/>
-        <Label x:Name="lblId" Content="מזהה מוצר" HorizontalAlignment="Left" Margin="510,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076"/>
-        <Label x:Name="lblCategory" Content="קטגוריה" HorizontalAlignment="Left" Margin="510,163,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblName" Content="שם" HorizontalAlignment="Left" Margin="516,222,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171"/>
-        <Label x:Name="lblPrice" Content="מחיר" HorizontalAlignment="Left" Margin="512,283,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblAmount" Content="כמות במלאי" HorizontalAlignment="Left" Margin="511,337,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblTitle" Content="Title" HorizontalAlignment="Left" Margin="390,43,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
+        <Button x:Name="btnCancel" Content="Cancel" Style="{StaticResource myButtonStyle}" BorderThickness="2" HorizontalAlignment="Left" Margin="-110,139,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Grid.Row="2" Grid.RowSpan="2"/>
+
         <Label x:Name="lblIncorrectId" Content="מזהה מכיל מספרים בין 0 ל9 בלבד" HorizontalAlignment="Left" Margin="385,133,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red"/>
-        <Label x:Name="lblIncorrectName" Content="בבקשה הזינו שם תקין" HorizontalAlignment="Left" Margin="420,238,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red" />
+        <Label x:Name="lblIncorrectName" Content="בבקשה הזינו שם תקין" HorizontalAlignment="Left" Margin="420,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red" Grid.Row="2" />
 
     </Grid>
 </Window>
