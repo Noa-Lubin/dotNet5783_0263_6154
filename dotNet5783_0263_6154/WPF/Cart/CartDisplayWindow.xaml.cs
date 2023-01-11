@@ -46,28 +46,35 @@ namespace PL.Cart
 
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            int id = ((BO.OrderItem)((System.Windows.FrameworkElement)sender).DataContext).OrderItemID;
-            BO.OrderItem _myOrderItem = _myCart.Items?.FirstOrDefault(x => x?.OrderItemID == id) ?? throw new Exception("Your cart is empty");/*?????*/
-            BO.Product p = _myBl.Product.GetProduct(_myOrderItem.IdProduct);
-            if (p.InStock < 1)
-                MessageBox.Show("חסר במלאי"); 
-            else
-                _myBl.Cart.UpdateAmountOfProduct(_myOrderItem!.IdProduct, _myCart, _myOrderItem!.AmountInCart + 1);
+            //  int id = ((BO.OrderItem)((System.Windows.FrameworkElement)sender).DataContext).OrderItemID;
+            var myItem = ((BO.OrderItem)((Button)sender).DataContext);
+            try
+            {
+                _myCart = _myBl.Cart.UpdateAmountOfProduct(myItem!.IdProduct, _myCart, myItem!.AmountInCart + 1);
+                var temp = _myCart.Items;
+                _ItemsInCart = temp == null ? new() : new(temp);
+            }
+            catch
+            {
+                MessageBox.Show("חסר במלאי");
+            }
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
-            int id = ((BO.OrderItem)((System.Windows.FrameworkElement)sender).DataContext).OrderItemID;
-            BO.OrderItem _myOrderItem = _myCart.Items?.FirstOrDefault(x => x?.OrderItemID == id) ?? throw new Exception("Your cart is empty");/*?????*/
-            _myBl.Cart.UpdateAmountOfProduct(_myOrderItem!.IdProduct, _myCart, _myOrderItem!.AmountInCart - 1);
+             var myItem = (BO.OrderItem)((Button)sender).DataContext;
+            _myCart = _myBl.Cart.UpdateAmountOfProduct(myItem!.IdProduct, _myCart, myItem!.AmountInCart - 1);
+            var temp = _myCart.Items;
+            _ItemsInCart = temp == null ? new() : new(temp);
+
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            int id = ((BO.OrderItem)((System.Windows.FrameworkElement)sender).DataContext).OrderItemID;
-            BO.OrderItem _myOrderItem = _myCart.Items?.FirstOrDefault(x => x?.OrderItemID == id) ?? throw new Exception("Your cart is empty");/*?????*/
-            _myBl.Cart.UpdateAmountOfProduct(_myOrderItem!.IdProduct, _myCart, 0);
-            
+            var myItem = (BO.OrderItem)((Button)sender).DataContext;
+            _myCart = _myBl.Cart.UpdateAmountOfProduct(myItem!.IdProduct, _myCart, 0);
+            var temp = _myCart.Items;
+            _ItemsInCart = temp == null ? new() : new(temp);
         }
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)

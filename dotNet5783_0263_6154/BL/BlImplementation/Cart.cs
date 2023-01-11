@@ -181,7 +181,6 @@ namespace BlImplementation
                 //create a new OrderItem
                 BO.OrderItem newOrderItem = new BO.OrderItem()
                 {
-
                     Name = p.Name,
                     Price = p.Price,
                     IdProduct = p.ID,
