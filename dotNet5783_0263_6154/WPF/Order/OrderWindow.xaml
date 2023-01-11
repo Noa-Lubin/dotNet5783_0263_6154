@@ -1,0 +1,58 @@
+﻿<Window x:Class="PL.Order.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Order"
+        mc:Ignorable="d"
+        DataContext="{Binding Path = OrderCurrent, RelativeSource={RelativeSource self} }"
+        Title="OrderWindow" Height="700" Width="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Text="{Binding Path=ID}" x:Name="txtId" IsEnabled="False" HorizontalAlignment="Left" Margin="132,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=CustomerName}" x:Name="txtName" HorizontalAlignment="Left" Margin="132,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18" />
+        <TextBox Text="{Binding Path=CustomerEmail}" x:Name="txtEmail" HorizontalAlignment="Left" Margin="132,225,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=CustomerAdress}" x:Name="txtAddress"  HorizontalAlignment="Left" Margin="132,284,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=OrderDate}" x:Name="txtOrderDate" IsEnabled="False"  HorizontalAlignment="Left" Margin="132,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=ShipDate}" x:Name="txtShipDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=DeliveryrDate}" x:Name="txtDeliveryrDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,432,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <ComboBox SelectedItem="{Binding Status}" x:Name="cmbStatus" IsEnabled="False" HorizontalAlignment="Left" Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="22"  />
+        <TextBox Text="{Binding Path=TotalPrice}" x:Name="txtPrice"  HorizontalAlignment="Left" Margin="132,540,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+
+        <Button x:Name="btnUpdate" Content="עדכון פרטי הזמנה" BorderThickness="2"  HorizontalAlignment="Left" Margin="81,593,0,0" VerticalAlignment="Top" Click="btnUpdate_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Grid.ColumnSpan="2" Height="27"/>
+        <Button x:Name="btnUpdateStatus" Content="עדכון סטטוס" BorderThickness="2"  HorizontalAlignment="Left" Margin="81,551,0,0" VerticalAlignment="Top" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Click="btnUpdateStatus_Click" Grid.ColumnSpan="2" Height="27"/>
+        <Button x:Name="btnCancel" Content="חזור" BorderThickness="2" HorizontalAlignment="Left" Margin="201,632,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="58" Height="27"/>
+
+        <Label x:Name="lblId" Content="מזהה הזמנה" HorizontalAlignment="Left" Margin="302,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076" Width="93" Grid.Column="1" Height="26"/>
+        <Label x:Name="lblName" Content="שם קונה" HorizontalAlignment="Left" Margin="308,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="69" Grid.Column="1" Height="26"/>
+        <Label x:Name="lblEmail" Content="מייל" HorizontalAlignment="Left" Margin="309,222,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="39" Grid.Column="1" Height="26"/>
+        <Label x:Name="lblAddress" Content="כתובת" HorizontalAlignment="Left" Margin="308,280,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="55" Grid.Column="1" Height="26"/>
+        <Label x:Name="lblOrderDate"  Content="תאריך ביצוע הזמנה" HorizontalAlignment="Left" Margin="302,331,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="137" Grid.Column="1" Height="26"/>
+
+        <Label x:Name="lblShipDate" Content="תאריך שילוח" HorizontalAlignment="Left" Margin="309,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="96" Grid.Column="1" Height="26"/>
+        <Label x:Name="lblDeliveryrDate" Content="תאריך אספקה" HorizontalAlignment="Left" Margin="302,428,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="107" Grid.Column="1" Height="26"/>
+
+        <Label x:Name="lblStatus" Content="סטטוס" HorizontalAlignment="Left" Margin="309,485,0,0" VerticalAlignment="Top" RenderTransformOrigin="7.437,13.122" Width="57" Grid.Column="1" Height="26"/>
+        <Label x:Name="lblPrice" Content="מחיר כולל" HorizontalAlignment="Left" Margin="308,536,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.031,6.088" Width="78" Grid.Column="1" Height="26"/>
+
+        <Label x:Name="lblTitle" Content="פרטי הזמנה" HorizontalAlignment="Center" Margin="0,43,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic" Width="200" Grid.Column="1" Height="39"/>
+        <Label x:Name="lblIncorrectName" Content="בבקשה הזינו שם תקין" HorizontalAlignment="Left" Margin="209,183,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red" Width="94" Grid.Column="1" Height="19" />
+
+        <ListView x:Name="ProductsListview" HorizontalAlignment="Left" ItemsSource="{Binding Path=Items}" Width="200" Margin="106,81,0,153" Background="#FFE52865"/>
+
+
+        <!--<ListView  x:Name="ProductsListview" ItemsSource="{Binding Path=Items}" Width="200" Height="450" Margin="106,48,494,186" Grid.ColumnSpan="2" Background="#FFE52865">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+
+    </Grid>
+</Window>
