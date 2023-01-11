@@ -15,18 +15,18 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Text="{Binding Path=ID}" x:Name="txtId" IsEnabled="False" HorizontalAlignment="Left" Margin="132,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
-        <TextBox Text="{Binding Path=CustomerName}" x:Name="txtName" IsEnabled="False" HorizontalAlignment="Left" Margin="132,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18" />
-        <TextBox Text="{Binding Path=CustomerEmail}" x:Name="txtEmail" IsEnabled="False"  HorizontalAlignment="Left" Margin="132,225,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
-        <TextBox Text="{Binding Path=CustomerAdress}" x:Name="txtAddress" IsEnabled="False"  HorizontalAlignment="Left" Margin="132,284,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=CustomerName}" x:Name="txtName" HorizontalAlignment="Left" Margin="132,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18" />
+        <TextBox Text="{Binding Path=CustomerEmail}" x:Name="txtEmail" HorizontalAlignment="Left" Margin="132,225,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=CustomerAdress}" x:Name="txtAddress"  HorizontalAlignment="Left" Margin="132,284,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <TextBox Text="{Binding Path=OrderDate}" x:Name="txtOrderDate" IsEnabled="False"  HorizontalAlignment="Left" Margin="132,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <TextBox Text="{Binding Path=ShipDate}" x:Name="txtShipDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <TextBox Text="{Binding Path=DeliveryrDate}" x:Name="txtDeliveryrDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,432,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <ComboBox SelectedItem="{Binding Status}" x:Name="cmbStatus" IsEnabled="False" HorizontalAlignment="Left" Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="22"  />
-        <TextBox Text="{Binding Path=TotalPrice}" x:Name="txtPrice" IsEnabled="False"  HorizontalAlignment="Left" Margin="132,540,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
+        <TextBox Text="{Binding Path=TotalPrice}" x:Name="txtPrice"  HorizontalAlignment="Left" Margin="132,540,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
 
         <Button x:Name="btnUpdate" Content="עדכון פרטי הזמנה" BorderThickness="2"  HorizontalAlignment="Left" Margin="81,593,0,0" VerticalAlignment="Top" Click="btnUpdate_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Grid.ColumnSpan="2" Height="27"/>
         <Button x:Name="btnUpdateStatus" Content="עדכון סטטוס" BorderThickness="2"  HorizontalAlignment="Left" Margin="81,551,0,0" VerticalAlignment="Top" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Click="btnUpdateStatus_Click" Grid.ColumnSpan="2" Height="27"/>
-        <Button x:Name="btnCancel" Content="ביטול" BorderThickness="2" HorizontalAlignment="Left" Margin="201,632,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="58" Height="27"/>
+        <Button x:Name="btnCancel" Content="חזור" BorderThickness="2" HorizontalAlignment="Left" Margin="201,632,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="58" Height="27"/>
 
         <Label x:Name="lblId" Content="מזהה הזמנה" HorizontalAlignment="Left" Margin="302,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076" Width="93" Grid.Column="1" Height="26"/>
         <Label x:Name="lblName" Content="שם קונה" HorizontalAlignment="Left" Margin="308,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="69" Grid.Column="1" Height="26"/>

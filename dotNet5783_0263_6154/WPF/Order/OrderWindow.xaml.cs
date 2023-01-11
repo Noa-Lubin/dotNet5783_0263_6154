@@ -44,18 +44,18 @@ namespace PL.Order
         /// <param name="e"></param>
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToDateTime(txtShipDate.Text) != default)
-            {
-                //הודעה מתאימה שההזמנה כבר נשלחה
-                MessageBox.Show("ההזמנה נשלחה, אין אפשרות לעדכן");
-                Close();
-            }
-            else
-            {
+            //if (Convert.ToDateTime(txtShipDate.Text) != default)
+            //{
+            //    //הודעה מתאימה שההזמנה כבר נשלחה
+            //    MessageBox.Show("ההזמנה נשלחה, אין אפשרות לעדכן");
+            //    Close();
+            //}
+            //else
+            //{
                 _myBl.Order.UpdateOrder(OrderCurrent);
                 MessageBox.Show("הזמנה התעדכנה בהצלחה");
                 Close();
-            }
+            //}
         }
 
         //delete product

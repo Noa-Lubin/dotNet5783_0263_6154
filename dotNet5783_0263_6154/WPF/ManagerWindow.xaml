@@ -5,11 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-     Title="ManagerWindow" Height="450" Width="800" Background="#FFE52865">
+     Title="ManagerWindow" Height="600" Width="1000" Background="White">
 
+    <Window.Resources>
+        <Style x:Key="myButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="#da1884" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Width" Value="350" />
+            <Setter Property="Height" Value="43" />
+        </Style>
+
+    </Window.Resources>
     <Grid>
-        <Button x:Name="ToProductsListButton"  Background="White" VerticalAlignment="Top" Height="54"  Content="רשימת מוצרים" Margin="341,42,360,0" Click="ToProductsListButton_Click"/>
-        <Button x:Name="ToOrdersListButton"  Background="White" VerticalAlignment="Top" Height="54" Content="רשימת הזמנות" Margin="341,138,360,0" Click="ToOrdersListButton_Click"/>
+        <Button x:Name="ToProductsListButton" Style="{StaticResource myButtonStyle}" VerticalAlignment="Top"  Content="רשימת מוצרים" Margin="325,282,325,0" Click="ToProductsListButton_Click"/>
+        <Button x:Name="ToOrdersListButton"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top"  Content="רשימת הזמנות" Margin="325,386,325,0" Click="ToOrdersListButton_Click"/>
+        <Image HorizontalAlignment="Left" Height="188" Margin="10,10,0,0" VerticalAlignment="Top" Width="304" Source="/mr-donuts.png"/>
 
     </Grid>
 </Window>

@@ -5,12 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FFE52865">
+        Title="MainWindow" Height="600" Width="1000" Background="White">
+
+    <Window.Resources>
+        <Style x:Key="myButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="#da1884" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="43" />
+        </Style>
+
+    </Window.Resources>
 
     <Grid>
-        <Button x:Name="ToCatalog"  Background="White" VerticalAlignment="Top" Height="54" Content="יצירת הזמנה" Margin="340,226,360,0" Click="ToCatalog_Click"/>
-        <Button x:Name="ToTracking"  Background="White" VerticalAlignment="Top" Height="54" Content="למעקב הזמנה" Margin="340,327,360,0" Click="ToTracking_Click"/>
-        <Button x:Name="Manager"  Background="White" VerticalAlignment="Top" Height="54" Content="כניסת מנהל" Margin="346,90,355,0" RenderTransformOrigin="2.286,0.624" Click="Manager_Click"/>
+        <Button x:Name="ToCatalog"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="54" Content="יצירת הזמנה" Margin="340,226,360,0" Click="ToCatalog_Click"/>
+        <Button x:Name="ToTracking"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="54" Content="למעקב הזמנה" Margin="340,327,360,0" Click="ToTracking_Click"/>
+        <Button x:Name="Manager"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="121" Content="כניסת מנהל" Margin="691,453,10,10" RenderTransformOrigin="2.286,0.624" Click="Manager_Click"/>
+        <Image HorizontalAlignment="Left" Height="188" Margin="10,10,0,0" VerticalAlignment="Top" Width="304" Source="/mr-donuts.png"/>
+        <!--<Label Content="Mr Donuts" FontFamily="Consolas" FontSize="70"  HorizontalAlignment="Center" VerticalAlignment="Top"/>-->
 
     </Grid>
 </Window>

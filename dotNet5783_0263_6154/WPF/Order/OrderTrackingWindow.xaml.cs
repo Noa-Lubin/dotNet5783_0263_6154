@@ -39,23 +39,22 @@ namespace PL.Order
         public OrderTrackingWindow()
         {
             InitializeComponent();
-            string input = Interaction.InputBox("הקש מספר הזמנה למעקב", "", "", 10, 10);
-            try
+            bool succeed = false;
+            string input = Interaction.InputBox("הקש מספר הזמנה למעקב", "", "", 10, 10);            
+            while (!succeed)
             {
-                _myBl.Order.GetOrder(Convert.ToInt32(input));
-                TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(input)) ?? throw new Exception("aaaaaa");
-
+                try
+                {
+                    _myBl.Order.GetOrder(Convert.ToInt32(input));
+                    TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(input)) ?? throw new Exception("aaaaaa");
+                    succeed = true;
+                }
+                catch
+                {
+                    MessageBox.Show("הזמנה לא קיימת");
+                    input = Interaction.InputBox("הקש מספר הזמנה למעקב", "", "", 10, 10);
+                }
             }
-            catch
-            {
-                MessageBox.Show("הזמנה לא קיימת");
-                this.Close();
-            }
-            //while (_myBl.Order.GetOrder(Convert.ToInt32(input)) == null)
-            //{
-            //    MessageBox.Show("הזמנה לא קיימת");
-            //    input = Interaction.InputBox("הקש מספר הזמנה למעקב", "", "", 10, 10);
-            //}
 
         }
 
@@ -64,6 +63,11 @@ namespace PL.Order
         {
             int id = Convert.ToInt32(txtIdOrder.Text);
             new OrderWindow(id, false).ShowDialog();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

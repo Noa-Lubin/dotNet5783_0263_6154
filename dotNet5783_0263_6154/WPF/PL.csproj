@@ -18,7 +18,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="mr-donuts.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="mr-donuts.png" />
   </ItemGroup>
 
 </Project>
