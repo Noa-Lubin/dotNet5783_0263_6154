@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         DataContext="{Binding Path=_productsForList, RelativeSource={RelativeSource Mode=Self}}"
-        Title="ProductForListWIndow" Height="700" Width="800">
+        Title="ProductForListWIndow" Height="auto" Width="800">
     
     <Window.Resources>
         <DataTemplate x:Key="MyTemplate" DataType="local:ProductForList">
