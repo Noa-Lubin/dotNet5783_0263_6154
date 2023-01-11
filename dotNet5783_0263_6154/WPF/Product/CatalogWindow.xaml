@@ -25,7 +25,11 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition  Width="*"/>
                     <ColumnDefinition  Width="*"/>
-                    <ColumnDefinition  Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition  Width="80"/>
+                    
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="{Binding Path=IdProduct}" />
@@ -34,7 +38,12 @@
                 <TextBlock Grid.Column="3" Text="{Binding Path=Category}" />
                 <CheckBox Grid.Column="4" IsChecked="{Binding Path=InStock}" />
                 <TextBlock Grid.Column="5" Text="{Binding Path=Amount}" />
-                <Button Grid.Column="6" Content="Add" Click="Button_Click" />
+
+                <Button x:Name="btnPlus" Grid.Column="6" Content="+" Click="btnPlus_Click"/>
+                <TextBlock Name="txtCount" Grid.Column="7" Text="1" />
+                <Button x:Name="btnMinus" Grid.Column="8" Content="-" />
+
+                <Button Grid.Column="9" Content="הוסף לסל" Click="Button_Click" />
             </Grid>
         </DataTemplate>
     </Window.Resources>

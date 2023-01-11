@@ -93,5 +93,10 @@ namespace PL.Product
                 }
             }
         }
+
+        private void btnPlus_Click(object sender, RoutedEventArgs e)
+        {
+            txtCount.
+        }
     }
 }

@@ -36,26 +36,13 @@ namespace PL.Order
             DependencyProperty.Register("TrackingCurrent", typeof(BO.OrderTracking), typeof(Window), new PropertyMetadata(null));
 
 
-        public OrderTrackingWindow()
+        public OrderTrackingWindow(int id)
         {
             InitializeComponent();
-            bool succeed = false;
-            string input = Interaction.InputBox("הקש מספר הזמנה למעקב", "", "", 10, 10);            
-            while (!succeed)
-            {
-                try
-                {
-                    _myBl.Order.GetOrder(Convert.ToInt32(input));
-                    TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(input)) ?? throw new Exception("aaaaaa");
-                    succeed = true;
-                }
-                catch
-                {
-                    MessageBox.Show("הזמנה לא קיימת");
-                    input = Interaction.InputBox("הקש מספר הזמנה למעקב", "", "", 10, 10);
-                }
-            }
-
+                  
+            
+                    TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(id)) ?? throw new Exception("aaaaaa");
+                    
         }
 
 
