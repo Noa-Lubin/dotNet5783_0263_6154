@@ -62,13 +62,12 @@ namespace PL.Product
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void clear_Click(object sender, RoutedEventArgs e)
-        {
-            var temp = _myBl!.Product.GetAllProducts();
-            _productsForList = temp == null ? new() : new(temp);
-           /* _productsForList = _myBl.Product.GetAllProducts()*/ //Inserts the list of all products into a variable 
-            //ProductsListview.ItemsSource = _productsForList; //Displays the returned list
-        }
+        //private void clear_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var temp = _myBl!.Product.GetAllProducts();
+        //    _productsForList = temp == null ? new() : new(temp);
+     
+        //}
 
 
         /// <summary>

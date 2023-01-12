@@ -18,6 +18,7 @@
             <Setter Property="Background" Value="#da1884" />
             <Setter Property="Width" Value="100" />
             <Setter Property="Height" Value="30" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
 
         <DataTemplate x:Key="MyTemplate" DataType="local:ProductItem">
@@ -80,16 +81,16 @@
             <ColumnDefinition  Width="80"/>
 
         </Grid.ColumnDefinitions>
-        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="מחיר" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="?במלאי" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="כמות במלאי" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="" Grid.Row="1" Grid.Column="6"/>
+        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0"  Style="{StaticResource myLabelStyle}"/>
+        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1"  Style="{StaticResource myLabelStyle}"/>
+        <Label Content="מחיר" Grid.Row="1" Grid.Column="2"  Style="{StaticResource myLabelStyle}"/>
+        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="?במלאי" Grid.Row="1" Grid.Column="4" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="כמות במלאי" Grid.Row="1" Grid.Column="5" Style="{StaticResource myLabelStyle}"/>
+        <!--<Label Content="" Grid.Row="1" Grid.Column="6"/>
         <Label Content="" Grid.Row="1" Grid.Column="7"/>
         <Label Content="" Grid.Row="1" Grid.Column="8"/>
-        <Label Content="" Grid.Row="1" Grid.Column="9"/>
+        <Label Content="" Grid.Row="1" Grid.Column="9"/>-->
 
         <Label Content="קטגוריה" Margin="15,18,5,48" Grid.Row="0" Grid.ColumnSpan="4" Foreground="#da1884" FontSize="20"   FontFamily="BN Cloud" Grid.Column="3" Grid.RowSpan="2"/>
         <ComboBox Name="CategorySelector" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE52865" Width="200" RenderTransformOrigin="0.888,-0.844" SelectionChanged="CategorySelector_SelectionChanged" Margin="20,20,0,13" Grid.Column="1"/>

@@ -16,6 +16,14 @@
             <Setter Property="Background" Value="#da1884" />
             <Setter Property="Width" Value="100" />
             <Setter Property="Height" Value="30" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="myTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="TextAlignment" Value="Center"/>
         </Style>
         <DataTemplate x:Key="MyTemplate" DataType="local:ProductForList">
 
@@ -33,11 +41,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{Binding Path=IdOrder}" />
-                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" />
-                <TextBlock Grid.Column="2" Text="{Binding Path=status}" />
-                <TextBlock Grid.Column="3" Text="{Binding Path=amount}" />
-                <TextBlock Grid.Column="4" Text="{Binding Path=TotalPrice}" />
+                <TextBlock Grid.Column="0" Text="{Binding Path=IdOrder}" Style="{StaticResource myTextStyle}"/>
+                <TextBlock Grid.Column="1"  Text="{Binding Path=Name}" Style="{StaticResource myTextStyle}"/>
+                <TextBlock Grid.Column="2" Text="{Binding Path=status}" Style="{StaticResource myTextStyle}"/>
+                <TextBlock Grid.Column="3" Text="{Binding Path=amount}" Style="{StaticResource myTextStyle}"/>
+                <TextBlock Grid.Column="4" Text="{Binding Path=TotalPrice}" Style="{StaticResource myTextStyle}"/>
             </Grid>
         </DataTemplate>
     </Window.Resources>
@@ -54,18 +62,16 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition  Width="*"/>
-            
+            <ColumnDefinition  Width="*"/>            
 
         </Grid.ColumnDefinitions>
-        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="מחיר" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="?במלאי" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="כמות במלאי" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
-       
-        <ListBox x:Name="OrderssListview" Grid.ColumnSpan="5" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="OrderssListview_MouseDoubleClick" />
+        <Label Content="מזהה הזמנה" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="שם לקוח" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="סטטוס" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="כמות פריטים" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="סכום" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+
+        <ListBox x:Name="OrderssListview" Grid.Row="2" Grid.ColumnSpan="5" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="OrderssListview_MouseDoubleClick" />
 
     </Grid>
 
