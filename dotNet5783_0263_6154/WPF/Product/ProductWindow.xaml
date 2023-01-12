@@ -9,7 +9,6 @@
         Title="ProductWindow" Height="504" Width="500">
 
     <Window.Resources>
-
         <local:IntToStringConverter
 x:Key="intToStringConverter" />
 
