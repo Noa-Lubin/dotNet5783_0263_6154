@@ -6,10 +6,20 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
          DataContext="{Binding Path=_productsItemList, RelativeSource={RelativeSource Mode=Self}}"
-
         Title="CatalogWindow" Height="1000" Width="800">
-    
+
+
+
     <Window.Resources>
+        <Style x:Key="myLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="#da1884" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="30" />
+        </Style>
+
         <DataTemplate x:Key="MyTemplate" DataType="local:ProductItem">
 
             <Grid x:Name="MainGrid" >
@@ -29,15 +39,14 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition  Width="80"/>
-                    
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{Binding Path=IdProduct}" />
-                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" />
-                <TextBlock Grid.Column="2" Text="{Binding Path=Price}" />
-                <TextBlock Grid.Column="3" Text="{Binding Path=Category}" />
-                <CheckBox Grid.Column="4" IsChecked="{Binding Path=InStock}" />
-                <TextBlock Grid.Column="5" Text="{Binding Path=Amount}" />
+                <TextBlock Grid.Column="0" Text="{Binding Path=IdProduct}" TextAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" TextAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="{Binding Path=Price}" TextAlignment="Center"/>
+                <TextBlock Grid.Column="3" Text="{Binding Path=Category}" TextAlignment="Center"/>
+                <CheckBox Grid.Column="4" IsChecked="{Binding Path=InStock}" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Text="{Binding Path=Amount}" TextAlignment="Center"/>
                 <ScrollBar Grid.Column="7"/>
                 <Button x:Name="btnPlus" Grid.Column="6" Content="+" Click="btnPlus_Click"/>
                 <!--<Input Name="txtCount" Grid.Column="7" Text="1" />-->
@@ -48,6 +57,7 @@
                 <Button Grid.Column="9" Content="הוסף לסל" Click="Button_Click" />
             </Grid>
         </DataTemplate>
+
     </Window.Resources>
 
     <Grid Margin="0,0,0,0">
@@ -70,21 +80,21 @@
             <ColumnDefinition  Width="80"/>
 
         </Grid.ColumnDefinitions>
-        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0"/>
-        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1"/>
-        <Label Content="מחיר" Grid.Row="1" Grid.Column="2"/>
-        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3"/>
-        <Label Content="במלאי?" Grid.Row="1" Grid.Column="4"/>
-        <Label Content="כמות במלאי" Grid.Row="1" Grid.Column="5"/>
+        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="מחיר" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="?במלאי" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="כמות במלאי" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
         <Label Content="" Grid.Row="1" Grid.Column="6"/>
         <Label Content="" Grid.Row="1" Grid.Column="7"/>
         <Label Content="" Grid.Row="1" Grid.Column="8"/>
         <Label Content="" Grid.Row="1" Grid.Column="9"/>
 
-        <Label Content="קטגוריה" Margin="350,0,0,0" Grid.Row="0" Grid.ColumnSpan="3" Foreground="#FFE52865" FontSize="20"   FontFamily="BN Cloud"/>
-        <ComboBox Name="CategorySelector" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE52865" Width="200" RenderTransformOrigin="0.888,-0.844" SelectionChanged="CategorySelector_SelectionChanged"/>
+        <Label Content="קטגוריה" Margin="15,18,5,48" Grid.Row="0" Grid.ColumnSpan="4" Foreground="#da1884" FontSize="20"   FontFamily="BN Cloud" Grid.Column="3" Grid.RowSpan="2"/>
+        <ComboBox Name="CategorySelector" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE52865" Width="200" RenderTransformOrigin="0.888,-0.844" SelectionChanged="CategorySelector_SelectionChanged" Margin="20,20,0,13" Grid.Column="1"/>
         <ListBox x:Name="ProductItemsListview" Grid.Row="2" Grid.ColumnSpan="10" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="ProductItemsListview_MouseDoubleClick"/>
-        <Button x:Name="btnCart" Grid.ColumnSpan="10" Background="#FFE52865" Grid.Row="3" Margin="0,20,0,0" Height="27" Content="לסל הקניות" FontFamily="BN Cloud" BorderThickness="2" Click="btnCart_Click"/>
+        <Button x:Name="btnCart" Grid.ColumnSpan="10" Background="#da1884" Grid.Row="3" Margin="0,20,0,0" Height="27" Content="לסל הקניות" FontFamily="BN Cloud" BorderThickness="2" Click="btnCart_Click"/>
 
     </Grid>
 </Window>

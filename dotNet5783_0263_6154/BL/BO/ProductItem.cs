@@ -38,6 +38,7 @@ namespace BO
         /// כמות בסל הקניות של הקונה
         /// </summary>
         public int  Amount { get; set; }
+        public string? ImageProduct { get; set; }
     }
 
 }

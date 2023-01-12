@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Product"
+        xmlns:local="clr-namespace:PL"
         DataContext="{Binding RelativeSource={RelativeSource self} }"
         mc:Ignorable="d"
         Title="ProductWindow" Height="504" Width="500">
