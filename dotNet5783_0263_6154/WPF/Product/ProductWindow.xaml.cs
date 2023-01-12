@@ -1,28 +1,26 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
-namespace WPF.Product;
+using System.Windows.Data;
+
+namespace PL.Product;
 
 
-public class ProductWindowData : DependencyObject
+public class IntToStringConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        // Using a DependencyProperty as the backing store for products.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProdCurrentProperty =
-            DependencyProperty.Register("ProdCurrent", typeof(BO.Product), typeof(ProductWindowData));
-        public BO.Product? ProdCurrent
-        {
-            get => (BO.Product?)GetValue(ProdCurrentProperty);
-            set => SetValue(ProdCurrentProperty, value);
-        }
-
-        public Array? Categories { get; set; }
-
-        public string? ButtonMode { get; set; }
-
-        public bool isReadOnlyID { get; set; }
+        // new NotImplementedException();
+        int val = (int)value;
+        return val == 0 ? "Add" : "Update";
     }
 
-
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 
 /// <summary>
@@ -33,9 +31,48 @@ public partial class ProductWindow : Window
     readonly BlApi.IBl _myBl = BlApi.Factory.Get();
     //private string state = "";
 
-    public static readonly DependencyProperty DataDep = DependencyProperty.Register(nameof(Data), typeof(ProductWindowData), typeof(ProductWindow));
-    public ProductWindowData Data { get => (ProductWindowData)GetValue(DataDep); set => SetValue(DataDep, value); }
+    //public static readonly DependencyProperty DataDep = DependencyProperty.Register(nameof(Data), typeof(ProductWindowData), typeof(ProductWindow));
+    //public ProductWindowData Data { get => (ProductWindowData)GetValue(DataDep); set => SetValue(DataDep, value); }
 
+    // Using a DependencyProperty as the backing store for products.  This enables animation, styling, binding, etc...
+    //public static readonly DependencyProperty ProdCurrentProperty =
+    //    DependencyProperty.Register("ProdCurrent", typeof(BO.Product), typeof(ProductWindow),new PropertyMetadata(null));
+    //public BO.Product? ProdCurrent
+    //{
+    //    get => (BO.Product?)GetValue(ProdCurrentProperty);
+    //    set => SetValue(ProdCurrentProperty, value);
+    //}
+
+
+
+    public BO.Product ProdCurrent
+    {
+        get { return (BO.Product)GetValue(ProdCurrentProperty); }
+        set { SetValue(ProdCurrentProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for ProdCurrent.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ProdCurrentProperty =
+        DependencyProperty.Register("ProdCurrent", typeof(BO.Product), typeof(ProductWindow), new PropertyMetadata(null));
+
+
+
+    public int Id
+    {
+        get { return (int)GetValue(IdProperty); }
+        set { SetValue(IdProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty IdProperty =
+        DependencyProperty.Register("Id", typeof(int), typeof(ProductWindow), new PropertyMetadata(0));
+
+
+    public Array? Categories { get; set; }
+
+    //public string? ButtonMode { get; set; }
+
+   // public bool isReadOnlyID { get; set; }
 
     /* public BO.Product ProdCurrent
      {
@@ -81,15 +118,20 @@ public partial class ProductWindow : Window
                 lblTitle.Content = "עדכון מוצר"; //for the title
                 lblIncorrectId.Visibility = Visibility.Hidden; //if the ID is incorrect so put a warrning
         */
-        Data = new()
-        {
-            isReadOnlyID = idProduct == 0 ? false : true,
-            ProdCurrent = idProduct == 0 ? new() : _myBl?.Product.GetProduct(idProduct),
-            Categories = Enum.GetValues(typeof(BO.Enums.Category)),
-            ButtonMode = idProduct == 0 ? "ADD" : "UPDATE"
-        };
-       // state = idProduct == 0 ? "add" : "update";
+        //Data = new()
+        //{
+        //    isReadOnlyID = idProduct == 0 ? false : true,
+        //ProdCurrent = idProduct == 0 ? new() : _myBl?.Product.GetProduct(idProduct);
+        Categories = Enum.GetValues(typeof(BO.Enums.Category));
+        //    ButtonMode = idProduct == 0 ? "ADD" : "UPDATE"
+        //};+		InnerException	{"Cannot find resource named 'IntToStringConverter'. Resource names are case sensitive."}	System.Exception
+         ProdCurrent = idProduct == 0 ? new() : _myBl!.Product.GetProduct(idProduct);
+
+        // state = idProduct == 0 ? "add" : "update";
+        Id = idProduct;
         InitializeComponent();
+        
+
     }
 
 
@@ -100,7 +142,7 @@ public partial class ProductWindow : Window
     /// <param name="e"></param>
     private void btnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
-        if (Data.ButtonMode == "ADD") //if add
+        if (Id == 0) //if add
         {
             if (txtId.Text == "" || txtName.Text == "" || Convert.ToInt32(txtPrice.Text) == 0 || cmbCategory.SelectedItem == null) //checking if all data is full
                 MessageBox.Show("חסר נתונים");
@@ -113,9 +155,8 @@ public partial class ProductWindow : Window
                 bool succeed = true;
                 try
                 {
-                    _myBl.Product.AddProduct(Data.ProdCurrent!);
+                    _myBl.Product.AddProduct(ProdCurrent);
                     MessageBox.Show("מוצר נוסף בהצלחה");
-
                 }
                 catch
                 {
@@ -132,19 +173,11 @@ public partial class ProductWindow : Window
             if (cmbCategory.SelectedIndex == 7)
                 MessageBox.Show("לא נבחרה קטגוריה");
             else
-            {
-                //create object of Product by the values of the user
-                //BO.Product p = new BO.Product()
-                //{
-                //    ID = Convert.ToInt32(txtId.Text),
-                //    Price = Convert.ToDouble(txtPrice.Text),
-                //    InStock = Convert.ToInt32(txtInStock.Text),
-                //    Name = txtName.Text,
-                //    Category = (BO.Enums.Category)(cmbCategory.SelectedItem)
-                //};
-                _myBl.Product.UpdateProduct(Data.ProdCurrent!);
+            {                
+                _myBl.Product.UpdateProduct(ProdCurrent!);
                 MessageBox.Show("מוצר התעדכן בהצלחה");
                 Close();
+                
             }
 
         }
@@ -185,3 +218,6 @@ public partial class ProductWindow : Window
         //if (txtName.Text.Any(x => char.IsNumber(x))) lblIncorrectName.Visibility = Visibility.Visible;
     }
 }
+
+
+

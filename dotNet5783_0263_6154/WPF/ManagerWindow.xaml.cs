@@ -32,5 +32,9 @@ namespace PL
 
         private void ToOrdersListButton_Click(object sender, RoutedEventArgs e) => new OrderForListWindow(myBl!).Show();
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

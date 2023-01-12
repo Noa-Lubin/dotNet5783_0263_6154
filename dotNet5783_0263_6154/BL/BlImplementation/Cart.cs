@@ -39,9 +39,18 @@ namespace BlImplementation
             myDal.product.Add(newProduct);
             bool existInCart = cart.Items?.Any(orderItem => orderItem?.IdProduct == idProduct) ?? false;
             if (!existInCart)//if this product is not exist in cart
-            {
+            {            
+                DO.OrderItem newOrderItemDO = new DO.OrderItem()//creat a new OrderItem
+                {
+                    Price = p.Price,
+                    ProductID = p.ID,
+                    Amount = 1,
+                    //OrderID = 111    בעיהההההההה
+                };
+                int id = myDal.orderItem.Add(newOrderItemDO);
                 BO.OrderItem newOrderItem = new BO.OrderItem()//creat a new OrderItem
                 {
+                    OrderItemID= id,
                     Name = p.Name,
                     Price = p.Price,
                     IdProduct = p.ID,

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using WPF.Product;
+using PL.Product;
 
 namespace PL.Product
 {
@@ -96,7 +96,6 @@ namespace PL.Product
 
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            txtCount.
         }
     }
 }

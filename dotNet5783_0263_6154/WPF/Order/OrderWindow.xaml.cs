@@ -4,38 +4,50 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Markup;
+using PL.Product;
+
 namespace PL.Order
 {
+
+    public class OrderWindowData : DependencyObject
+    {
+        // Using a DependencyProperty as the backing store for .  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OrderCurrentProperty =
+            DependencyProperty.Register("OrderCurrent", typeof(BO.Order), typeof(OrderWindowData));
+        public BO.Order? OrderCurrent
+        {
+            get => (BO.Order?)GetValue(OrderCurrentProperty);
+            set => SetValue(OrderCurrentProperty, value);
+        }
+
+        public Array? Status { get; set; }
+
+        public Visibility IsVisible { get; set; }
+
+    }
+
     /// <summary>
     /// Interaction logic for OrderWindow.xaml
     /// </summary>
     public partial class OrderWindow : Window
     {
-        BlApi.IBl _myBl = BlApi.Factory.Get();
-     
-        public BO.Order OrderCurrent
-        {
-            get { return (BO.Order)GetValue(OrderCurrentProperty); }
-            set { SetValue(OrderCurrentProperty, value); }
-        }
+        readonly BlApi.IBl _myBl = BlApi.Factory.Get();
 
-        // Using a DependencyProperty as the backing store for OrderCurrent.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty OrderCurrentProperty =
-            DependencyProperty.Register("OrderCurrent", typeof(BO.Order), typeof(Window), new PropertyMetadata(null));
-
+        public static readonly DependencyProperty DataDep = DependencyProperty.Register(nameof(Data), typeof(OrderWindowData), typeof(OrderWindow));
+        public OrderWindowData Data { get => (OrderWindowData)GetValue(DataDep); set => SetValue(DataDep, value); }
 
         public OrderWindow(int idOrder, bool visible = true)
         {
-            InitializeComponent();
-            if (!visible)
+            Data = new()
             {
-                btnUpdate.Visibility = Visibility.Hidden;
-                btnUpdateStatus.Visibility = Visibility.Hidden;
-            }
-            lblIncorrectName.Visibility = Visibility.Hidden; //not now
-            cmbStatus.ItemsSource = Enum.GetValues(typeof(BO.Enums.OrderStatus));
-            OrderCurrent = _myBl.Order.GetOrder(idOrder);
-            txtId.IsEnabled = false;
+                IsVisible = visible == true?Visibility.Visible : Visibility.Hidden,
+                OrderCurrent = _myBl?.Order.GetOrder(idOrder),
+                Status = Enum.GetValues(typeof(BO.Enums.OrderStatus)),
+            };
+            InitializeComponent();
+            //lblIncorrectName.Visibility = Visibility.Hidden; //not now
+            //cmbStatus.ItemsSource = Enum.GetValues(typeof(BO.Enums.OrderStatus));
         }
         /// <summary>
         /// Enters the values ​​that the user has typed and creates a new order and adds to the list of products in the data layer
@@ -44,18 +56,9 @@ namespace PL.Order
         /// <param name="e"></param>
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //if (Convert.ToDateTime(txtShipDate.Text) != default)
-            //{
-            //    //הודעה מתאימה שההזמנה כבר נשלחה
-            //    MessageBox.Show("ההזמנה נשלחה, אין אפשרות לעדכן");
-            //    Close();
-            //}
-            //else
-            //{
-                _myBl.Order.UpdateOrder(OrderCurrent);
+                _myBl.Order.UpdateOrder(Data.OrderCurrent!);
                 MessageBox.Show("הזמנה התעדכנה בהצלחה");
                 Close();
-            //}
         }
 
         //delete product

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-     Title="ManagerWindow" Height="600" Width="1000" Background="White">
+     Title="ManagerWindow" Height="600" Width="1100" Background="White">
 
     <Window.Resources>
         <Style x:Key="myButtonStyle" TargetType="Button">
@@ -15,14 +15,20 @@
             <Setter Property="Background" Value="#da1884" />
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="3"/>
-            <Setter Property="Width" Value="350" />
+            <Setter Property="Width" Value="300" />
             <Setter Property="Height" Value="43" />
         </Style>
 
     </Window.Resources>
     <Grid>
-        <Button x:Name="ToProductsListButton" Style="{StaticResource myButtonStyle}" VerticalAlignment="Top"  Content="רשימת מוצרים" Margin="325,282,325,0" Click="ToProductsListButton_Click"/>
-        <Button x:Name="ToOrdersListButton"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top"  Content="רשימת הזמנות" Margin="325,386,325,0" Click="ToOrdersListButton_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="ToProductsListButton" Style="{StaticResource myButtonStyle}" VerticalAlignment="Top"  Content="רשימת מוצרים" Margin="314,209,386,0" Click="ToProductsListButton_Click" Height="127"/>
+        <Button x:Name="ToOrdersListButton"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top"  Content="רשימת הזמנות" Margin="314,396,386,0" Click="ToOrdersListButton_Click" Height="126"/>
+        <Button x:Name="btnCancel" Style="{StaticResource myButtonStyle}" VerticalAlignment="Top"  Content="חזרה למסך ראשי" Margin="752,510,0,0" Height="43" HorizontalAlignment="Left" Width="300" Click="btnCancel_Click"/>
+
         <Image HorizontalAlignment="Left" Height="188" Margin="10,10,0,0" VerticalAlignment="Top" Width="304" Source="/mr-donuts.png"/>
 
     </Grid>

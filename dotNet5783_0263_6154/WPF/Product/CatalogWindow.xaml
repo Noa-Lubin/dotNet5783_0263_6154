@@ -38,9 +38,11 @@
                 <TextBlock Grid.Column="3" Text="{Binding Path=Category}" />
                 <CheckBox Grid.Column="4" IsChecked="{Binding Path=InStock}" />
                 <TextBlock Grid.Column="5" Text="{Binding Path=Amount}" />
-
+                <ScrollBar Grid.Column="7"/>
                 <Button x:Name="btnPlus" Grid.Column="6" Content="+" Click="btnPlus_Click"/>
-                <TextBlock Name="txtCount" Grid.Column="7" Text="1" />
+                <!--<Input Name="txtCount" Grid.Column="7" Text="1" />-->
+                <!--<TextBlock Name="txtCount" Grid.Column="7" Text="1" />-->
+
                 <Button x:Name="btnMinus" Grid.Column="8" Content="-" />
 
                 <Button Grid.Column="9" Content="הוסף לסל" Click="Button_Click" />
@@ -48,11 +50,41 @@
         </DataTemplate>
     </Window.Resources>
 
-    <StackPanel Margin="0,0,0,0">
-        <ListBox x:Name="ProductItemsListview" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="ProductItemsListview_MouseDoubleClick"/>
-        <Label Content="קטגוריה" Margin="350,0,0,0"  Foreground="#FFE52865" FontSize="20"  FontFamily="BN Cloud"/>
-        <ComboBox Name="CategorySelector"  Background="#FFE52865" Width="200" RenderTransformOrigin="0.888,-0.844" SelectionChanged="CategorySelector_SelectionChanged"/>
-        <Button x:Name="btnCart" Background="#FFE52865" Margin="0,20,0,0" Height="27" Content="לסל הקניות" FontFamily="BN Cloud" BorderThickness="2" Click="btnCart_Click"/>
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="11*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition  Width="*"/>
+            <ColumnDefinition  Width="*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition  Width="80"/>
 
-    </StackPanel>
+        </Grid.ColumnDefinitions>
+        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0"/>
+        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1"/>
+        <Label Content="מחיר" Grid.Row="1" Grid.Column="2"/>
+        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3"/>
+        <Label Content="במלאי?" Grid.Row="1" Grid.Column="4"/>
+        <Label Content="כמות במלאי" Grid.Row="1" Grid.Column="5"/>
+        <Label Content="" Grid.Row="1" Grid.Column="6"/>
+        <Label Content="" Grid.Row="1" Grid.Column="7"/>
+        <Label Content="" Grid.Row="1" Grid.Column="8"/>
+        <Label Content="" Grid.Row="1" Grid.Column="9"/>
+
+        <Label Content="קטגוריה" Margin="350,0,0,0" Grid.Row="0" Grid.ColumnSpan="3" Foreground="#FFE52865" FontSize="20"   FontFamily="BN Cloud"/>
+        <ComboBox Name="CategorySelector" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE52865" Width="200" RenderTransformOrigin="0.888,-0.844" SelectionChanged="CategorySelector_SelectionChanged"/>
+        <ListBox x:Name="ProductItemsListview" Grid.Row="2" Grid.ColumnSpan="10" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="ProductItemsListview_MouseDoubleClick"/>
+        <Button x:Name="btnCart" Grid.ColumnSpan="10" Background="#FFE52865" Grid.Row="3" Margin="0,20,0,0" Height="27" Content="לסל הקניות" FontFamily="BN Cloud" BorderThickness="2" Click="btnCart_Click"/>
+
+    </Grid>
 </Window>

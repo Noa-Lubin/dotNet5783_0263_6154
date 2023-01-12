@@ -14,7 +14,9 @@
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Background" Value="#da1884" />
             <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="Width" Value="300" />
+            <Setter Property="BorderThickness" Value="2" />
+
+            <Setter Property="Width" Value="250" />
             <Setter Property="Height" Value="43" />
         </Style>
 
@@ -23,7 +25,7 @@
     <Grid>
         <Button x:Name="ToCatalog"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="54" Content="יצירת הזמנה" Margin="340,226,360,0" Click="ToCatalog_Click"/>
         <Button x:Name="ToTracking"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="54" Content="למעקב הזמנה" Margin="340,327,360,0" Click="ToTracking_Click"/>
-        <Button x:Name="Manager"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="121" Content="כניסת מנהל" Margin="691,453,10,10" RenderTransformOrigin="2.286,0.624" Click="Manager_Click"/>
+        <Button x:Name="Manager"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="121" Content="כניסת מנהל" Margin="667,426,33,0" RenderTransformOrigin="2.286,0.624" Click="Manager_Click"/>
         <Image HorizontalAlignment="Left" Height="188" Margin="10,10,0,0" VerticalAlignment="Top" Width="304" Source="/mr-donuts.png"/>
         <!--<Label Content="Mr Donuts" FontFamily="Consolas" FontSize="70"  HorizontalAlignment="Center" VerticalAlignment="Top"/>-->
 
