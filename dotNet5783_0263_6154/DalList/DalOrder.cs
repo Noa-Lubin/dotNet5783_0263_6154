@@ -50,7 +50,7 @@ internal class DalOrder : IOrder
     {
         return DataSource.orderList.FirstOrDefault(o => o?.ID == id) ??
     //if this product does not exist in array
-    throw new Exception("this order does not exist");
+    throw new Exception("this order does not exist.");
     }
 
     /// <summary>

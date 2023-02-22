@@ -11,7 +11,6 @@ namespace PL.Order
     {
 
         BlApi.IBl _myBl = BlApi.Factory.Get();
-
         public BO.OrderTracking TrackingCurrent
         {
             get { return (BO.OrderTracking)GetValue(TrackingCurrentProperty); }
@@ -28,6 +27,7 @@ namespace PL.Order
             TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(id)) ?? throw new Exception("aaaaaa");
         }
 
+        //Go to the details of order
         private void btnToOrder_Click(object sender, RoutedEventArgs e)
         {
             int id = Convert.ToInt32(txtIdOrder.Text);
