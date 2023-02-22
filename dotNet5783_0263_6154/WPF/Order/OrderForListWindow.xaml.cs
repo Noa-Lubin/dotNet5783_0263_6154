@@ -8,9 +8,7 @@ namespace PL.Order
     /// </summary>
     public partial class OrderForListWindow : Window
     {
-
         BlApi.IBl _myBl = BlApi.Factory.Get();
-
         public ObservableCollection<BO.OrderForList?> _ordersForList
         {
             get { return (ObservableCollection<BO.OrderForList?>)GetValue(_ordersForListProperty); }
