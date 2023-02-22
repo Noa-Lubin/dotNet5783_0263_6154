@@ -1,11 +1,5 @@
-﻿using BO;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System;
 using System.Windows;
-using System.Windows.Markup;
-using PL.Product;
 
 namespace PL.Order
 {
@@ -41,14 +35,13 @@ namespace PL.Order
         {
             Data = new()
             {
-                IsVisible = visible == true?Visibility.Visible : Visibility.Hidden,
+                IsVisible = visible == true ? Visibility.Visible : Visibility.Hidden,
                 OrderCurrent = _myBl?.Order.GetOrder(idOrder),
                 Status = Enum.GetValues(typeof(BO.Enums.OrderStatus)),
             };
             InitializeComponent();
-            //lblIncorrectName.Visibility = Visibility.Hidden; //not now
-            //cmbStatus.ItemsSource = Enum.GetValues(typeof(BO.Enums.OrderStatus));
         }
+
         /// <summary>
         /// Enters the values ​​that the user has typed and creates a new order and adds to the list of products in the data layer
         /// </summary>
@@ -56,19 +49,10 @@ namespace PL.Order
         /// <param name="e"></param>
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-                _myBl.Order.UpdateOrder(Data.OrderCurrent!);
-                MessageBox.Show("הזמנה התעדכנה בהצלחה");
-                Close();
+            _myBl.Order.UpdateOrder(Data.OrderCurrent!);
+            MessageBox.Show("הזמנה התעדכנה בהצלחה");
+            Close();
         }
-
-        //delete product
-        //private void btnDelete_Click(object sender, RoutedEventArgs e)
-        //{
-        //    _myBl.Product.DeleteProduct(Convert.ToInt32(txtId.Text));
-        //    MessageBox.Show("מוצר נמחק בהצלחה");
-        //    Close();
-        //}
-
 
         /// <summary>
         /// for close this window if the user regreted
@@ -82,13 +66,13 @@ namespace PL.Order
 
         private void btnUpdateStatus_Click(object sender, RoutedEventArgs e)
         {
-            if (cmbStatus.SelectedIndex == 0)//approved
+            if (txtStatus.Text == "approved")
             {
                 _myBl.Order.ShippingUpdate(Convert.ToInt32(txtId.Text));
                 MessageBox.Show("תאריך שילוח התעדכן בהצלחה");
                 Close();
             }
-            else if (cmbStatus.SelectedIndex == 1)//sent
+            else if (txtStatus.Text == "sent")
             {
                 _myBl.Order.OrderDeliveryUpdate(Convert.ToInt32(txtId.Text));
                 MessageBox.Show("תאריך אספקה התעדכן בהצלחה");
@@ -101,6 +85,5 @@ namespace PL.Order
             }
         }
 
-      
     }
 }

@@ -8,8 +8,35 @@
         
                 DataContext="{Binding Path = Data, RelativeSource={RelativeSource self} }"
 
-        Title="OrderWindow" Height="700" Width="800">
+        Title="OrderWindow" Height="600" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="MyTemplate" DataType="local:ProductForList">
+            <Grid x:Name="MainGrid" >
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding Path=IdProduct}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name}"/>
+                <TextBlock Grid.Column="2" Text="{Binding Path=Price}"/>
+                <TextBlock Grid.Column="3" Text="{Binding Path=AmountInCart}"/>
+                <TextBlock Grid.Column="4" Text="{Binding Path=TotalPrice}"/>
+
+
+
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -23,12 +50,13 @@
         <TextBox Text="{Binding OrderCurrent.OrderDate}" x:Name="txtOrderDate" IsEnabled="False"  HorizontalAlignment="Left" Margin="132,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <TextBox Text="{Binding OrderCurrent.ShipDate}" x:Name="txtShipDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <TextBox Text="{Binding OrderCurrent.DeliveryrDate}" x:Name="txtDeliveryrDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,432,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
-        <ComboBox ItemsSource="{Binding Status}" SelectedItem="{Binding OrderCurrent.Status}" x:Name="cmbStatus" IsEnabled="False" HorizontalAlignment="Left" Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="22"  />
+        <!--<ComboBox ItemsSource="{Binding Status}" SelectedItem="{Binding OrderCurrent.Status}" x:Name="cmbStatus" IsEnabled="False" HorizontalAlignment="Left" Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="22"  />-->
+        <TextBox Text="{Binding OrderCurrent.Status}" x:Name="txtStatus" IsEnabled="False" HorizontalAlignment="Left"  Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18" />
         <TextBox Text="{Binding OrderCurrent.TotalPrice}" x:Name="txtPrice" IsEnabled="False" HorizontalAlignment="Left" Margin="132,540,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
 
         <!--<Button x:Name="btnUpdate" Content="עדכון פרטי הזמנה" BorderThickness="2" Visibility="{Binding IsVisible}"  HorizontalAlignment="Left" Margin="81,593,0,0" VerticalAlignment="Top" Click="btnUpdate_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Grid.ColumnSpan="2" Height="27"/>-->
-        <Button x:Name="btnUpdateStatus" Content="עדכון סטטוס" Visibility="{Binding IsVisible}" BorderThickness="2"  HorizontalAlignment="Left" Margin="81,551,0,0" VerticalAlignment="Top" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Click="btnUpdateStatus_Click" Grid.ColumnSpan="2" Height="27"/>
-        <Button x:Name="btnCancel" Content="חזור" BorderThickness="2"  HorizontalAlignment="Left" Margin="201,632,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="58" Height="27"/>
+        <Button x:Name="btnUpdateStatus" Content="עדכון סטטוס" Visibility="{Binding IsVisible}" BorderThickness="2"  HorizontalAlignment="Left" Margin="52,458,0,0" VerticalAlignment="Top" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Click="btnUpdateStatus_Click" Height="27"/>
+        <Button x:Name="btnCancel" Content="חזור" BorderThickness="2"  HorizontalAlignment="Left" Margin="54,516,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="58" Height="27"/>
 
         <Label x:Name="lblId" Content="מזהה הזמנה" HorizontalAlignment="Left" Margin="302,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076" Width="93" Grid.Column="1" Height="26"/>
         <Label x:Name="lblName" Content="שם קונה" HorizontalAlignment="Left" Margin="308,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="69" Grid.Column="1" Height="26"/>
@@ -45,7 +73,7 @@
         <Label x:Name="lblTitle" Content="פרטי הזמנה" HorizontalAlignment="Center" Margin="0,43,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic" Width="200" Grid.Column="1" Height="39"/>
         <!--<Label x:Name="lblIncorrectName" Content="בבקשה הזינו שם תקין" HorizontalAlignment="Left" Margin="209,183,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red" Width="94" Grid.Column="1" Height="19" />-->
 
-        <ListView x:Name="ProductsListview" HorizontalAlignment="Left" ItemsSource="{Binding OrderCurrent.Items}" Width="200" Margin="106,81,0,153" Background="#FFE52865"/>
+        <ListView x:Name="ProductsListview" ItemsSource="{Binding OrderCurrent.Items}" ItemTemplate="{StaticResource MyTemplate}" Margin="50,243,464,180" Background="#FFE52865" Grid.ColumnSpan="2"/>
 
 
     </Grid>

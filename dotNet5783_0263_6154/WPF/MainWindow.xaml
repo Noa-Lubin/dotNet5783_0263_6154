@@ -8,25 +8,15 @@
         Title="MainWindow" Height="600" Width="1000" Background="White">
 
     <Window.Resources>
-        <Style x:Key="myButtonStyle" TargetType="Button">
-            <Setter Property="FontSize" Value="35" />
-            <Setter Property="FontFamily" Value="Consolas" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Background" Value="#da1884" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="2" />
-
-            <Setter Property="Width" Value="250" />
-            <Setter Property="Height" Value="43" />
-        </Style>
+       
 
     </Window.Resources>
 
     <Grid>
-        <Button x:Name="ToCatalog"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="54" Content="יצירת הזמנה" Margin="340,226,360,0" Click="ToCatalog_Click"/>
-        <Button x:Name="ToTracking"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="54" Content="למעקב הזמנה" Margin="340,327,360,0" Click="ToTracking_Click"/>
-        <Button x:Name="Manager"  Style="{StaticResource myButtonStyle}" VerticalAlignment="Top" Height="121" Content="כניסת מנהל" Margin="667,426,33,0" RenderTransformOrigin="2.286,0.624" Click="Manager_Click"/>
+        <Button x:Name="ToCatalog"   VerticalAlignment="Top" Height="54" Width="250" Content="יצירת הזמנה" Margin="360,226,365,0" FontSize="25" Click="ToCatalog_Click"/>
+        <Button x:Name="Manager"  VerticalAlignment="Top" Height="121" Width="250" Content="כניסת מנהל" Margin="667,426,33,0" FontSize="25" RenderTransformOrigin="2.286,0.624" Click="Manager_Click"/>
         <Image HorizontalAlignment="Left" Height="188" Margin="10,10,0,0" VerticalAlignment="Top" Width="304" Source="/mr-donuts.png"/>
+        <Button x:Name="ToTracking_Copy" VerticalAlignment="Top" Height="54" Width="250" Content="למעקב הזמנה" FontSize="25" Click="ToTracking_Click" Margin="360,315,365,0"/>
         <!--<Label Content="Mr Donuts" FontFamily="Consolas" FontSize="70"  HorizontalAlignment="Center" VerticalAlignment="Top"/>-->
 
     </Grid>

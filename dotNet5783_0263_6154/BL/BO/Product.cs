@@ -32,5 +32,8 @@ namespace BO
         /// </summary>
         public int InStock { get; set; }
 
+
+        public string? ImageProduct { get; set; }
+
     }
 }

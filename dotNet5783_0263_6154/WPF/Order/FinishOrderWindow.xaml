@@ -1,0 +1,20 @@
+﻿<Window x:Class="PL.Order.FinishOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Order"
+        DataContext="{Binding Path=idOrder, RelativeSource={RelativeSource Mode=Self}}"
+
+        mc:Ignorable="d"
+        Title="FinishOrderWindow" Height="300" Width="720">
+    <Grid>
+        <Label x:Name="lblTitle" Content="הזמנה הושלמה" HorizontalAlignment="Left" Margin="432,45,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
+        <Label  Content="הזמנתך הושלמה ותגיע לכתובתך עד 5 ימי עסקים" HorizontalAlignment="Left" Margin="151,107,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="BN Cloud" FontSize="18" FontStyle="Italic"/>
+        <Label  Content=":מספר הזמנה" HorizontalAlignment="Left" Margin="523,144,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="BN Cloud" FontSize="14" FontStyle="Italic"/>
+        <Label  Content="{Binding}" HorizontalAlignment="Left" Margin="475,144,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="BN Cloud" FontSize="14" FontStyle="Italic"/>
+        <Button x:Name="btnClose" Content="חזרה לאתר" BorderThickness="2" HorizontalAlignment="Left" Margin="94,214,0,0" VerticalAlignment="Top" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Click="btnCancel_Click"/>
+        <Button x:Name="btnToTracking" Content="למעקב ההזמנה" BorderThickness="2" HorizontalAlignment="Left" Margin="217,214,0,0" VerticalAlignment="Top" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Click="btnToTracking_Click" />
+
+    </Grid>
+</Window>

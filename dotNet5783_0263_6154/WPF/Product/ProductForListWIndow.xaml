@@ -71,6 +71,8 @@
 
         <ListBox x:Name="ProductsListview" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="ListBox_MouseDoubleClick" />
         <Label Content="סנן לפי קטגוריה" Margin="161,0,117,30" Foreground="#da1884" FontSize="12"  FontFamily="BN Cloud" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Button  x:Name="btnPopular" Background="#da1884" Content="מוצרים פופולרים ביותר" FontFamily="BN Cloud" BorderThickness="2" Height="30" Width="200" VerticalAlignment="Top" Click="btnPopular_Click" Grid.Column="3" Grid.ColumnSpan="4"/>
+
         <ComboBox Name="CategorySelector"  Background="#da1884" SelectionChanged="CategorySelector_SelectionChanged" RenderTransformOrigin="0.888,-0.844" Margin="23,0,39,0"/>
         <Button x:Name="btnAddProduct" Grid.ColumnSpan="4" Grid.Row="3" Background="#da1884" Margin="0,0,0,0" Height="27" Content="הוספת מוצר" FontFamily="BN Cloud" Click="btnAddProduct_Click"  BorderThickness="2"/>
 

@@ -62,7 +62,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition  Width="*"/>            
+            <ColumnDefinition  Width="*"/>
 
         </Grid.ColumnDefinitions>
         <Label Content="מזהה הזמנה" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
@@ -72,6 +72,7 @@
         <Label Content="סכום" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Style="{StaticResource myLabelStyle}"/>
 
         <ListBox x:Name="OrderssListview" Grid.Row="2" Grid.ColumnSpan="5" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="OrderssListview_MouseDoubleClick" />
+        <Button x:Name="back" Content="חזור" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="29" Width="99" Click="back_Click"/>
 
     </Grid>
 

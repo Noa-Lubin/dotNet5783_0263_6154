@@ -1,11 +1,7 @@
-﻿using BO;
-using DO;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using PL.Product;
 
 namespace PL.Product
 {
@@ -36,11 +32,8 @@ namespace PL.Product
 
             var temp = bl!.Product.GetAllProducts();
             _productsForList = temp ==null ? new():new(temp);
-            //_productsForList = _myBl.Product.GetAllProducts();//Inserts the list of all products into a variable 
-          //  ProductsListview.ItemsSource = _productsForList; //Displays the returned list
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));//Filter products by category
             CategorySelector.SelectedIndex = 7;//initialization to none
-            //productsByCategory = _myBl.Product.GetAllProducts();//Initialize
         }
 
         /// <summary>
@@ -50,10 +43,10 @@ namespace PL.Product
         /// <param name="e"></param>
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {            
-            new ProductWindow().ShowDialog();
+            new ProductWindow().Show();
+          this.Close();
             var temp = _myBl!.Product.GetAllProducts();
             _productsForList = temp==null?new():new(temp); //Inserts the list of all products into a variable 
-            //ProductsListview.ItemsSource = _productsForList; //Displays the returned list
         }
 
 
@@ -101,18 +94,18 @@ namespace PL.Product
             {
                  var temp = _myBl!.Product.GetAllProducts();
                 _productsForList = temp == null ? new() : new(temp);
-                //productsByCategory = _myBl.Product.GetAllProducts();
-
             }
             else
             { //Calls the appropriate function and sends a delegate that it selects by category
-                //productsByCategory = _myBl.Product.GetAllProducts(x => x?.Category == (DO.Enums.Category)(categorySelect));
                 var temp = _myBl.Product.GetAllProducts(x => x?.Category == (DO.Enums.Category)(categorySelect));
                 _productsForList = temp == null ? new() : new(temp);
             }
-            //Displaying the list of returned products
-            //ProductsListview.ItemsSource = _productsForList;
         }
 
+        private void btnPopular_Click(object sender, RoutedEventArgs e)
+        {
+            var temp = _myBl!.Product.PopularItems();
+            _productsForList = temp == null ? new() : new(temp);
+        }
     }
     }

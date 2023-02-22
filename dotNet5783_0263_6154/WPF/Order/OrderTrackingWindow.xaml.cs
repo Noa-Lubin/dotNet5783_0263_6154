@@ -1,20 +1,6 @@
-﻿using BO;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using PL.Product;
+using WPF;
 
 namespace PL.Order
 {
@@ -23,6 +9,7 @@ namespace PL.Order
     /// </summary>
     public partial class OrderTrackingWindow : Window
     {
+
         BlApi.IBl _myBl = BlApi.Factory.Get();
 
         public BO.OrderTracking TrackingCurrent
@@ -35,16 +22,11 @@ namespace PL.Order
         public static readonly DependencyProperty TrackingCurrentProperty =
             DependencyProperty.Register("TrackingCurrent", typeof(BO.OrderTracking), typeof(Window), new PropertyMetadata(null));
 
-
         public OrderTrackingWindow(int id)
         {
             InitializeComponent();
-                  
-            
-                    TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(id)) ?? throw new Exception("aaaaaa");
-                    
+            TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(id)) ?? throw new Exception("aaaaaa");
         }
-
 
         private void btnToOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -54,6 +36,7 @@ namespace PL.Order
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            new MainWindow().Show();
             this.Close();
         }
     }

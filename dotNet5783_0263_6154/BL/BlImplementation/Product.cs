@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BO;
+using DalApi;
 using DO;
 using System;
 using System.Runtime.CompilerServices;
@@ -19,32 +20,32 @@ namespace BlImplementation
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private BO.ProductForList casting(DO.Product? p)
-        {
-            BO.ProductForList pr = new BO.ProductForList()
-            {
-                Name = p?.Name,
-                Price = p?.Price ?? 0,
-                Category = (Category?)p?.Category,
-                IdProduct = p?.ID ?? 0
-            };
-            return pr;
-        }
+        //private BO.ProductForList casting(DO.Product? p)
+        //{
+        //    BO.ProductForList pr = new BO.ProductForList()
+        //    {
+        //        Name = p?.Name,
+        //        Price = p?.Price ?? 0,
+        //        Category = (Category?)p?.Category,
+        //        IdProduct = p?.ID ?? 0
+        //    };
+        //    return pr;
+        //}
 
 
-        private BO.ProductItem castingProduct(DO.Product? p)
-        {
-            BO.ProductItem? productItem = new BO.ProductItem()
-            {
-                IdProduct = p?.ID??0,
-                Name = p?.Name,
-                Price = p?.Price ?? 0,
-                Category = (Category?)p?.Category,
-                InStock = p?.InStock > 0 ? true : false,
-                Amount = p?.InStock??0
-            };
-            return productItem;
-        }
+        //private BO.ProductItem castingProduct(DO.Product? p)
+        //{
+        //    BO.ProductItem? productItem = new BO.ProductItem()
+        //    {
+        //        IdProduct = p?.ID??0,
+        //        Name = p?.Name,
+        //        Price = p?.Price ?? 0,
+        //        Category = (Category?)p?.Category,
+        //        InStock = p?.InStock > 0 ? true : false,
+        //        Amount = p?.InStock??0
+        //    };
+        //    return productItem;
+        //}
 
 
         /// <summary>
@@ -202,7 +203,7 @@ namespace BlImplementation
                 Price = p.Price,
                 Category = (BO.Enums.Category?)(p.Category),
                 InStock = exist, //we calculated
-                Amount = amount //we calculated
+                Amount = amount //fcrvtegtrbhyujhytdrfgjkjuyhg
             };
             return productItem;
         }
@@ -255,11 +256,47 @@ namespace BlImplementation
                        Price = p?.Price ?? 0,
                        Category = (Category?)p?.Category,
                        InStock = p?.InStock > 0 ? true : false,
-                       Amount = p?.InStock ?? 0
+                       //Amount = p?.InStock ?? 0
+                       Amount=0
                    };
 
             //return allProducts.Select(p => castingProduct(p));
         }
+        public IEnumerable<BO.ProductForList?> PopularItems()
+        {
+            //creat a list of groups of items that appear in order, by ID
+            var popGroup = from item in _myDal!.orderItem.GetAll()
+                           group item by ((DO.OrderItem?)(item))?.ProductID into g
+                           select new { id = g.Key, Items = g };
+            //take the 10 that appear in the biggest amount of orders 
+            popGroup = popGroup.OrderByDescending(x => x.Items.Count()).Take(10);
+            //return the 10 popular items:
+            try
+            {
+                return from item in popGroup
+                       let prod = _myDal.product.Get(item?.id ?? throw new BO.IncorrectData("Product ID is incorrect"))
+                       select new BO.ProductForList
+                       {
+                           IdProduct = prod.ID,
+                           Name = prod.Name,
+                           Price = prod.Price,
+                           Category = (BO.Enums.Category)prod.Category!,
+                           //picture = prod.picture ?? @"\pictures\defult.PNG"
+                       };
+            }
+            catch 
+            {
+                throw new BO.NotFound("Product is not exist");
+            }
+        }
     }
 
 }
+
+
+
+
+
+
+
+

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Windows;
 using Microsoft.VisualBasic;
 using PL;
@@ -39,6 +38,7 @@ namespace WPF
                     myBl!.Order.GetOrder(Convert.ToInt32(input));
                     succeed = true;
                     new OrderTrackingWindow(Convert.ToInt32( input)).Show();
+                    this.Close();
                 }
                 catch
                 {
@@ -48,8 +48,11 @@ namespace WPF
             }
         }
 
-        private void Manager_Click(object sender, RoutedEventArgs e) => new ManagerWindow().Show();
-    }
-
-    
+        private void Manager_Click(object sender, RoutedEventArgs e)
+        {
+            new ManagerWindow().Show();
+            this.Close();
+        }
+       
+    }  
 }

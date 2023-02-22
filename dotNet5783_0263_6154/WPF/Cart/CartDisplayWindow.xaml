@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Cart"
+        xmlns:local="clr-namespace:PL.Cart" xmlns:local1="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding Path=_ItemsInCart, RelativeSource={RelativeSource Mode=Self}}"
         Title="CartDisplayWindow" Height="450" Width="800">
+
     <Window.Resources>
+        <local1:NotBooleanToVisibilityConverter x:Key="notBooleanToVisibilityConverter" />
+        <local1:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+
         <DataTemplate x:Key="MyTemplate" DataType="local:OrderItem">
 
             <Grid x:Name="MainGrid" >
@@ -18,7 +22,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition  Width="*"/>
+                    <!--<ColumnDefinition  Width="*"/>-->
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -30,22 +34,23 @@
 
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{Binding Path=OrderItemID}" TextAlignment="Center"/>
-                <TextBlock Grid.Column="1" Text="{Binding Path=IdProduct}" TextAlignment="Center"/>
-                <TextBlock Grid.Column="2" Text="{Binding Path=Name}" TextAlignment="Center"/>
-                <TextBlock Grid.Column="3" Text="{Binding Path=Price}" TextAlignment="Center"/>
-                <TextBlock Grid.Column="4" Text="{Binding Path=TotalPrice}" TextAlignment="Center"/>
-                <Button x:Name="btnPlus" Grid.Column="5" Content="+" Click="btnPlus_Click" />
-                <TextBlock Grid.Column="6" Text="{Binding Path=AmountInCart}" TextAlignment="Center"/>
-                <Button x:Name="btnMinus" Grid.Column="7" Content="-" Click="btnMinus_Click" />
-                <Button x:Name="btnDelete" Grid.Column="8" Content="מחיקה" Click="btnDelete_Click"/>
+                <!--<TextBlock Grid.Column="0" Text="{Binding Path=OrderItemID}" TextAlignment="Center"/>-->
+                <TextBlock Grid.Column="0" Text="{Binding Path=IdProduct}" TextAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" TextAlignment="Center"/>
+                <TextBlock Grid.Column="2" Text="{Binding Path=Price}" TextAlignment="Center"/>
+                <TextBlock Grid.Column="3" Text="{Binding Path=TotalPrice}" TextAlignment="Center"/>
+                <Button x:Name="btnPlus" Grid.Column="4" Content="+" Click="btnPlus_Click" />
+                <TextBlock Grid.Column="5" Text="{Binding Path=AmountInCart}" TextAlignment="Center"/>
+                <Button x:Name="btnMinus" Grid.Column="6" Content="-" Click="btnMinus_Click" />
+                <Button x:Name="btnDelete" Grid.Column="7" Content="מחיקה" Click="btnDelete_Click"/>
             </Grid>
         </DataTemplate>
     </Window.Resources>
 
     <StackPanel>
         <ListBox x:Name="ProductsListview" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" />
-        <Button x:Name="btnCheckOut" Background="#FFE52865" Margin="0,20,0,0" Height="27" Content="מעבר לתשלום" FontFamily="BN Cloud"  BorderThickness="2" Click="btnCheckOut_Click"/>
+        <Label Name="lblEmpty" Content="-הסל ריק-" FontSize="30" Visibility="{Binding  Converter={StaticResource notBooleanToVisibilityConverter}}" HorizontalAlignment="Center" FontFamily="BN CLOUD"/>
+        <Button x:Name="btnCheckOut" Visibility="{Binding  Converter={StaticResource booleanToVisibilityConverter}}" Margin="0,20,0,0" Height="27" Content="מעבר לתשלום"  BorderThickness="2" Click="btnCheckOut_Click"/>
 
     </StackPanel>
 </Window>

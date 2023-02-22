@@ -1,9 +1,5 @@
-﻿using BO;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using PL.Product;
 
 namespace PL.Order
 {
@@ -12,9 +8,8 @@ namespace PL.Order
     /// </summary>
     public partial class OrderForListWindow : Window
     {
-        BlApi.IBl _myBl = BlApi.Factory.Get();
-        //private IEnumerable<BO.OrderForList?> _ordersForList;
 
+        BlApi.IBl _myBl = BlApi.Factory.Get();
 
         public ObservableCollection<BO.OrderForList?> _ordersForList
         {
@@ -26,19 +21,13 @@ namespace PL.Order
         public static readonly DependencyProperty _ordersForListProperty =
             DependencyProperty.Register("_ordersForList", typeof(ObservableCollection<BO.OrderForList?>), typeof(Window), new PropertyMetadata(null));
 
-
         public OrderForListWindow(BlApi.IBl bl)
         {
             InitializeComponent();
             _myBl = bl;
             var temp = _myBl!.Order.GetAllOrders();
-            _ordersForList = temp == null ? new() : new(temp);
-            //_ordersForList = _myBl.Order.GetAllOrders();//Inserts the list of all products into a variable 
-            //OrdersListview.ItemsSource = _ordersForList; //Displays the returned list
-            
+            _ordersForList = temp == null ? new() : new(temp);         
         }
-
-      
 
         private void OrderssListview_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -46,8 +35,12 @@ namespace PL.Order
             new OrderWindow(id).ShowDialog();
             var temp = _myBl!.Order.GetAllOrders();
             _ordersForList = temp == null ? new() : new(temp);
-            //_ordersForList = _myBl.Order.GetAllOrders();//Inserts the list of all products into a variable 
-            //OrdersListview.ItemsSource = _ordersForList; //Displays the returned list
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            new ManagerWindow().Show();
+            this.Close();
         }
     }
 }

@@ -13,6 +13,12 @@ namespace BlImplementation
     {
         DalApi.IDal? myDal = DalApi.Factory.Get();
 
+
+        public BO.Cart AddAndUpdate(int idProduct, BO.Cart cart, int amount)
+        {
+            return UpdateAmountOfProduct(idProduct, AddProductToCart(idProduct, cart), amount);
+        }
+
         /// <summary>
         /// add a product to the cart and update the stock
         /// </summary>
@@ -40,17 +46,17 @@ namespace BlImplementation
             bool existInCart = cart.Items?.Any(orderItem => orderItem?.IdProduct == idProduct) ?? false;
             if (!existInCart)//if this product is not exist in cart
             {            
-                DO.OrderItem newOrderItemDO = new DO.OrderItem()//creat a new OrderItem
-                {
-                    Price = p.Price,
-                    ProductID = p.ID,
-                    Amount = 1,
-                    //OrderID = 111    בעיהההההההה
-                };
-                int id = myDal.orderItem.Add(newOrderItemDO);
+                //DO.OrderItem newOrderItemDO = new DO.OrderItem()//creat a new OrderItem
+                //{
+                //    Price = p.Price,
+                //    ProductID = p.ID,
+                //    Amount = 1,
+                //    //OrderID = 111    בעיהההההההה
+                //};
+                //int id = myDal.orderItem.Add(newOrderItemDO);
                 BO.OrderItem newOrderItem = new BO.OrderItem()//creat a new OrderItem
                 {
-                    OrderItemID= id,
+                    //OrderItemID= id,
                     Name = p.Name,
                     Price = p.Price,
                     IdProduct = p.ID,
@@ -119,7 +125,7 @@ namespace BlImplementation
         /// <exception cref="IncorrectData"></exception>
         /// <exception cref="NotFound"></exception>
         /// <exception cref="outOfStock"></exception>
-        public void MakeOrder(BO.Cart cart, string? name, string? email, string? address)
+        public int MakeOrder(BO.Cart cart, string? name, string? email, string? address)
         {
             if (name == null)
                 throw new IncorrectData("Name is incorrect");
@@ -133,13 +139,13 @@ namespace BlImplementation
                 CustomerAdress = address,
                 CustomerEmail = email,
                 OrderDate = DateTime.Now,
-                ShipDate = DateTime.MinValue,
-                DeliveryrDate = DateTime.MinValue,
+                ShipDate = default ,
+                DeliveryrDate = default,
             };
             int idOrder = myDal!.order.Add(newOrder);//add order to list of orders
             //Checking the integrity of the data
             cart.Items!.ForEach(item => DataIntegrityOfItem(item!, idOrder));
-        
+            return idOrder;
         }
         /// <summary>
         /// Updating the quantity of a product in the cart

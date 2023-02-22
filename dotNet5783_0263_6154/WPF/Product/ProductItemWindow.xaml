@@ -8,14 +8,14 @@
         DataContext="{Binding Path = CurrentProductItem, RelativeSource={RelativeSource self} }"
         Title="ProductItemWindow" Height="500" Width="400">
     <Grid>
-        <TextBox x:Name="txtId" HorizontalAlignment="Left" Margin="71,103,0,0" TextWrapping="Wrap" Text="{Binding IdProduct}" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="txtId" IsEnabled="False" HorizontalAlignment="Left" Margin="71,103,0,0" TextWrapping="Wrap" Text="{Binding IdProduct}" VerticalAlignment="Top" Width="120" />
         <!--<ComboBox x:Name="cmbCategory" Text="{Binding Path=Category}"  HorizontalAlignment="Left" Margin="71,151,0,0" VerticalAlignment="Top" Width="120"  />-->
-        <TextBox x:Name="cmbCategory" Text="{Binding Path=Category}"  HorizontalAlignment="Left" Margin="71,151,0,0" VerticalAlignment="Top" Width="120"  />
+        <TextBox x:Name="cmbCategory" IsEnabled="False" Text="{Binding Path=Category}"  HorizontalAlignment="Left" Margin="71,151,0,0" VerticalAlignment="Top" Width="120"  />
 
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="71,207,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120" />
-        <TextBox x:Name="txtPrice"  HorizontalAlignment="Left" Margin="71,266,0,0" TextWrapping="Wrap" Text="{Binding Price}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtName" IsEnabled="False" HorizontalAlignment="Left" Margin="71,207,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="txtPrice" IsEnabled="False" HorizontalAlignment="Left" Margin="71,266,0,0" TextWrapping="Wrap" Text="{Binding Price}" VerticalAlignment="Top" Width="120"/>
         <CheckBox x:Name="cbInStock" IsEnabled="False" IsChecked="{Binding Path=InStock}"  HorizontalAlignment="left" Margin="176,322,0,0"></CheckBox>
-        <TextBox x:Name="txtAmountInCart"  HorizontalAlignment="Left" Margin="71,373,0,0" TextWrapping="Wrap" Text="{Binding Amount}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtAmountInCart" IsEnabled="False" HorizontalAlignment="Left" Margin="71,373,0,0" TextWrapping="Wrap" Text="{Binding Amount}" VerticalAlignment="Top" Width="120"/>
         <!--<Button x:Name="btnDelete" Content="Delete" BorderThickness="2" HorizontalAlignment="Left" Margin="475,406,0,0" VerticalAlignment="Top" Click="btnDelete_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="120"/>-->
         <Button x:Name="btnCancel" Content="חזור" BorderThickness="2" HorizontalAlignment="Left" Margin="151,427,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black"/>
         <Label x:Name="lblId" Content="מזהה מוצר" HorizontalAlignment="Left" Margin="250,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076"/>

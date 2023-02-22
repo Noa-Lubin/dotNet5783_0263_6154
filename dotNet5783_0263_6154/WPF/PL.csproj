@@ -19,6 +19,14 @@
 
   <ItemGroup>
     <None Remove="mr-donuts.png" />
+    <None Remove="Order\01eec1d22c063f5dd88b939b227376af.jpg" />
+    <None Remove="Order\0c7c135cac16b98bc0429056ab827fa9.jpg" />
+    <None Remove="Order\292cc193927f45611b932bb2397b19cf.jpg" />
+    <None Remove="Order\2c1dae74e958bad553d3c904c238ef4d.jpg" />
+    <None Remove="Order\36d1e93098a2b1ae4bd123773b561c9d.jpg" />
+    <None Remove="Order\5aa39b2ed87eba9fde0cf16dcd608382.jpg" />
+    <None Remove="Order\9b2664204ecdd01a2f23727463be20fc.jpg" />
+    <None Remove="Order\cart.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +35,14 @@
 
   <ItemGroup>
     <Resource Include="mr-donuts.png" />
+    <Resource Include="ImagesProducts\01eec1d22c063f5dd88b939b227376af.jpg" />
+    <Resource Include="ImagesProducts\0c7c135cac16b98bc0429056ab827fa9.jpg" />
+    <Resource Include="ImagesProducts\292cc193927f45611b932bb2397b19cf.jpg" />
+    <Resource Include="ImagesProducts\2c1dae74e958bad553d3c904c238ef4d.jpg" />
+    <Resource Include="ImagesProducts\36d1e93098a2b1ae4bd123773b561c9d.jpg" />
+    <Resource Include="ImagesProducts\5aa39b2ed87eba9fde0cf16dcd608382.jpg" />
+    <Resource Include="ImagesProducts\9b2664204ecdd01a2f23727463be20fc.jpg" />
+    <Resource Include="Order\cart.png" />
   </ItemGroup>
 
 </Project>
