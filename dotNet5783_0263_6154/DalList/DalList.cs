@@ -14,7 +14,7 @@ namespace Dal
         public static IDal Instance { get; } = new DalList();
         public IProduct product => new DalProduct();
 
-        public object Product => throw new NotImplementedException();
+        //public object Product => throw new NotImplementedException();
 
         public IOrder order => new DalOrder();
 

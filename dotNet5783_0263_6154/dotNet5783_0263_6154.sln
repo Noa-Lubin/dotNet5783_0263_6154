@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "targil0", "targil0\targil0.csproj", "{0F8AACC7-9730-4A6B-90FF-757E872406A0}"
 EndProject
@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items (2)", "Solution Items (2)", "{D790603B-67F0-42DF-89F0-B052E836FF77}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items (2)", "Solution Items (2)", "{E183B955-95A3-4389-B752-90CAB64C2C9C}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
 	EndProjectSection
@@ -20,16 +20,31 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{E80A048F-3FD9-4029-9524-60620C7ACBC3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{03B2BBB9-611A-46B2-8014-AFC9BCFF71C4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391} = {AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{76FBFF4E-04AE-473A-ACCB-E2B535292C1A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391} = {AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{753FF6B0-9895-4BFA-859F-B3DED491A504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "WPF\PL.csproj", "{8518050A-F72D-43A5-8038-E75AFE24D41A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "WPF\PL.csproj", "{8518050A-F72D-43A5-8038-E75AFE24D41A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{8DCEE689-DBB9-4502-83A8-0F851B8A01D0}"
 	ProjectSection(SolutionItems) = preProject
+		xml\Config.xml = xml\Config.xml
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\Order.xml = xml\Order.xml
+		xml\OrderItem.xml = xml\OrderItem.xml
+		xml\Product.xml = xml\Product.xml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D4429284-2918-4DC1-9393-2F4B8586B24A} = {D4429284-2918-4DC1-9393-2F4B8586B24A}
 	EndProjectSection
 EndProject
 Global
@@ -66,6 +81,10 @@ Global
 		{8518050A-F72D-43A5-8038-E75AFE24D41A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8518050A-F72D-43A5-8038-E75AFE24D41A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8518050A-F72D-43A5-8038-E75AFE24D41A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEBD1FB7-7E0F-4053-AEFE-3ED5D973F391}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

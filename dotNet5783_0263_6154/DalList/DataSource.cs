@@ -13,7 +13,6 @@ internal static class DataSource
     static DataSource()
     {
         s_Initialize();
-
     }
     private static readonly Random rnd = new Random();
     internal static class config

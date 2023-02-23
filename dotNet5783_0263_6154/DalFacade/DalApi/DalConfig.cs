@@ -7,7 +7,9 @@ static class DalConfig
     internal static string? s_dalName;
     internal static Dictionary<string, string> s_dalPackages;
     internal static Dictionary<string, string> s_dalNamespaces;
-    internal static Dictionary<string, string> s_class;
+    //internal static Dictionary<string, string> s_class;
+    internal static Dictionary<string, string> s_dalClass;
+
 
     static DalConfig()
     {
@@ -19,7 +21,8 @@ static class DalConfig
             ?? throw new DalConfigException("<dal-packages> element is missing");
         s_dalPackages = packages.ToDictionary(p => "" + p.Name, p => p.Value);
         s_dalNamespaces = packages.ToDictionary(p => "" + p.Name, p => p.Attributes().FirstOrDefault(x => x.Name == "namespace")!.Value);
-        s_class = packages.ToDictionary(p => "" + p.Name, p => p.Attributes().FirstOrDefault(x => x.Name == "class")!.Value);
+        //s_class = packages.ToDictionary(p => "" + p.Name, p => p.Attributes().FirstOrDefault(x => x.Name == "class")!.Value);
+        s_dalClass = packages.ToDictionary(p => "" + p.Name, p => p.Attributes().FirstOrDefault(x => x.Name == "class")!.Value);
 
     }
 
