@@ -35,8 +35,9 @@ namespace PL.Order
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             new MainWindow().ShowDialog();
+            this.Close();
+
         }
     }
 }

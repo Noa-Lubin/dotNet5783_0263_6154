@@ -15,18 +15,6 @@ namespace PL.Cart
         BlApi.IBl _myBl = BlApi.Factory.Get();
         BO.Cart _myCart = new BO.Cart();
 
-
-        //public int TotalPriceCart
-        //{
-        //    get { return (int)GetValue(TotalPriceCartProperty); }
-        //    set { SetValue(TotalPriceCartProperty, value); }
-        //}
-
-        //// Using a DependencyProperty as the backing store for TotalPriceCart.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty TotalPriceCartProperty =
-        //    DependencyProperty.Register("TotalPriceCart", typeof(int), typeof(Window), new PropertyMetadata(0));
-
-
         public ObservableCollection<BO.OrderItem?> _ItemsInCart
         {
             get { return (ObservableCollection<BO.OrderItem?>)GetValue(_ItemsInCartProperty); }
@@ -89,7 +77,7 @@ namespace PL.Cart
                 MessageBox.Show("הסל ריק");
             else
             {
-                new DetailsCustomerWindow(_myCart).ShowDialog();
+                new DetailsCustomerWindow(_myCart).Show();
             }
         }
 

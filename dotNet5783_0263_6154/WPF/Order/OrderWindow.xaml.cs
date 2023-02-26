@@ -42,6 +42,7 @@ namespace PL.Order
             InitializeComponent();
         }
 
+
         /// <summary>
         /// Enters the values ​​that the user has typed and creates a new order and adds to the list of products in the data layer
         /// </summary>
@@ -61,7 +62,8 @@ namespace PL.Order
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+
+            this.Close();
         }
 
         private void btnUpdateStatus_Click(object sender, RoutedEventArgs e)

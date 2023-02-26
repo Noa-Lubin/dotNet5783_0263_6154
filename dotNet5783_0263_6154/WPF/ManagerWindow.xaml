@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-     Title="ManagerWindow" Height="600" Width="1100" Background="White" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+     Title="ManagerWindow" Height="600" Width="1100" Background="White"   WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
 

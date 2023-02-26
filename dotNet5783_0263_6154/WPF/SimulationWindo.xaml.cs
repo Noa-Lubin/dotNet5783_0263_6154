@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WPF;
 
 namespace PL
 {
@@ -39,7 +40,7 @@ namespace PL
         public static readonly DependencyProperty OrderCurrentProperty =
             DependencyProperty.Register("OrderCurrent", typeof(BO.Order), typeof(Window), new PropertyMetadata(null));
 
-  
+
         public SimulationWindo()
         {
             InitializeComponent();
@@ -54,10 +55,13 @@ namespace PL
             //watch
             DispatcherTimer timer = new DispatcherTimer();
             timer.Start();
-
-        
         }
-
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Add your logic here to determine if the window should be closed or not
+            // If the window should not be closed, set e.Cancel to true to cancel the closing event
+            e.Cancel = true;
+        }
         private void start(object sender, myOrder e)
         {
             updateStatus.ReportProgress(1, e);
@@ -95,10 +99,6 @@ namespace PL
 
         private void ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //שעוןן
-            //פקדיםם
-            //מקבל ארוע שקשור חעדכון הפקדים 
-
             if (e.ProgressPercentage == 0)
             {
                 timer.Text = DateTime.Now.ToString("h:mm:ss tt");
@@ -113,6 +113,8 @@ namespace PL
                     statusAfter.Text = BO.Enums.OrderStatus.provided.ToString();
                 TimeStart.Text = timer.Text;
                 TimeEnd.Text= DateTime.Now.AddSeconds(delay).ToString("h:mm:ss tt");
+                //pbTracking.Value = DateTime.Now - TimeStart;
+
             }
         }
 
@@ -124,18 +126,25 @@ namespace PL
             if (flag == true)
             {
                 MessageBox.Show("finish😍");
+                txtId.Text = "";
+                statusBefore.Text = "";
+                statusAfter.Text = "";
+                TimeStart.Text = "";
+                TimeEnd.Text = "";
             }
             else if (e.Cancelled == true)
             {
                 MessageBox.Show("cancled");
             }
             this.Cursor = Cursors.Arrow;
-            this.Close();
+;
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             Simulator.Simulator.Deactive();
         }
+
+
     }
 }

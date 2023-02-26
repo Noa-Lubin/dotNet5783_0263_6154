@@ -47,6 +47,7 @@ public partial class ProductWindow : Window
         InitializeComponent();   
     }
 
+
     /// <summary>
     /// Enters the values ​​that the user has typed and creates a new order and adds to the list of products in the data layer
     /// </summary>
@@ -88,7 +89,7 @@ public partial class ProductWindow : Window
             {                
                 _myBl.Product.UpdateProduct(ProdCurrent!);
                 MessageBox.Show("מוצר התעדכן בהצלחה");
-                Close();             
+                this.Close();             
             }
         }
     }
@@ -101,10 +102,8 @@ public partial class ProductWindow : Window
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
         new ProductForListWIndow(_myBl!).Show();
-       this.Close();
+        this.Close();
     }
-
-
 
 }
 

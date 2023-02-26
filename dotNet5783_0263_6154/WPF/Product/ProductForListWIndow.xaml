@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         DataContext="{Binding Path=_productsForList, RelativeSource={RelativeSource Mode=Self}}"
-        Title="ProductForListWIndow" Height="auto" Width="800" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="ProductForListWIndow" Height="auto" Width="800"   WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="myLabelStyle" TargetType="Label">

@@ -12,7 +12,7 @@ internal class DalProduct : IProduct
     public int Add(Product product)
     {
        if( DataSource.productList.Any(p => p?.ID == product.ID)  == true)
-            throw new Exception("This product is already exist");
+            throw new Duplication("This product is already exist");
         DataSource.productList.Add(product);
         return product.ID;
     }

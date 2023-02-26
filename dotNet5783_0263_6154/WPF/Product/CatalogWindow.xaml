@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
          DataContext="{Binding  RelativeSource={RelativeSource Mode=Self}}"
-        Title="CatalogWindow" Height="700" Width="800" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="CatalogWindow" Height="700" Width="800"   WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
 

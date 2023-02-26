@@ -14,40 +14,6 @@ namespace BlImplementation
     {
         DalApi.IDal? _myDal = DalApi.Factory.Get();
 
-
-        /// <summary>
-        /// Help func - casting object from DO.Product? to BO.ProductForList
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        //private BO.ProductForList casting(DO.Product? p)
-        //{
-        //    BO.ProductForList pr = new BO.ProductForList()
-        //    {
-        //        Name = p?.Name,
-        //        Price = p?.Price ?? 0,
-        //        Category = (Category?)p?.Category,
-        //        IdProduct = p?.ID ?? 0
-        //    };
-        //    return pr;
-        //}
-
-
-        //private BO.ProductItem castingProduct(DO.Product? p)
-        //{
-        //    BO.ProductItem? productItem = new BO.ProductItem()
-        //    {
-        //        IdProduct = p?.ID??0,
-        //        Name = p?.Name,
-        //        Price = p?.Price ?? 0,
-        //        Category = (Category?)p?.Category,
-        //        InStock = p?.InStock > 0 ? true : false,
-        //        Amount = p?.InStock??0
-        //    };
-        //    return productItem;
-        //}
-
-
         /// <summary>
         /// Add a new product to the list of all products
         /// </summary>

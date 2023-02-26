@@ -16,7 +16,12 @@ namespace PL
         {
             InitializeComponent();
         }
-        private void ToProductsListButton_Click(object sender, RoutedEventArgs e) => new ProductForListWIndow(myBl!).Show();
+
+        private void ToProductsListButton_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductForListWIndow(myBl!).Show();
+            this.Close();
+        }
 
         private void ToOrdersListButton_Click(object sender, RoutedEventArgs e)
         {

@@ -42,10 +42,7 @@ namespace Simulator
         {
             myEndEvent -= e;
         }
-
-
         public static void Deactive() => activate = false;
-
         public static void Activate()
         {
             var rand = new Random();

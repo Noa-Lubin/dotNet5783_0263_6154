@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL"
         DataContext="{Binding RelativeSource={RelativeSource self} }"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="504" Width="500" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="ProductWindow" Height="504" Width="500"   WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <local:IntToStringConverter x:Key="intToStringConverter" />        

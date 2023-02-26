@@ -5,27 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        DataContext="{Binding OrderCurrent,RelativeSource={RelativeSource Self}}"
-        Title="SimulationWindo" Height="420" Width="600">
+        DataContext="{Binding OrderCurrent, RelativeSource={RelativeSource Self}}"
+        Title="SimulationWindo" Height="420" Width="600"   WindowStartupLocation="CenterScreen"
+         Closing="Window_Closing">
     <Window.Resources>
         <local:StatusToInt x:Key="statusToProgressValue"/>
     </Window.Resources>
     <Grid>
         <Button Content="STOP" HorizontalAlignment="Left" Margin="48,41,0,0" VerticalAlignment="Top" Height="53" Width="109" Click="Stop_Click"/>
         <TextBlock x:Name="timer" HorizontalAlignment="Left" Margin="448,68,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="16"/>
-        <ProgressBar x:Name="pbTracking" Tag="pbTrackingB" Background="Black"  HorizontalAlignment="Center" Height="30" Margin="0,211,0,0" VerticalAlignment="Top" Width="215">
-            <ProgressBar.Foreground>LightPink</ProgressBar.Foreground>
-            <ProgressBar.Triggers>
-                <EventTrigger RoutedEvent="Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Value" From="0" To="100" Duration="0:0:01" RepeatBehavior="Forever" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </ProgressBar.Triggers>
-        </ProgressBar>
         <TextBlock x:Name="txtId"  HorizontalAlignment="Center" Margin="0,153,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" Height="16"/>
+        <TextBlock HorizontalAlignment="Left" Margin="263,138,0,0" TextWrapping="Wrap" Text="מספר הזמנה" VerticalAlignment="Top"/>
+
         <TextBlock x:Name="statusBefore" HorizontalAlignment="Left" Margin="330,337,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" RenderTransformOrigin="0.406,2.81"/>
         <TextBlock x:Name="statusAfter" HorizontalAlignment="Left" Margin="215,337,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         <TextBlock x:Name="TimeStart" HorizontalAlignment="Left" Margin="440,337,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>

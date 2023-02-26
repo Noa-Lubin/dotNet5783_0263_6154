@@ -91,18 +91,6 @@ internal class DalOrder : IOrder
         DataSource.orderList.Remove(ord);
         DataSource.orderList.Add(order);
 
-        //foreach (var item in DataSource.orderList)
-        //{
-        //    if (order.ID == item?.ID)
-        //    {
-        //        DataSource.orderList.Remove(item);
-        //        DataSource.orderList.Add(order);
-        //        return;
-        //    }
-        //}
-        ////if this order does not exist in array
-        //throw new Exception("this order does not exist");
-
     }
 
 

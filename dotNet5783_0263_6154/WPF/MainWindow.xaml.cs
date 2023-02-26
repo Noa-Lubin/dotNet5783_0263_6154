@@ -17,26 +17,13 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
-            
-
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Add your logic here to determine if the window should be closed or not
-            // If the window should not be closed, set e.Cancel to true to cancel the closing event
-            e.Cancel = true;
-        }
-       
-
-
 
         /// <summary>
         /// Redirects to the list of products window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
-
         private void ToCatalog_Click(object sender, RoutedEventArgs e)
         {
             new CatalogWindow(myBl!).Show();

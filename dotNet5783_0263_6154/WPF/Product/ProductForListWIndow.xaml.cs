@@ -31,7 +31,7 @@ namespace PL.Product
             _myBl = bl;
 
             var temp = bl!.Product.GetAllProducts();
-            _productsForList = temp ==null ? new():new(temp);
+            _productsForList = temp == null ? new() : new(temp);
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));//Filter products by category
             CategorySelector.SelectedIndex = 7;//initialization to none
         }
@@ -42,25 +42,12 @@ namespace PL.Product
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             new ProductWindow().Show();
-          this.Close();
+            this.Close();
             var temp = _myBl!.Product.GetAllProducts();
-            _productsForList = temp==null?new():new(temp); //Inserts the list of all products into a variable 
+            _productsForList = temp == null ? new() : new(temp); //Inserts the list of all products into a variable 
         }
-
-
-        /// <summary>
-        /// This button cancels the filtering by category and displays all products 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void clear_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var temp = _myBl!.Product.GetAllProducts();
-        //    _productsForList = temp == null ? new() : new(temp);
-     
-        //}
 
 
         /// <summary>
@@ -74,9 +61,6 @@ namespace PL.Product
             new ProductWindow(id).ShowDialog();
             var temp = _myBl!.Product.GetAllProducts();
             _productsForList = temp == null ? new() : new(temp);
-            /*  _productsForList = _myBl.Product.GetAllProducts()*/
-            ;//Inserts the list of all products into a variable 
-            //ProductsListview.ItemsSource = _productsForList; //Displays the returned list
         }
 
         /// <summary>
@@ -92,7 +76,7 @@ namespace PL.Product
             BO.Enums.Category categorySelect = (BO.Enums.Category)CategorySelector.SelectedItem;
             if ((BO.Enums.Category)(CategorySelector.SelectedItem) == BO.Enums.Category.none)
             {
-                 var temp = _myBl!.Product.GetAllProducts();
+                var temp = _myBl!.Product.GetAllProducts();
                 _productsForList = temp == null ? new() : new(temp);
             }
             else
@@ -113,4 +97,4 @@ namespace PL.Product
             this.Close();
         }
     }
-    }
+}

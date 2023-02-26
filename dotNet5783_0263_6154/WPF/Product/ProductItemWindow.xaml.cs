@@ -28,10 +28,10 @@ namespace PL.Product
             BO.ProductItem p = _myBl.Product.GetProductForList(idProduct, c);
             CurrentProductItem = p;
         }
-
+  
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+           this.Close();
         }
     }
 }

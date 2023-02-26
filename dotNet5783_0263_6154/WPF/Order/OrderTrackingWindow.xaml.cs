@@ -27,6 +27,7 @@ namespace PL.Order
             TrackingCurrent = _myBl?.Order.OrderOfTracking(Convert.ToInt32(id)) ?? throw new Exception("aaaaaa");
         }
 
+
         //Go to the details of order
         private void btnToOrder_Click(object sender, RoutedEventArgs e)
         {

@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:PL.Cart" xmlns:local1="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding Path=_ItemsInCart, RelativeSource={RelativeSource Mode=Self}}"
-        Title="CartDisplayWindow" Height="700" Width="800" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="CartDisplayWindow" Height="700" Width="800"  WindowStartupLocation="CenterScreen"
+>
 
     <Window.Resources>
         <local1:NotBooleanToVisibilityConverter x:Key="notBooleanToVisibilityConverter" />

@@ -8,8 +8,7 @@
         
                 DataContext="{Binding Path = Data, RelativeSource={RelativeSource self} }"
 
-        Title="OrderWindow" Height="600" Width="800" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="OrderWindow" Height="600" Width="800"   WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Key="MyTemplate" DataType="local:ProductForList">
             <Grid x:Name="MainGrid" >
@@ -51,7 +50,6 @@
         <TextBox Text="{Binding OrderCurrent.OrderDate}" x:Name="txtOrderDate" IsEnabled="False"  HorizontalAlignment="Left" Margin="132,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <TextBox Text="{Binding OrderCurrent.ShipDate}" x:Name="txtShipDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
         <TextBox Text="{Binding OrderCurrent.DeliveryrDate}" x:Name="txtDeliveryrDate" IsEnabled="False" HorizontalAlignment="Left" Margin="132,432,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
-        <!--<ComboBox ItemsSource="{Binding Status}" SelectedItem="{Binding OrderCurrent.Status}" x:Name="cmbStatus" IsEnabled="False" HorizontalAlignment="Left" Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="22"  />-->
         <TextBox Text="{Binding OrderCurrent.Status}" x:Name="txtStatus" IsEnabled="False" HorizontalAlignment="Left"  Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18" />
         <TextBox Text="{Binding OrderCurrent.TotalPrice}" x:Name="txtPrice" IsEnabled="False" HorizontalAlignment="Left" Margin="132,540,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
 

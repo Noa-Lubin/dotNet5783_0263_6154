@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
         DataContext="{Binding Path=_ordersForList, RelativeSource={RelativeSource Mode=Self}}"
-        Title="OrderForListWindow" Height="450" Width="800" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="OrderForListWindow" Height="450" Width="800"   WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="myLabelStyle" TargetType="Label">

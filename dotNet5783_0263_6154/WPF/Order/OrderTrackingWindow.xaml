@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
         DataContext="{Binding Path = TrackingCurrent, RelativeSource={RelativeSource self} }"
-        Title="OrderTrackingWindow" Height="400" Width="600" AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="OrderTrackingWindow" Height="400" Width="600"  WindowStartupLocation="CenterScreen" >
     <Grid>
         <TextBox x:Name="txtIdOrder" IsEnabled="False" Text="{Binding Path=IdOrder}" HorizontalAlignment="Center" Margin="0,108,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="22" />
         <TextBox x:Name="txtStatus" IsEnabled="False" Text="{Binding Path=Status}"  HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="120" Height="22"  />

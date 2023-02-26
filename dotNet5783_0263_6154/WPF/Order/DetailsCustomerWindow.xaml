@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         DataContext="{Binding Path=_myCart, RelativeSource={RelativeSource Mode=Self}}"
 
-        Title="DetailsCustomerWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" >
+        Title="DetailsCustomerWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
         <LinearGradientBrush x:Key="myLinearGradientBrush">
             <GradientStop Color="Pink"

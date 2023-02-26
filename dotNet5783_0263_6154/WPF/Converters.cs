@@ -27,27 +27,6 @@ public class IntToStringConverter : IValueConverter
     }
 }
 
-public class ImageConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value != null)
-        {
-            string name = (string)value;
-
-            return $"pack://application:,,,/PL;component/ImagesProducts/{name}";
-
-      }
-        else return null;
-    }
-
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
-
 public class NotBooleanToVisibilityConverter : IValueConverter
 {
     //convert from source property type to target property type
