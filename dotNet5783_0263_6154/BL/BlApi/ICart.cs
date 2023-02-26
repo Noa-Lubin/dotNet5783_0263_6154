@@ -35,8 +35,15 @@ namespace BlApi
         /// <param name="email">email</param>
         /// <param name="address">address</param>
         public int MakeOrder(Cart cart, string? name, string? email, string? address);
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idProduct"></param>
+        /// <param name="cart"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public BO.Cart AddAndUpdate(int idProduct, Cart cart, int amount);
+         
 
     }
 }

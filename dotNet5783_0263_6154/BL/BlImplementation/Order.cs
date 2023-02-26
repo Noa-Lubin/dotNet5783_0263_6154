@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using DalApi;
 using DO;
 using System;
@@ -22,7 +23,7 @@ namespace BlImplementation
         private BO.OrderItem Casting(DO.OrderItem? o)
         {
             //create a new Product object to keep the name of product
-            DO.Product p = _myDal!.product.Get(o?.ProductID ?? throw new IncorrectData("ID of product is incorrect")); 
+            DO.Product p = _myDal!.product.Get(o?.ProductID ?? throw new IncorrectData("ID of product is incorrect"));
             string? nameProduct = p.Name;
             BO.OrderItem newOrderItem = new BO.OrderItem()
             {
@@ -50,7 +51,7 @@ namespace BlImplementation
             //checkint what is the status of this order
             if (o?.DeliveryrDate != default)
                 statusEnum = OrderStatus.provided;
-            else if (o?.ShipDate != default )
+            else if (o?.ShipDate != default)
                 statusEnum = OrderStatus.sent;
             return statusEnum;
         }
@@ -120,7 +121,7 @@ namespace BlImplementation
         public BO.Order OrderDeliveryUpdate(int idOrder)
         {
             DO.Order o = _myDal!.order.Get(idOrder);
-            if (o.DeliveryrDate != default ) //If the order has already been delivered
+            if (o.DeliveryrDate != default) //If the order has already been delivered
             {
                 throw new IncorrectDateOrder("The order has already been delivered");//ההזמנה כבר סופקה
             }
@@ -128,7 +129,7 @@ namespace BlImplementation
             _myDal?.order.Update(o);//update the DeliveryrDate in date
             //I create a list of orderItems for the new order that has a figure that is a list of all the orderItems
             List<BO.OrderItem> orderItemList = new List<BO.OrderItem>();//A list for all orderItems
-            orderItemList = _myDal!.orderItem.GetAll(x=>x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList(); 
+            orderItemList = _myDal!.orderItem.GetAll(x => x?.OrderID == idOrder).Select(ord => Casting(ord)).ToList();
 
             BO.Order newOrder = new BO.Order() //create order to return
             {
@@ -193,7 +194,7 @@ namespace BlImplementation
         public BO.Order ShippingUpdate(int idOrder)
         {
             DO.Order o = _myDal!.order.Get(idOrder);
-            if (o.ShipDate != default )//If the order has already been sent
+            if (o.ShipDate != default)//If the order has already been sent
             {
                 throw new IncorrectDateOrder("The order has already been sent");//ההזמנה כבר נשלחה
             }
@@ -241,6 +242,28 @@ namespace BlImplementation
 
             };
             _myDal?.order.Update(newOrder); //update by dal
+        }
+
+
+        public int? GetOldest()
+        {
+            IEnumerable<DO.Order?> doOrders = _myDal!.order.GetAll();
+            DateTime? dateTime = DateTime.Now;
+            int? id = null;
+            foreach (var order in doOrders)
+            {
+                if (order?.OrderDate != null && order?.OrderDate < dateTime && order?.ShipDate == null && order?.DeliveryrDate == null)
+                {
+                    dateTime = order?.OrderDate;
+                    id = order?.ID;
+                }
+                else if (order?.DeliveryrDate == null && order?.ShipDate != null && order?.ShipDate < dateTime)
+                {
+                    dateTime = order?.ShipDate;
+                    id = order?.ID;
+                }
+            }
+            return id;
         }
     }
 }

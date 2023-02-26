@@ -53,5 +53,10 @@ namespace BlApi
         /// </summary>
         /// <param name="order"></param>
         public void UpdateOrder(Order order);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int? GetOldest();
     }
 }

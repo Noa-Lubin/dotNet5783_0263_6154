@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WPF;
 
 namespace PL.Product
 {
@@ -63,12 +64,13 @@ namespace PL.Product
         private void ProductItemsListview_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var x = ((BO.ProductItem)((System.Windows.Controls.ListBox)sender).SelectedItem);
-            new ProductItemWindow(x.IdProduct, _myCart).ShowDialog();
+            new ProductItemWindow(x.IdProduct, _myCart).Show();
+            this.Close();
         }
 
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
-            new CartDisplayWindow(_myCart).ShowDialog();
+            new CartDisplayWindow(_myCart).Show();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -127,6 +129,12 @@ namespace PL.Product
                     return; //let this key be written inside the textbox
                             //forbid letters and signs (#,$, %, ...)
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other 
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+           new MainWindow().Show();
+            this.Close();
         }
     }
 }

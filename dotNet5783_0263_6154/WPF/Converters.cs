@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 namespace PL;
 
@@ -86,5 +87,49 @@ public class BooleanToVisibilityConverter : IValueConverter
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
+    }
+
+    //convert from status to brushes color 
+   
+
+  
+}
+
+public class StatusToColor : IValueConverter
+{
+
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if ((BO.Enums.OrderStatus)value == BO.Enums.OrderStatus.approved)
+            return Brushes.DeepPink;
+        else if ((BO.Enums.OrderStatus)value == BO.Enums.OrderStatus.sent)
+            return Brushes.HotPink;
+        else
+            return Brushes.LightPink;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return BO.Enums.OrderStatus.provided;
+    }
+}
+
+public class StatusToInt : IValueConverter
+{
+    private static Random rand = new Random();
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+
+        if ((BO.Enums.OrderStatus)value == BO.Enums.OrderStatus.approved)
+            return rand.Next(1, 30);
+        else if ((BO.Enums.OrderStatus)value == BO.Enums.OrderStatus.sent)
+            return rand.Next(31, 70);
+        else
+            return 100;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return BO.Enums.OrderStatus.provided;
     }
 }

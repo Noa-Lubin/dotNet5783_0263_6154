@@ -7,7 +7,8 @@
         DataContext="{Binding Path=idOrder, RelativeSource={RelativeSource Mode=Self}}"
 
         mc:Ignorable="d"
-        Title="FinishOrderWindow" Height="300" Width="720">
+        Title="FinishOrderWindow" Height="300" Width="720" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" >
     <Grid>
         <Label x:Name="lblTitle" Content="הזמנה הושלמה" HorizontalAlignment="Left" Margin="432,45,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
         <Label  Content="הזמנתך הושלמה ותגיע לכתובתך עד 5 ימי עסקים" HorizontalAlignment="Left" Margin="151,107,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="BN Cloud" FontSize="18" FontStyle="Italic"/>

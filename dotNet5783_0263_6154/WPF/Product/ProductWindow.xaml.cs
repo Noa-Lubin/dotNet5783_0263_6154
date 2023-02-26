@@ -104,15 +104,7 @@ public partial class ProductWindow : Window
        this.Close();
     }
 
-    /// <summary>
-    /// warning if ID with any letter
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void txtId_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-    {
-        if (txtId.Text.Any(x => char.IsLetter(x))) lblIncorrectId.Visibility = Visibility.Visible;
-    }
+
 
 }
 

@@ -8,7 +8,8 @@
         
                 DataContext="{Binding Path = Data, RelativeSource={RelativeSource self} }"
 
-        Title="OrderWindow" Height="600" Width="800">
+        Title="OrderWindow" Height="600" Width="800" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
         <DataTemplate x:Key="MyTemplate" DataType="local:ProductForList">
             <Grid x:Name="MainGrid" >
@@ -54,9 +55,8 @@
         <TextBox Text="{Binding OrderCurrent.Status}" x:Name="txtStatus" IsEnabled="False" HorizontalAlignment="Left"  Margin="132,487,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18" />
         <TextBox Text="{Binding OrderCurrent.TotalPrice}" x:Name="txtPrice" IsEnabled="False" HorizontalAlignment="Left" Margin="132,540,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Grid.Column="1" Height="18"/>
 
-        <!--<Button x:Name="btnUpdate" Content="עדכון פרטי הזמנה" BorderThickness="2" Visibility="{Binding IsVisible}"  HorizontalAlignment="Left" Margin="81,593,0,0" VerticalAlignment="Top" Click="btnUpdate_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Grid.ColumnSpan="2" Height="27"/>-->
-        <Button x:Name="btnUpdateStatus" Content="עדכון סטטוס" Visibility="{Binding IsVisible}" BorderThickness="2"  HorizontalAlignment="Left" Margin="52,458,0,0" VerticalAlignment="Top" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="250" Click="btnUpdateStatus_Click" Height="27"/>
-        <Button x:Name="btnCancel" Content="חזור" BorderThickness="2"  HorizontalAlignment="Left" Margin="54,516,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Background="#FFE52865" FontFamily="Arial Black" FontSize="18" BorderBrush="Black" Width="58" Height="27"/>
+        <Button x:Name="btnUpdateStatus" Content="עדכון סטטוס" Visibility="{Binding IsVisible}" BorderThickness="2"  HorizontalAlignment="Left" Margin="52,458,0,0" VerticalAlignment="Top" FontSize="18" BorderBrush="Black" Width="250" Click="btnUpdateStatus_Click" Height="27"/>
+        <Button x:Name="btnCancel" Content="חזור" BorderThickness="2"  HorizontalAlignment="Left" Margin="54,516,0,0" VerticalAlignment="Top" Click="btnCancel_Click" FontSize="18" BorderBrush="Black" Width="58" Height="27"/>
 
         <Label x:Name="lblId" Content="מזהה הזמנה" HorizontalAlignment="Left" Margin="302,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076" Width="93" Grid.Column="1" Height="26"/>
         <Label x:Name="lblName" Content="שם קונה" HorizontalAlignment="Left" Margin="308,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.6,0.171" Width="69" Grid.Column="1" Height="26"/>
@@ -70,10 +70,10 @@
         <Label x:Name="lblStatus" Content="סטטוס" HorizontalAlignment="Left" Margin="309,485,0,0" VerticalAlignment="Top" RenderTransformOrigin="7.437,13.122" Width="57" Grid.Column="1" Height="26"/>
         <Label x:Name="lblPrice" Content="מחיר כולל" HorizontalAlignment="Left" Margin="308,536,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.031,6.088" Width="78" Grid.Column="1" Height="26"/>
 
-        <Label x:Name="lblTitle" Content="פרטי הזמנה" HorizontalAlignment="Center" Margin="0,43,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic" Width="200" Grid.Column="1" Height="39"/>
+        <Label x:Name="lblTitle" Content="פרטי הזמנה" HorizontalAlignment="Left" Margin="310,43,0,0" VerticalAlignment="Top"  FontSize="24" FontWeight="Bold" FontStyle="Italic" Width="184" Height="39" Grid.ColumnSpan="2"/>
         <!--<Label x:Name="lblIncorrectName" Content="בבקשה הזינו שם תקין" HorizontalAlignment="Left" Margin="209,183,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red" Width="94" Grid.Column="1" Height="19" />-->
 
-        <ListView x:Name="ProductsListview" ItemsSource="{Binding OrderCurrent.Items}" ItemTemplate="{StaticResource MyTemplate}" Margin="50,243,464,180" Background="#FFE52865" Grid.ColumnSpan="2"/>
+        <ListView x:Name="ProductsListview" ItemsSource="{Binding OrderCurrent.Items}" ItemTemplate="{StaticResource MyTemplate}" Margin="50,243,464,180" Background="#da1884" Grid.ColumnSpan="2"/>
 
 
     </Grid>

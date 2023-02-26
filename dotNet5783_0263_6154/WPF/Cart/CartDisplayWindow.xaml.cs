@@ -1,4 +1,5 @@
 ﻿using PL.Order;
+using PL.Product;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -13,6 +14,18 @@ namespace PL.Cart
     {
         BlApi.IBl _myBl = BlApi.Factory.Get();
         BO.Cart _myCart = new BO.Cart();
+
+
+        //public int TotalPriceCart
+        //{
+        //    get { return (int)GetValue(TotalPriceCartProperty); }
+        //    set { SetValue(TotalPriceCartProperty, value); }
+        //}
+
+        //// Using a DependencyProperty as the backing store for TotalPriceCart.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty TotalPriceCartProperty =
+        //    DependencyProperty.Register("TotalPriceCart", typeof(int), typeof(Window), new PropertyMetadata(0));
+
 
         public ObservableCollection<BO.OrderItem?> _ItemsInCart
         {
@@ -79,6 +92,17 @@ namespace PL.Cart
                 new DetailsCustomerWindow(_myCart).ShowDialog();
             }
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            
+        }
+
+        //private void btnCancel_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Close();
+        //}
     }
 }
 

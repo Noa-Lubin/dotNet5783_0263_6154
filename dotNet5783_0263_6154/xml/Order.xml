@@ -6,35 +6,35 @@
 		<CustomerEmail>orit@gmail.com</CustomerEmail>
 		<CustomerAdress>yonatan</CustomerAdress>
 		<OrderDate>2023-01-20T21:41:32</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:38:47.3316313+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:38:49.2024246+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100001</ID>
 		<CustomerName>tova</CustomerName>
 		<CustomerEmail>tova@gmail.com</CustomerEmail>
 		<CustomerAdress>ben guryon</CustomerAdress>
-		<OrderDate>2023-01-18T21:41:32</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<OrderDate>2022-01-18T21:41:32</OrderDate>
+		<ShipDate>2023-02-24T13:38:13.5008352+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:38:15.427849+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100002</ID>
 		<CustomerName>reuven</CustomerName>
 		<CustomerEmail>reuven@gmail.com</CustomerEmail>
 		<CustomerAdress>ben guryon</CustomerAdress>
-		<OrderDate>2023-01-16T21:41:32</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<OrderDate>2021-01-16T21:41:32</OrderDate>
+		<ShipDate>2023-02-24T13:30:14.0307917+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:31:16.1544828+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100003</ID>
 		<CustomerName>shimon</CustomerName>
 		<CustomerEmail>shimon@gmail.com</CustomerEmail>
 		<CustomerAdress>geva</CustomerAdress>
-		<OrderDate>2023-01-14T21:41:32</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<OrderDate>2000-01-14T21:41:32</OrderDate>
+		<ShipDate>2023-02-24T13:34:00.3924543+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:34:01.8417325+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100004</ID>
@@ -52,7 +52,7 @@
 		<CustomerAdress>geva</CustomerAdress>
 		<OrderDate>2023-01-01T03:41:40</OrderDate>
 		<ShipDate>2023-01-15T22:08:02</ShipDate>
-		<DeliveryrDate xsi:nil="true" />
+		<DeliveryrDate>2023-02-24T13:12:12.0896095+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100006</ID>
@@ -60,8 +60,8 @@
 		<CustomerEmail>tova@gmail.com</CustomerEmail>
 		<CustomerAdress>ben guryon</CustomerAdress>
 		<OrderDate>2023-01-13T11:23:16</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:12:12.1161671+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:13:50.9200495+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100007</ID>
@@ -69,8 +69,8 @@
 		<CustomerEmail>reuven@gmail.com</CustomerEmail>
 		<CustomerAdress>ben guryon</CustomerAdress>
 		<OrderDate>2023-01-19T19:52:28</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:12:12.1520533+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:13:55.0817282+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100008</ID>
@@ -79,7 +79,7 @@
 		<CustomerAdress>yonatan</CustomerAdress>
 		<OrderDate>2021-01-17T19:14:18</OrderDate>
 		<ShipDate>2021-03-17T22:08:02</ShipDate>
-		<DeliveryrDate xsi:nil="true" />
+		<DeliveryrDate>2023-02-24T13:12:12.179359+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100009</ID>
@@ -88,7 +88,7 @@
 		<CustomerAdress>yonatan</CustomerAdress>
 		<OrderDate>2023-01-11T17:37:27</OrderDate>
 		<ShipDate>2023-01-19T10:51:46</ShipDate>
-		<DeliveryrDate xsi:nil="true" />
+		<DeliveryrDate>2023-02-24T13:12:12.2096482+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100010</ID>
@@ -96,8 +96,8 @@
 		<CustomerEmail>orit@gmail.com</CustomerEmail>
 		<CustomerAdress>habanim</CustomerAdress>
 		<OrderDate>2023-01-14T17:38:26</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:12:12.2386908+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:13:58.7554341+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100011</ID>
@@ -105,8 +105,8 @@
 		<CustomerEmail>tova@gmail.com</CustomerEmail>
 		<CustomerAdress>yonatan</CustomerAdress>
 		<OrderDate>2022-12-27T20:41:42</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:12:12.2727859+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:14:14.7803913+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100012</ID>
@@ -114,8 +114,8 @@
 		<CustomerEmail>reuven@gmail.com</CustomerEmail>
 		<CustomerAdress>yonatan</CustomerAdress>
 		<OrderDate>2021-12-01T19:14:49</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:14:20.5584499+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:15:11.462229+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100013</ID>
@@ -123,8 +123,8 @@
 		<CustomerEmail>shimon@gmail.com</CustomerEmail>
 		<CustomerAdress>ben guryon</CustomerAdress>
 		<OrderDate>2022-10-04T21:09:55</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:14:24.9423295+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:15:18.1840665+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100014</ID>
@@ -133,7 +133,7 @@
 		<CustomerAdress>ben guryon</CustomerAdress>
 		<OrderDate>2021-09-10T14:41:31</OrderDate>
 		<ShipDate>2022-12-15T10:29:21</ShipDate>
-		<DeliveryrDate xsi:nil="true" />
+		<DeliveryrDate>2023-02-24T13:14:28.1875677+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100015</ID>
@@ -141,8 +141,8 @@
 		<CustomerEmail>orit@gmail.com</CustomerEmail>
 		<CustomerAdress>geva</CustomerAdress>
 		<OrderDate>2021-09-24T10:56:15</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:14:31.1737321+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:15:21.0601879+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100016</ID>
@@ -150,8 +150,8 @@
 		<CustomerEmail>tova@gmail.com</CustomerEmail>
 		<CustomerAdress>ben guryon</CustomerAdress>
 		<OrderDate>2021-06-11T07:11:03</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:14:34.1297674+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:15:23.3573366+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100017</ID>
@@ -160,7 +160,7 @@
 		<CustomerAdress>yonatan</CustomerAdress>
 		<OrderDate>2020-11-10T02:36:44</OrderDate>
 		<ShipDate>2023-01-19T13:47:36.2084143+02:00</ShipDate>
-		<DeliveryrDate xsi:nil="true" />
+		<DeliveryrDate>2023-02-24T13:14:39.4815563+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100018</ID>
@@ -168,8 +168,8 @@
 		<CustomerEmail>shimon@gmail.com</CustomerEmail>
 		<CustomerAdress>ben guryon</CustomerAdress>
 		<OrderDate>2022-05-12T18:50:57</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:14:42.6669488+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:15:25.8024012+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100019</ID>
@@ -178,7 +178,7 @@
 		<CustomerAdress>geva</CustomerAdress>
 		<OrderDate>2023-01-11T15:16:43.8155864+02:00</OrderDate>
 		<ShipDate>2023-01-16T15:13:28.6656941+02:00</ShipDate>
-		<DeliveryrDate xsi:nil="true" />
+		<DeliveryrDate>2023-02-24T13:14:46.4228201+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100021</ID>
@@ -186,8 +186,8 @@
 		<CustomerEmail>s@gmail.com</CustomerEmail>
 		<CustomerAdress>nevihim</CustomerAdress>
 		<OrderDate>2023-01-19T15:13:26.2045263+02:00</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:14:49.7435712+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:15:28.1483466+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100022</ID>
@@ -196,7 +196,7 @@
 		<CustomerAdress>xx</CustomerAdress>
 		<OrderDate>2023-01-17T15:16:43.8155864+02:00</OrderDate>
 		<ShipDate>2023-01-19T15:13:28.6656941+02:00</ShipDate>
-		<DeliveryrDate xsi:nil="true" />
+		<DeliveryrDate>2023-02-24T13:14:52.7918014+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100023</ID>
@@ -213,8 +213,8 @@
 		<CustomerEmail>aa@</CustomerEmail>
 		<CustomerAdress>aa</CustomerAdress>
 		<OrderDate>2023-02-24T00:27:04.2064917+02:00</OrderDate>
-		<ShipDate xsi:nil="true" />
-		<DeliveryrDate xsi:nil="true" />
+		<ShipDate>2023-02-24T13:15:02.7480938+02:00</ShipDate>
+		<DeliveryrDate>2023-02-24T13:15:30.510483+02:00</DeliveryrDate>
 	</Order>
 	<Order>
 		<ID>100025</ID>

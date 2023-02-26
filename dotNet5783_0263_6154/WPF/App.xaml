@@ -3,30 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WPF"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
         <Style  TargetType="Button">
             <Setter Property="FontFamily" Value="BN Cloud" />
-            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Background" Value="#da1884" />
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="2" />
+           
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#da1884" />
-                    <Setter Property="Background" Value="red" />
+                    <Setter Property="FontWeight" Value="Bold" />
 
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="BN Cloud"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#da1884" />
+
                 </Trigger>
             </Style.Triggers>
         </Style>
 
-       
+        <Style x:Key="blurBackground" TargetType="Window">
+            <Setter Property="BorderBrush" Value="#da1884"></Setter>
+            <Setter Property="BorderThickness" Value="100"></Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

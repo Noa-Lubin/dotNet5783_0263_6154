@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
          DataContext="{Binding  RelativeSource={RelativeSource Mode=Self}}"
-        Title="CatalogWindow" Height="1000" Width="800">
+        Title="CatalogWindow" Height="700" Width="800" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" >
 
     <Window.Resources>
-        <local:ImageConverter x:Key="imageConverter"/>
 
         <Style x:Key="myLabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="14" />
@@ -36,7 +36,6 @@
                     <ColumnDefinition  Width="70"/>
 
                 </Grid.ColumnDefinitions>
-                <!--<Image Grid.Column="0" Source="{Binding ImageProduct, Converter= {StaticResource imageConverter}}" />-->
                 <TextBlock Grid.Column="0" Text="{Binding IdProduct}" TextAlignment="Center" />
                 <TextBlock Grid.Column="1" Text="{Binding Path=Name}" TextAlignment="Center" />
                 <TextBlock Grid.Column="2" Text="{Binding Price}" TextAlignment="Center"/>
@@ -52,10 +51,10 @@
 
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="11*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="72*" />
+            <RowDefinition Height="58*" />
+            <RowDefinition Height="543*" />
+            <RowDefinition Height="27*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -68,28 +67,27 @@
 
 
         </Grid.ColumnDefinitions>
-        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0"  Style="{StaticResource myLabelStyle}" />
-        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1"  Style="{StaticResource myLabelStyle}"/>
-        <Label Content="מחיר" Grid.Row="1" Grid.Column="2"  Style="{StaticResource myLabelStyle}"/>
-        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3" Style="{StaticResource myLabelStyle}"/>
-        <Label Content="?במלאי" Grid.Row="1" Grid.Column="4" Style="{StaticResource myLabelStyle}"/>
-        <!--<Label Content="כמות בסל" Grid.Row="1" Grid.Column="5" Style="{StaticResource myLabelStyle}"/>-->
-        <!--<Button  x:Name="btnPopular" Background="#da1884" Content="מוצרים פופולרים ביותר" FontFamily="BN Cloud" BorderThickness="2" Height="30" Margin="100,-3,146,0" VerticalAlignment="Top" Click="btnPopular_Click" Grid.Column="1" Grid.ColumnSpan="2"/>-->
-        <Button x:Name="btnCart" Grid.Row="0" Grid.ColumnSpan="1" Background="White" BorderBrush="White" Content = "🛒" Click="btnCart_Click" Margin="10,10,46,14">
+        <Label Content="מזהה מוצר" Grid.Row="1" Grid.Column="0"  Style="{StaticResource myLabelStyle}" Margin="19,26,19,2" />
+        <Label Content="שם מוצר" Grid.Row="1" Grid.Column="1"  Style="{StaticResource myLabelStyle}" Margin="19,26,19,2"/>
+        <Label Content="מחיר" Grid.Row="1" Grid.Column="2"  Style="{StaticResource myLabelStyle}" Margin="19,26,19,2"/>
+        <Label Content="קטגוריה" Grid.Row="1" Grid.Column="3" Style="{StaticResource myLabelStyle}" Margin="19,26,19,2"/>
+        <Label Content="?במלאי" Grid.Row="1" Grid.Column="4" Style="{StaticResource myLabelStyle}" Margin="19,26,19,2"/>
+        <Button x:Name="btnCart" Grid.Row="0" Background="White" BorderBrush="White" Content = "🛒" Click="btnCart_Click" Margin="30,12,26,13">
             <Button.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="blabla" Click="btnCart_Click">
-                        
+
                     </MenuItem>
-                        
+
                 </ContextMenu>
 
             </Button.ContextMenu>
         </Button>
 
-        <Label Content="קטגוריה" Margin="2,14,-108,55" Grid.Row="0" Grid.ColumnSpan="2" Foreground="#da1884" FontSize="20"   FontFamily="BN Cloud" Grid.Column="5" Grid.RowSpan="2"/>
+        <Label Content="קטגוריה" Margin="2,14,-108,10" Grid.Row="0" Grid.ColumnSpan="2" Foreground="#da1884" FontSize="20"   FontFamily="BN Cloud" Grid.Column="5"/>
         <ComboBox Name="CategorySelector" Grid.Row="0" Background="#FFE52865" RenderTransformOrigin="0.888,-0.844" SelectionChanged="CategorySelector_SelectionChanged" Margin="0,15,3,15" Grid.Column="4"/>
-        <ListBox x:Name="ProductItemsListview" Grid.Row="2" Grid.ColumnSpan="7" ItemsSource="{Binding _productsItemList}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="ProductItemsListview_MouseDoubleClick"/>
+        <ListBox x:Name="ProductItemsListview" Grid.Row="2" Grid.ColumnSpan="7" ItemsSource="{Binding _productsItemList}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="ProductItemsListview_MouseDoubleClick" Margin="0,19,0,0" Grid.RowSpan="2"/>
+        <Button x:Name="btnCancel" Content="חזור"   Width="80" HorizontalAlignment="Left" Margin="13,15,0,21" Grid.Row="0" Grid.Column="1" Click="btnCancel_Click"/>
 
     </Grid>
 </Window>

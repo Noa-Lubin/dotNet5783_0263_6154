@@ -13,7 +13,13 @@ namespace BlImplementation
     {
         DalApi.IDal? myDal = DalApi.Factory.Get();
 
-
+        /// <summary>
+        /// a function for add and update amount together
+        /// </summary>
+        /// <param name="idProduct"></param>
+        /// <param name="cart"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public BO.Cart AddAndUpdate(int idProduct, BO.Cart cart, int amount)
         {
             return UpdateAmountOfProduct(idProduct, AddProductToCart(idProduct, cart), amount);
@@ -78,7 +84,14 @@ namespace BlImplementation
                 return cart;
             }
         }
-
+        /// <summary>
+        /// for DataIntegrity Of every Item
+        /// </summary>
+        /// <param name="orderItem"></param>
+        /// <param name="idOrder"></param>
+        /// <exception cref="IncorrectData"></exception>
+        /// <exception cref="BO.NotFound"></exception>
+        /// <exception cref="outOfStock"></exception>
         private void DataIntegrityOfItem(BO.OrderItem orderItem, int idOrder)
         {
 
@@ -113,7 +126,6 @@ namespace BlImplementation
             p.InStock -= orderItem!.AmountInCart; //update in stock of this product
             myDal?.product.Update(p);
         }
-
 
         /// <summary>
         /// make an order - add a new order and all the orderItems in this order

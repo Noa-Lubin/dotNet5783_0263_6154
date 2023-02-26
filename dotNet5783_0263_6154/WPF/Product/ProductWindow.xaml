@@ -6,20 +6,11 @@
         xmlns:local="clr-namespace:PL"
         DataContext="{Binding RelativeSource={RelativeSource self} }"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="504" Width="500">
+        Title="ProductWindow" Height="504" Width="500" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" >
 
     <Window.Resources>
-        <local:IntToStringConverter x:Key="intToStringConverter" />
-
-
-
-        
-
-        <LinearGradientBrush x:Key="myLinearGradientBrush">
-            <GradientStop Color="Blue" Offset="0" />
-            <GradientStop Color="Yellow" Offset="0.5" />
-            <GradientStop Color="Red" Offset="1" />
-        </LinearGradientBrush>
+        <local:IntToStringConverter x:Key="intToStringConverter" />        
     </Window.Resources>
 
     <Grid Margin="218,0,0,60">
@@ -29,10 +20,10 @@
             <RowDefinition Height="165*"/>
             <RowDefinition Height="30.003"/>
         </Grid.RowDefinitions>
-        <Label x:Name="lblTitle" Content="{Binding Id ,Converter= {StaticResource intToStringConverter}}" HorizontalAlignment="Left" Margin="-30,43,0,0" VerticalAlignment="Top" Foreground="#FFE52865" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="lblTitle" Content="{Binding Id ,Converter= {StaticResource intToStringConverter}}" HorizontalAlignment="Left" Margin="-30,43,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
 
         <Label x:Name="lblId" Content="מזהה מוצר" HorizontalAlignment="Left" Margin="120,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076"/>
-        <TextBox x:Name="txtId" Text="{Binding ProdCurrent.ID}" HorizontalAlignment="Left" Margin="-80,118,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" TextChanged="txtId_TextChanged"/>
+        <TextBox x:Name="txtId" Text="{Binding ProdCurrent.ID}" HorizontalAlignment="Left" Margin="-80,118,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
 
         <Label x:Name="lblCategory" Content="קטגוריה" HorizontalAlignment="Left" Margin="120,163,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
         <ComboBox  x:Name="cmbCategory" SelectedIndex="7" ItemsSource="{Binding Categories}" SelectedItem="{Binding ProdCurrent.Category}" HorizontalAlignment="Left" Margin="-80,170,0,0" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"  />
@@ -46,9 +37,6 @@
 
         <Button Content="{Binding Id ,Converter= {StaticResource intToStringConverter}}" Width="80" Height="30" BorderThickness="2"  HorizontalAlignment="Left" Margin="-24,139,0,0" VerticalAlignment="Top" Click="btnAddOrUpdate_Click" Grid.Row="2" Grid.RowSpan="2"/>
         <Button x:Name="btnCancel" Content="חזור"  BorderThickness="2" Width="80" Height="30" HorizontalAlignment="Left" Margin="67,139,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Grid.Row="2" Grid.RowSpan="2"/>
-
-        <Label x:Name="lblIncorrectId" Content="מזהה מכיל מספרים בין 0 ל9 בלבד" HorizontalAlignment="Left" Margin="385,133,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red"/>
-        <Label x:Name="lblIncorrectName" Content="בבקשה הזינו שם תקין" HorizontalAlignment="Left" Margin="420,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.547,0.117" FontSize="7" Foreground="Red" Grid.Row="2" />
 
     </Grid>
 </Window>

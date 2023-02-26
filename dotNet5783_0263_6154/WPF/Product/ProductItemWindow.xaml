@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         DataContext="{Binding Path = CurrentProductItem, RelativeSource={RelativeSource self} }"
-        Title="ProductItemWindow" Height="500" Width="400">
+        Title="ProductItemWindow" Height="500" Width="400" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" >
     <Grid>
         <TextBox x:Name="txtId" IsEnabled="False" HorizontalAlignment="Left" Margin="71,103,0,0" TextWrapping="Wrap" Text="{Binding IdProduct}" VerticalAlignment="Top" Width="120" />
         <!--<ComboBox x:Name="cmbCategory" Text="{Binding Path=Category}"  HorizontalAlignment="Left" Margin="71,151,0,0" VerticalAlignment="Top" Width="120"  />-->

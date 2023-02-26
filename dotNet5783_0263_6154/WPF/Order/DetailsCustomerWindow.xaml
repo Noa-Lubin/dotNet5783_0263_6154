@@ -7,8 +7,19 @@
         mc:Ignorable="d"
         DataContext="{Binding Path=_myCart, RelativeSource={RelativeSource Mode=Self}}"
 
-        Title="DetailsCustomerWindow" Height="450" Width="800">
+        Title="DetailsCustomerWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <LinearGradientBrush x:Key="myLinearGradientBrush">
+            <GradientStop Color="Pink"
+Offset="0" />
+            <GradientStop Color="HotPink"
+Offset="0.5" />
+            <GradientStop Color="LightPink"
+Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
     <Grid>
+        
         <Label x:Name="lblTitle" Content="...ההזמנה כמעט הושלמה" HorizontalAlignment="Left" Margin="466,55,0,0" VerticalAlignment="Top" Foreground="#da1884" FontFamily="BN Cloud" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
         <Label  Content="נא מלאו פרטים להשלמת ההזמנה" HorizontalAlignment="Left" Margin="273,112,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="BN Cloud" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
 
@@ -16,9 +27,9 @@
         <Label Content="כתובת" HorizontalAlignment="Left" Margin="542,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076" Width="93" Height="26"/>
         <Label  Content="מייל" HorizontalAlignment="Left" Margin="542,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.321,-0.076" Width="93" Height="26"/>
 
-        <TextBox x:Name="txtId" Text="{Binding Path=CustomerName}" HorizontalAlignment="Left" Margin="377,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="18"/>
-        <TextBox x:Name="txtMail" Text="{Binding Path=CustomerEmail}" HorizontalAlignment="Left" Margin="377,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="18"/>
-        <TextBox x:Name="txtAddress" Text="{Binding Path=CustomerAdress}" HorizontalAlignment="Left" Margin="377,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="18"/>
+        <TextBox x:Name="txtId" Text="{Binding Path=CustomerName}" Background="{StaticResource myLinearGradientBrush}" HorizontalAlignment="Left" Margin="377,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="18"/>
+            <TextBox x:Name="txtMail" Text="{Binding Path=CustomerEmail}" Background="{StaticResource myLinearGradientBrush}" HorizontalAlignment="Left" Margin="377,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="18"/>
+                <TextBox x:Name="txtAddress" Text="{Binding Path=CustomerAdress}" Background="{StaticResource myLinearGradientBrush}" HorizontalAlignment="Left" Margin="377,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="18"/>
 
         <Button x:Name="btnContinue" Content="המשך" BorderThickness="2" HorizontalAlignment="Left" Margin="400,340,0,0" VerticalAlignment="Top" FontSize="18"  Click="btnContinue_Click" Width="107"/>
         <Button Content="חזור" BorderThickness="2" HorizontalAlignment="Left" Margin="693,377,0,0" VerticalAlignment="Top" FontSize="18" Click="btnCancel_Click" Height="47" Width="74"/>

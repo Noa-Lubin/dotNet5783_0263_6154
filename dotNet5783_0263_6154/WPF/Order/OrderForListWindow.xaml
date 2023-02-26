@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
         DataContext="{Binding Path=_ordersForList, RelativeSource={RelativeSource Mode=Self}}"
-        Title="OrderForListWindow" Height="450" Width="800">
+        Title="OrderForListWindow" Height="450" Width="800" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" >
 
     <Window.Resources>
         <Style x:Key="myLabelStyle" TargetType="Label">
@@ -73,7 +74,7 @@
 
         <ListBox x:Name="OrderssListview" Grid.Row="2" Grid.ColumnSpan="5" ItemsSource="{Binding}" ItemTemplate="{StaticResource MyTemplate}"  HorizontalContentAlignment="Stretch" MouseDoubleClick="OrderssListview_MouseDoubleClick" />
         <Button x:Name="back" Content="חזור" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="29" Width="99" Click="back_Click"/>
-
+        <Label Content="לעדכון סטטוס הזמנה הקש דאבל על ההזמנה" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15" Margin="10,1,30,0"/>
     </Grid>
 
 </Window>

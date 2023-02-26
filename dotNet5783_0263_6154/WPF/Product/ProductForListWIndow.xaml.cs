@@ -107,5 +107,10 @@ namespace PL.Product
             var temp = _myBl!.Product.PopularItems();
             _productsForList = temp == null ? new() : new(temp);
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
     }
